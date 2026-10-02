@@ -1,2563 +1,3716 @@
 <div align="center">
 
-# 🎓 ADITCMS
+<img src="frontend/public/adit.webp" alt="ADIT logo" width="120" />
 
-### A Modern, Role-Based Management System
+# 🎓 ADIT CMS
 
-**Centralize users, courses, attendance, results, and notices in one secure platform.**
+### College Management System
+**A.D. Institute of Technology — Computer Engineering Department**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)](https://expressjs.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-8.x-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+One secure, role-based web platform for **students, faculty, HOD, administrators and librarians** —
+attendance, assignments, lab manuals, study material, results, fees, library, leave, timetable, notices and reports.
 
-[Live Demo](#) · [Documentation](#api-documentation) · [Report Bug](../../issues) · [Request Feature](../../issues)
+<br/>
+
+![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.3-06B6D4?logo=tailwindcss&logoColor=white)
+![MUI](https://img.shields.io/badge/MUI-5-007FFF?logo=mui&logoColor=white)
+![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-1.9-764ABC?logo=redux&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+![JWT](https://img.shields.io/badge/Auth-JWT_HS256-000000?logo=jsonwebtokens&logoColor=white)
+![Razorpay](https://img.shields.io/badge/Payments-Razorpay-0C2451?logo=razorpay&logoColor=white)
+
+**[🌐 Live Site](https://adit.shahdhairyah.in)** ·
+**[📄 PRD](docs/PRD_ADIT_College_Management_System.md)** ·
+**[🗓️ Phase Plan](docs/Phase_Plan_ADIT_College_Management_System.md)** ·
+**[🐞 Report a Bug](../../issues)** ·
+**[💡 Request a Feature](../../issues)**
 
 </div>
 
 ---
 
-> **Note:** This README uses a Node.js + Express + MySQL stack as its reference implementation.
-> Replace anything in `[brackets]` and adjust commands so they match your real project.
-
----
-
 ## 📑 Table of Contents
 
-1. [About the Project](#-about-the-project)
-2. [Key Features](#-key-features)
-3. [Tech Stack](#-tech-stack)
-4. [System Architecture](#-system-architecture)
-5. [Database Design (ER Diagram)](#-database-design-er-diagram)
-6. [Authentication Flow](#-authentication-flow)
-7. [Application Workflow](#-application-workflow)
-8. [Getting Started](#-getting-started)
-9. [Environment Configuration](#-environment-configuration)
-10. [Database Setup](#-database-setup)
-11. [Project Structure](#-project-structure)
-12. [API Documentation](#-api-documentation)
-13. [Code Examples](#-code-examples)
-14. [Frontend Usage](#-frontend-usage)
-15. [Testing](#-testing)
-16. [Docker Deployment](#-docker-deployment)
-17. [Production Deployment](#-production-deployment)
-18. [Security](#-security)
-19. [Performance](#-performance)
-20. [Troubleshooting](#-troubleshooting)
-21. [FAQ](#-faq)
-22. [Roadmap](#-roadmap)
-23. [Contributing](#-contributing)
-24. [Changelog](#-changelog)
-25. [License](#-license)
-26. [Author](#-author)
-27. [Acknowledgements](#-acknowledgements)
+| # | Section | What you will find |
+|--:|---|---|
+| 1 | [About the Project](#1-about-the-project) | Problem, solution, scope, users |
+| 2 | [Features by Role](#2-features-by-role) | Everything each role can do |
+| 3 | [Tech Stack](#3-tech-stack) | Libraries and versions actually used |
+| 4 | [Architecture Diagrams](#4-architecture-diagrams) | System, layers, request lifecycle, routing, frontend |
+| 5 | [Authentication & Security Flows](#5-authentication--security-flows) | Login, JWT, forced password change, download tokens, uploads |
+| 6 | [Roles & Permissions](#6-roles--permissions) | RBAC model and matrix |
+| 7 | [Business Workflows](#7-business-workflows) | Assignments, leave, fees, attendance, results, library… |
+| 8 | [Database Design](#8-database-design) | ER diagrams and table groups |
+| 9 | [Data Dictionary](#9-data-dictionary-all-tables) | Every table, column, type and foreign key |
+| 10 | [API Reference](#10-api-reference) | Conventions, examples and all endpoints |
+| 11 | [Frontend Guide](#11-frontend-guide) | Routes, pages, components, state, theming |
+| 12 | [Backend Internals](#12-backend-internals) | Controllers, models, helpers, middleware |
+| 13 | [Installation & Setup](#13-installation--setup) | Step-by-step local setup |
+| 14 | [Configuration](#14-configuration) | `config.php`, env vars, frontend env |
+| 15 | [Deployment](#15-deployment) | Shared hosting / Apache guide + checklist |
+| 16 | [Security Notes](#16-security-notes) | Controls in place and hardening list |
+| 17 | [Troubleshooting](#17-troubleshooting) | Common problems and fixes |
+| 18 | [FAQ](#18-faq) | Quick answers |
+| 19 | [Roadmap & Status](#19-roadmap--status) | What is done and what is next |
+| 20 | [Contributing](#20-contributing) | Workflow and conventions |
+| 21 | [Author](#21-author) | Who built it |
 
 ---
 
-## 📖 About the Project
+## 1. About the Project
 
-**ADITCMS** is a full-stack management system built to streamline the daily
-operations of an educational institute or organization. It replaces scattered
-spreadsheets, paper registers, and disconnected tools with a single, secure,
-role-based web platform.
+**ADIT CMS** digitises the day-to-day operations of the **Computer Engineering (CE) department** at
+A.D. Institute of Technology. It replaces paper registers, spreadsheets and chat-group announcements
+with a single platform where every action is tied to a logged-in user and a role.
 
-### The Problem
+### 1.1 The problem
 
-| Pain Point                         | Impact                                    |
-|------------------------------------|-------------------------------------------|
-| Paper-based attendance and records | Errors, lost data, slow reporting         |
-| Multiple disconnected tools        | Duplicate entry, inconsistent information |
-| No role separation                 | Security and privacy risks                |
-| Manual result compilation          | Time-consuming and error-prone            |
-| Notices shared via chat groups     | Missed announcements, no audit trail      |
+| Pain point today | Impact |
+|---|---|
+| Paper attendance registers | Errors, lost data, slow reporting, no student visibility |
+| Assignments & lab journals collected on paper | Hard to track, hard to grade, easy to lose |
+| Results compiled by hand | Time-consuming, error-prone, delayed |
+| Fees collected and reconciled manually | No instant receipts, hard for HOD/admin to audit |
+| Notices shared in chat groups | Missed announcements, no read-tracking, no audit trail |
+| Leave on paper through two people | No status visibility for the student |
+| Everyone sees everything (or nothing) | Privacy and security risk |
 
-### The Solution
+### 1.2 The solution
 
-ADITCMS provides:
+```mermaid
+flowchart LR
+    P1[📄 Paper registers] --> X((ADIT CMS))
+    P2[📊 Spreadsheets] --> X
+    P3[💬 Chat-group notices] --> X
+    P4[🧾 Manual fee books] --> X
+    P5[📝 Paper leave forms] --> X
+    X --> O1[✅ One source of truth]
+    X --> O2[🔐 Role-based access]
+    X --> O3[📈 Live dashboards & reports]
+    X --> O4[💳 Online fees + receipts]
+    X --> O5[🕵️ Audit trail]
+```
 
-- One **source of truth** for students, faculty, courses, and results
-- **Role-based access control (RBAC)** so each user sees only what they should
-- **REST API** that can power web, mobile, or third-party clients
-- **Automated reports** and dashboards for quick decision-making
-- **Audit-friendly** design with timestamps on every record
+### 1.3 Scope
 
-### Who Is It For?
+- **Single-department scope.** Per the [PRD](docs/PRD_ADIT_College_Management_System.md), the system is built for the
+  **Computer Engineering** branch only. The database schema is department-aware (`departments`, `department_id`
+  columns) so that scope checks exist in code, but other branches are not a product goal.
+- **Five roles:** `student`, `faculty`, `hod`, `admin`, `librarian`.
+- **Hosting target:** shared PHP/MySQL hosting (the repo ships a root `.htaccess` and a `router.php` fallback for hosts
+  where URL rewriting misbehaves).
 
-| Role        | What they can do                                                   |
-|-------------|--------------------------------------------------------------------|
-| **Admin**   | Manage users, departments, courses, notices, and system settings   |
-| **Faculty** | Mark attendance, upload results, post notices for their courses    |
-| **Student** | View profile, attendance, results, timetable, and notices          |
+### 1.4 System at a glance
 
----
-
-## ✨ Key Features
-
-### 🔐 Authentication & Security
-- Email + password login with **bcrypt** hashing
-- **JWT** access tokens with configurable expiry
-- Role-based route protection (`admin`, `faculty`, `student`)
-- Rate limiting on login to prevent brute-force attacks
-- Secure HTTP headers using **Helmet**
-- Centralized input validation and sanitization
-
-### 👥 User Management
-- Create, read, update, and deactivate users
-- Profile management with avatar upload
-- Password change and reset flow
-- Search, filter, sort, and paginate user lists
-
-### 🏫 Academic Management
-- Department and course management
-- Assign faculty to courses
-- Enroll students in courses
-- Semester and academic-year handling
-
-### 🗓️ Attendance
-- Faculty can mark attendance per course and date
-- Students can view attendance percentage per course
-- Low-attendance warnings (below configurable threshold)
-- Export attendance reports to CSV
-
-### 📝 Results & Grades
-- Upload marks per exam type (internal, midterm, final)
-- Automatic grade and percentage calculation
-- Student result cards with semester-wise SGPA / CGPA
-- Export result sheets to PDF or CSV
-
-### 📢 Notices & Announcements
-- Post notices to everyone, a department, or a specific course
-- Priority levels (low, normal, high)
-- Optional expiry date for automatic hiding
-
-### 📊 Dashboard & Reports
-- Admin overview: total users, courses, attendance trend
-- Faculty overview: course list, pending tasks
-- Student overview: attendance, latest results, notices
-
-### 🧰 Developer Experience
-- Clean layered architecture (routes → controllers → services → models)
-- Consistent JSON response format and error handling
-- Environment-based configuration
-- Ready-to-use Docker and Docker Compose setup
-- Automated tests with Jest and Supertest
+| Metric | Value |
+|---|--:|
+| API endpoints | **145** |
+| API controllers | 21 |
+| Database tables | **39** |
+| Foreign-key relations | 69 |
+| Frontend routes | 54 |
+| React page components | 48 |
+| User roles | 5 |
 
 ---
 
-## 🛠 Tech Stack
+## 2. Features by Role
 
-| Layer            | Technology                                              |
-|------------------|---------------------------------------------------------|
-| **Frontend**     | HTML5, CSS3, JavaScript (ES6+), [React / Bootstrap]     |
-| **Backend**      | Node.js 18+, Express.js 4                               |
-| **Database**     | MySQL 8 (via `mysql2` / [Sequelize / Prisma])           |
-| **Auth**         | JSON Web Tokens (JWT), bcrypt                           |
-| **Validation**   | express-validator / Joi                                 |
-| **Security**     | Helmet, CORS, express-rate-limit                        |
-| **Logging**      | Morgan, Winston                                         |
-| **Testing**      | Jest, Supertest                                         |
-| **DevOps**       | Docker, Docker Compose, GitHub Actions                  |
-| **Tools**        | Git, Postman, VS Code, ESLint, Prettier                 |
+### 2.1 👩‍🎓 Student
+
+| Module | What a student can do |
+|---|---|
+| **Dashboard** | Overview cards, attendance gauge, performance graph, quick links |
+| **Attendance** | Per-subject summary, calendar view, minimum-attendance indicator (default threshold 75%) |
+| **Assignments** | See assignments for own subjects, open details, **submit a file**, see marks and review status |
+| **Lab manuals** | List manuals, open details, **submit**, track submission status |
+| **Study material & syllabus** | Browse syllabus per subject, download materials through short-lived signed links |
+| **Timetable** | Weekly timetable for own semester |
+| **Results** | Internal + external marks, grades, **marksheet view**, **CGPA calculator**, hall ticket |
+| **Fees** | See fee structure, **pay with Razorpay**, view payment history, view/download receipts |
+| **Library** | Browse books, see own issue history and fines |
+| **Leave** | Apply (sick / personal / official / other), attach a document, track status, **withdraw** |
+| **Notices & announcements** | Read notices, mark announcements as read |
+| **Profile** | Edit phone, address and photo (semester/batch are deliberately **not** self-editable); digital **ID card** |
+
+### 2.2 👨‍🏫 Faculty
+
+| Module | What faculty can do |
+|---|---|
+| **Dashboard** | Assigned classes and subjects, quick stats |
+| **Attendance** | Mark attendance (`present` / `absent` / `late`) in bulk, edit entries, view reports |
+| **Assignments** | Create / edit / delete, view submissions, **review** with marks and `accepted` / `rejected` |
+| **Lab manuals** | Create manuals, review student lab submissions |
+| **Study material** | Upload, edit, delete materials per subject |
+| **Syllabus** | Create and update syllabus entries |
+| **Marks** | Enter internal (unit test) marks, update them, view class performance and analytics |
+| **Announcements & notices** | Publish announcements (with read-status tracking) and notices |
+| **Leave** | First-level review: **forward** to HOD or **reject** |
+| **Profile** | Phone, address, photo, qualification, designation, specialization |
+
+### 2.3 🎖️ HOD (Head of Department)
+
+| Module | What the HOD can do |
+|---|---|
+| **Dashboard** | Department-wide statistics and academic trends |
+| **People** | Add / view department students and faculty |
+| **Subjects** | Add, update, delete subjects; **assign faculty** to subjects; view faculty load |
+| **Classrooms** | Add, update, delete classrooms |
+| **Timetable** | Create and delete department timetable entries |
+| **Fees** | Department fee report, fee structures |
+| **Leave** | Second-level approval: **approve** or **reject** forwarded leave |
+| **Reports** | Department reports and academic trends |
+
+### 2.4 🛠️ Admin
+
+| Module | What an admin can do |
+|---|---|
+| **Dashboard** | System-wide statistics |
+| **Users** | List users, create/update/delete students and faculty |
+| **Departments / classrooms** | Full CRUD |
+| **Fees** | Fee structures, all payments, fee reports |
+| **Exams** | Enter external marks, publish results, hall tickets |
+| **Timetable / notices** | Full management |
+| **Operations** | Audit logs, system settings, **database backup** |
+
+### 2.5 📚 Librarian
+
+| Module | What a librarian can do |
+|---|---|
+| **Books** | Add books, view catalogue |
+| **Circulation** | Issue and return books |
+| **History & fines** | View a student's borrowing history and fines |
+
+> ℹ️ Frontend pages for some admin modules and the librarian role are still placeholders — see [Roadmap & Status](#19-roadmap--status).
 
 ---
 
-## 🏗 System Architecture
+## 3. Tech Stack
 
-The application follows a classic **three-tier architecture** with a clear
-separation between presentation, business logic, and data storage.
+### 3.1 Frontend (`frontend/package.json`)
+
+| Concern | Library | Version |
+|---|---|---|
+| UI library | React | ^18.2.0 |
+| Build tool / dev server | Vite (+ `@vitejs/plugin-react`) | ^5.0.8 / ^4.2.1 |
+| Routing | react-router-dom | ^6.20.0 |
+| State | Redux Toolkit + react-redux (UI/notification slices) and React Context (auth, theme) | ^1.9.5 / ^8.1.3 |
+| HTTP | axios | ^1.6.0 |
+| Styling | Tailwind CSS + PostCSS + Autoprefixer | ^3.3.6 |
+| Component kit / icons | MUI (`@mui/material`, `@mui/icons-material`) + Emotion | ^5.14.0 |
+| Charts | chart.js + react-chartjs-2 | ^4.4.0 / ^5.2.0 |
+| PDF viewing | react-pdf | ^7.5.0 |
+| Toasts | react-hot-toast | ^2.4.1 |
+| Lint | ESLint 8 + react, react-hooks, react-refresh plugins | ^8.55.0 |
+
+### 3.2 Backend
+
+| Concern | Choice |
+|---|---|
+| Language | **PHP 8+** (native, no framework) |
+| Style | REST/JSON, hand-written router in `api/routes/api.php` |
+| Database access | **PDO** with `ERRMODE_EXCEPTION`, `FETCH_ASSOC`, **prepared statements** (`EMULATE_PREPARES = false`), `utf8mb4` |
+| Auth | Custom **JWT HS256** (`helpers/JWT.php`) |
+| Passwords | `password_hash()` / `password_verify()` (bcrypt) |
+| Email | `helpers/EmailHelper.php` via the **Resend** HTTP API (password reset, leave and assignment templates) |
+| Payments | **Razorpay** (order creation + signature verification) |
+| Uploads | `helpers/Upload.php` with MIME/extension allow-list |
+
+### 3.3 Database
+
+| Concern | Choice |
+|---|---|
+| Engine | MySQL 8, InnoDB |
+| Charset / collation | `utf8mb4` / `utf8mb4_unicode_ci` |
+| Schema file | `database/adit_cms_complete.sql` (schema + seed data) |
+| Installer | `database/install.php` (CLI or key-protected web) |
+| Migrations | `database/migrate.php` (supports `--dry-run`) |
+
+### 3.4 Design tokens (Tailwind)
+
+The UI is a dark, indigo-accented design system defined in `frontend/tailwind.config.js`:
+
+| Token | Purpose | Example value |
+|---|---|---|
+| `base` | App background | `#09090b` |
+| `surface` (`raised`, `overlay`, `border`, `hover`) | Cards, panels, borders | `#111113` … `#2f2f34` |
+| `accent` (`light`, `hover`, `dim`, `glow`) | Primary actions, highlights | `#6366f1` |
+| `muted` (`light`, `dark`) | Secondary text | `#a1a1aa` |
+| `success` / `danger` | Status colours | `#10b981` / `#ef4444` |
+
+---
+
+
+## 4. Architecture Diagrams
+
+### 4.1 System context
+
+Who talks to what.
+
+```mermaid
+flowchart LR
+    subgraph Actors
+        S[🧑‍🎓 Student]
+        F[👨‍🏫 Faculty]
+        H[🎖️ HOD]
+        A[🛠️ Admin]
+        L[📚 Librarian]
+    end
+
+    subgraph Browser["Browser — React SPA"]
+        UI[Pages & dashboards]
+        CTX[AuthContext · ThemeContext]
+        RTK[Redux store: ui + notifications]
+        AX[axios instance + interceptors]
+    end
+
+    subgraph Server["Web server — Apache + PHP 8"]
+        HT[.htaccess rewrite]
+        IDX[api/index.php]
+        RT[routes/api.php]
+        MW[AuthMiddleware → RoleMiddleware]
+        CT[Controllers]
+        MD[Models - PDO]
+    end
+
+    DB[(MySQL 8<br/>39 tables)]
+    FS[/api/uploads/<br/>assignments · lab · materials · profiles · receipts/]
+    RZP[💳 Razorpay]
+    MAIL[✉️ Resend email API]
+
+    S & F & H & A & L --> UI
+    UI --> CTX
+    UI --> RTK
+    UI --> AX
+    AX -- "HTTPS + Authorization: Bearer JWT" --> HT --> IDX --> RT --> MW --> CT --> MD --> DB
+    CT --> FS
+    CT <--> RZP
+    CT --> MAIL
+```
+
+### 4.2 Layered view
 
 ```mermaid
 flowchart TB
-    subgraph Client["🖥️ Client Layer"]
-        A1[Web Browser]
-        A2[Mobile App - optional]
-        A3[Postman / API Clients]
+    subgraph L1["Presentation layer"]
+        P1[Pages — admin · hod · faculty · student · auth]
+        P2[Layout — DashboardLayout · Sidebar · Header]
+        P3[Common — StatCard · PremiumCard · gauges · charts · ID cards]
     end
-
-    subgraph Server["⚙️ Application Layer - Node.js + Express"]
-        B1[Routes]
-        B2[Middleware<br/>Auth · Validation · Rate Limit]
-        B3[Controllers]
-        B4[Services<br/>Business Logic]
-        B5[Models / Data Access]
-        B1 --> B2 --> B3 --> B4 --> B5
+    subgraph L2["Client logic layer"]
+        C1[services/api.js — endpoint wrappers]
+        C2[context — Auth · Theme]
+        C3[store — Redux Toolkit]
+        C4[utils — helpers · icons]
     end
-
-    subgraph Data["🗄️ Data Layer"]
-        C1[(MySQL Database)]
-        C2[File Storage<br/>Avatars · Exports]
-        C3[(Redis Cache - optional)]
+    subgraph L3["HTTP boundary"]
+        H1[CORS allow-list]
+        H2[Bearer JWT]
+        H3[JSON envelope]
     end
-
-    A1 -->|HTTPS / JSON| B1
-    A2 -->|HTTPS / JSON| B1
-    A3 -->|HTTPS / JSON| B1
-    B5 --> C1
-    B4 --> C2
-    B4 -.-> C3
-
-    style Client fill:#e3f2fd,stroke:#1976d2,color:#000
-    style Server fill:#fff3e0,stroke:#f57c00,color:#000
-    style Data fill:#e8f5e9,stroke:#388e3c,color:#000
+    subgraph L4["Application layer — PHP"]
+        A1[Router]
+        A2[Middleware — Auth · Role]
+        A3[Controllers — 21]
+        A4[Helpers — JWT · Response · Validation · Upload · Email · DownloadToken]
+    end
+    subgraph L5["Data layer"]
+        D1[Models — PDO prepared statements]
+        D2[(MySQL)]
+        D3[/Uploads directory/]
+    end
+    L1 --> L2 --> L3 --> L4 --> L5
 ```
 
-### Layer Responsibilities
-
-| Layer          | Responsibility                                                      |
-|----------------|---------------------------------------------------------------------|
-| **Routes**     | Map HTTP endpoints to controller functions                          |
-| **Middleware** | Authentication, authorization, validation, logging, error handling  |
-| **Controllers**| Parse requests, call services, format responses                     |
-| **Services**   | Core business rules (grade calculation, attendance %, etc.)         |
-| **Models**     | Database queries and data mapping                                   |
-
-### Request Lifecycle
-
-1. The client sends an HTTP request with a `Bearer` token.
-2. Global middleware (CORS, Helmet, JSON parser, logger) runs first.
-3. The route-level `authenticate` middleware verifies the JWT.
-4. The `authorize` middleware checks the user's role.
-5. The validator checks the request body, params, and query.
-6. The controller calls the relevant service.
-7. The service applies business logic and calls the model.
-8. The model queries MySQL and returns data.
-9. The controller sends a standardized JSON response.
-10. Any thrown error is caught by the centralized error handler.
-
----
-
-## 🗃 Database Design (ER Diagram)
+### 4.3 Request lifecycle (every API call)
 
 ```mermaid
-erDiagram
-    USERS ||--o| STUDENTS : "is a"
-    USERS ||--o| FACULTY : "is a"
-    DEPARTMENTS ||--o{ COURSES : offers
-    DEPARTMENTS ||--o{ STUDENTS : has
-    DEPARTMENTS ||--o{ FACULTY : employs
-    FACULTY ||--o{ COURSES : teaches
-    STUDENTS ||--o{ ENROLLMENTS : makes
-    COURSES ||--o{ ENROLLMENTS : has
-    ENROLLMENTS ||--o{ ATTENDANCE : tracks
-    ENROLLMENTS ||--o{ RESULTS : produces
-    USERS ||--o{ NOTICES : posts
+sequenceDiagram
+    autonumber
+    participant B as Browser (axios)
+    participant AP as Apache (.htaccess)
+    participant IX as api/index.php
+    participant RT as routes/api.php
+    participant AM as AuthMiddleware
+    participant RM as RoleMiddleware
+    participant CT as Controller
+    participant DB as MySQL
 
-    USERS {
-        int id PK
-        string name
-        string email UK
-        string password_hash
-        enum role "admin|faculty|student"
-        boolean is_active
-        datetime created_at
-        datetime updated_at
-    }
-    STUDENTS {
-        int id PK
-        int user_id FK
-        int department_id FK
-        string enrollment_no UK
-        int semester
-        int admission_year
-        string phone
-    }
-    FACULTY {
-        int id PK
-        int user_id FK
-        int department_id FK
-        string employee_id UK
-        string designation
-        string phone
-    }
-    DEPARTMENTS {
-        int id PK
-        string name UK
-        string code UK
-    }
-    COURSES {
-        int id PK
-        int department_id FK
-        int faculty_id FK
-        string code UK
-        string title
-        int credits
-        int semester
-    }
-    ENROLLMENTS {
-        int id PK
-        int student_id FK
-        int course_id FK
-        string academic_year
-    }
-    ATTENDANCE {
-        int id PK
-        int enrollment_id FK
-        date attendance_date
-        enum status "present|absent|late"
-    }
-    RESULTS {
-        int id PK
-        int enrollment_id FK
-        enum exam_type "internal|midterm|final"
-        decimal marks_obtained
-        decimal max_marks
-        string grade
-    }
-    NOTICES {
-        int id PK
-        int posted_by FK
-        string title
-        text body
-        enum priority "low|normal|high"
-        date expires_on
-        datetime created_at
-    }
+    B->>AP: GET /api/attendance (Authorization: Bearer …)
+    AP->>AP: copy Authorization header into env (E=HTTP_AUTHORIZATION)
+    AP->>IX: rewrite ^api/(.+)$ → /api/index.php
+    IX->>IX: set CORS headers (origin allow-list)
+    IX->>IX: answer OPTIONS preflight with 204
+    IX->>IX: strip /api prefix, normalise URI → ADIT_ROUTE_URI
+    IX->>RT: require routes/api.php (inside global try/catch)
+    RT->>RT: match "METHOD /pattern" against route table
+    alt route requires auth
+        RT->>AM: handle()
+        AM->>AM: read Bearer token (3 fallbacks for stripped headers)
+        AM->>AM: JWT::validate() — signature + exp
+        AM->>DB: user exists? status = active? role unchanged?
+        AM->>AM: must_change_password? allow only 4 endpoints
+        RT->>RM: requireRole([...]) when the route lists roles
+    end
+    RT->>CT: new Controller()->method(...route params)
+    CT->>CT: Validation::validate(input, rules)
+    CT->>DB: prepared statements via Model
+    DB-->>CT: rows
+    CT-->>B: Response::success / paginated / error (JSON)
 ```
 
-### Table Summary
+**Status codes returned by the gates**
 
-| Table          | Purpose                                                   |
-|----------------|-----------------------------------------------------------|
-| `users`        | Login credentials and role for every person in the system |
-| `students`     | Student-specific profile data                             |
-| `faculty`      | Faculty-specific profile data                             |
-| `departments`  | Academic departments                                      |
-| `courses`      | Courses offered by departments                            |
-| `enrollments`  | Links students to courses for an academic year            |
-| `attendance`   | Daily attendance records per enrollment                   |
-| `results`      | Exam marks and grades per enrollment                      |
-| `notices`      | Announcements posted by admin or faculty                  |
+| Code | Source | Meaning |
+|--:|---|---|
+| `200` / `201` | Controller | OK / created |
+| `204` | `index.php` | CORS preflight answered |
+| `400` | Controller | Bad request |
+| `401` | `AuthMiddleware` | Missing / invalid / expired token, or account inactive |
+| `403` | `RoleMiddleware` / `AuthMiddleware` | Wrong role, or password change still pending |
+| `404` | `Response::notFound` | Unknown endpoint or record |
+| `422` | `Response::validationError` | Input failed validation |
+| `500` | Global `catch` | Generic message in production (details only if `IS_PRODUCTION` is false) |
+
+### 4.4 URL routing — where each URL goes
+
+```mermaid
+flowchart TD
+    REQ([Incoming URL]) --> Q1{Starts with /api/ ?}
+    Q1 -- yes --> Q2{Real file on disk?}
+    Q2 -- yes --> F1[Served directly by Apache]
+    Q2 -- no --> API[api/index.php → router]
+    Q1 -- no --> Q3{Real file or directory?}
+    Q3 -- yes --> F2[Static asset: JS, CSS, image]
+    Q3 -- no --> SPA[index.html → React Router]
+    ALT([Rewrite broken on host?]) -.-> RTR[router.php → api/index.php]
+```
+
+`router.php` is a fallback entry point for hosts where `.htaccess` rewrites are unreliable
+(point `VITE_API_URL` at `https://<host>/router.php`).
+
+### 4.5 Frontend architecture
+
+```mermaid
+flowchart TD
+    MAIN[main.jsx] --> APP[App.jsx]
+    APP --> EB[ErrorBoundary]
+    EB --> AP[AuthProvider]
+    AP --> RTR[BrowserRouter · Routes]
+
+    RTR --> PUB[Public routes<br/>/ · /login · /register · /forgot-password · /reset-password]
+    RTR --> CPW[/change-password/]
+    RTR --> PR{ProtectedRoute<br/>allowedRoles}
+
+    PR -- no token --> LOGIN[→ /login]
+    PR -- must_change_password --> CPW
+    PR -- wrong role --> OWN[→ /ownrole/dashboard]
+    PR -- ok --> DL[DashboardLayout]
+
+    DL --> SB[Sidebar]
+    DL --> HD[Header]
+    DL --> PG[Page component]
+
+    PG --> SVC[services/api.js]
+    SVC --> INT[Interceptors:<br/>attach Bearer token · unwrap response.data · handle 401]
+```
+
+### 4.6 State management map
+
+```mermaid
+flowchart LR
+    subgraph Persistent["localStorage"]
+        T[token]
+        U[user]
+    end
+    subgraph Context["React Context — actively used"]
+        AC[AuthContext<br/>user · role · loading · login · logout · mustChangePassword]
+        TC[ThemeContext]
+    end
+    subgraph Redux["Redux Toolkit store — registered in main.jsx"]
+        UIS[ui slice<br/>sidebarOpen · theme]
+        NS[notifications slice<br/>items · unreadCount]
+    end
+    T --> AC
+    U --> AC
+    AC --> PRT[ProtectedRoute · DashboardLayout]
+    TC --> LAY[Theme switching]
+    Redux -. "available; not yet read by components" .-> LAY
+```
+
+> ℹ️ The Redux store (`ui` and `notifications` slices) is wired into the app via `<Provider>` in `main.jsx`, but at the
+> time of writing no component subscribes to it — authentication and theming run on React Context. It is ready for
+> sidebar and notification state when you want to move that out of local component state.
+
+### 4.7 Folder responsibility map
+
+```mermaid
+flowchart TD
+    ROOT[aditcms/]
+    ROOT --> FE[frontend/]
+    ROOT --> API[api/]
+    ROOT --> DBD[database/]
+    ROOT --> DOC[docs/]
+    ROOT --> HT[.htaccess · router.php · test.php]
+
+    FE --> F1[src/pages — 48 pages by role]
+    FE --> F2[src/components — common + layout]
+    FE --> F3[src/services/api.js]
+    FE --> F4[src/context · src/store · src/utils]
+    FE --> F5[public — adit.webp · CVM.webp]
+
+    API --> A1[index.php — entry + CORS]
+    API --> A2[routes/api.php — 145 routes]
+    API --> A3[controllers — 21]
+    API --> A4[models — PDO]
+    API --> A5[middleware — Auth · Role]
+    API --> A6[helpers — 6 classes]
+    API --> A7[config/database.php]
+    API --> A8[uploads — 5 sub-folders]
+
+    DBD --> D1[adit_cms_complete.sql]
+    DBD --> D2[install.php]
+    DBD --> D3[migrate.php]
+
+    DOC --> O1[PRD]
+    DOC --> O2[Phase plan]
+```
 
 ---
 
-## 🔑 Authentication Flow
+## 5. Authentication & Security Flows
+
+### 5.1 Login
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor U as User
-    participant FE as Frontend
-    participant API as Express API
-    participant MW as Auth Middleware
-    participant DB as MySQL
+    participant LP as LoginPage
+    participant AC as AuthContext
+    participant API as POST /api/auth/login
+    participant DB as users table
 
-    U->>FE: Enter email & password
-    FE->>API: POST /api/auth/login
-    API->>DB: SELECT user WHERE email = ?
-    DB-->>API: User record (with password hash)
-    API->>API: bcrypt.compare(password, hash)
-
-    alt Credentials valid
-        API->>API: Sign JWT (id, role, exp)
-        API-->>FE: 200 OK + { token, user }
-        FE->>FE: Store token securely
-        U->>FE: Open protected page
-        FE->>API: GET /api/students/me<br/>Authorization: Bearer token
-        API->>MW: Verify JWT signature & expiry
-        MW->>MW: Check role permission
-        MW->>DB: Fetch requested data
-        DB-->>API: Data
-        API-->>FE: 200 OK + data
-    else Credentials invalid
-        API-->>FE: 401 Unauthorized
-        FE-->>U: Show error message
+    U->>LP: email + password
+    LP->>AC: login(email, password)
+    AC->>API: JSON { email, password }
+    API->>API: validate (email required|email, password required)
+    API->>DB: find user by email
+    DB-->>API: row with password_hash, role, status
+    API->>API: password_verify()
+    alt valid and status = active
+        API->>API: JWT::generate(userId, email, role)
+        API-->>AC: { token, user, must_change_password }
+        AC->>AC: save token + user in localStorage
+        alt must_change_password = true
+            AC-->>LP: redirect → /change-password
+        else normal
+            AC-->>LP: redirect → /{role}/dashboard
+        end
+    else invalid
+        API-->>AC: 401 / error message
+        AC-->>LP: show toast
     end
 ```
 
----
+### 5.2 Session restore on page reload
 
-## 🔄 Application Workflow
+```mermaid
+flowchart TD
+    A([App starts]) --> B{token + user in localStorage?}
+    B -- no --> C[Unauthenticated → public pages]
+    B -- yes --> D[Show cached user immediately]
+    D --> E[GET /auth/me]
+    E --> F{success?}
+    F -- yes --> G[Refresh user: id, email, role, profile, must_change_password]
+    F -- no, 401 --> H[Interceptor clears storage → /login]
+    F -- network error --> I[Keep cached user]
+```
 
-The diagram below shows the typical academic workflow across all three roles.
+### 5.3 JWT anatomy
 
 ```mermaid
 flowchart LR
-    Start([Start]) --> Login{Login}
-    Login -->|Admin| A[Admin Dashboard]
-    Login -->|Faculty| F[Faculty Dashboard]
-    Login -->|Student| S[Student Dashboard]
+    subgraph JWT["Token = header.payload.signature (base64url)"]
+        H["Header<br/>{ typ: JWT, alg: HS256 }"]
+        P["Payload<br/>iss · iat · exp · user_id · email · role"]
+        S["Signature<br/>HMAC-SHA256(header.payload, JWT_SECRET)"]
+    end
+    H --> P --> S
+```
 
-    A --> A1[Create Departments]
-    A1 --> A2[Create Courses]
-    A2 --> A3[Register Faculty & Students]
-    A3 --> A4[Assign Faculty to Courses]
-    A4 --> A5[Enroll Students]
-    A --> A6[Post Global Notices]
+| Claim | Meaning |
+|---|---|
+| `iss` | `JWT_ISSUER` constant |
+| `iat` | Issued-at (unix time) |
+| `exp` | `iat + JWT_EXPIRY` |
+| `user_id` | `users.id` |
+| `email` | Login email |
+| `role` | One of `student`, `faculty`, `hod`, `admin`, `librarian` |
 
-    F --> F1[View Assigned Courses]
-    F1 --> F2[Mark Attendance]
-    F1 --> F3[Upload Marks]
-    F1 --> F4[Post Course Notices]
+### 5.4 What `AuthMiddleware::handle()` checks on every protected call
 
-    S --> S1[View Profile]
-    S --> S2[Check Attendance %]
-    S --> S3[View Results / CGPA]
-    S --> S4[Read Notices]
+```mermaid
+flowchart TD
+    S([Protected request]) --> A{Authorization header present?}
+    A -- "no: try REDIRECT_HTTP_AUTHORIZATION, then getallheaders()" --> A2{found?}
+    A2 -- no --> E1[401 No token provided]
+    A -- yes --> B{Bearer token format?}
+    A2 -- yes --> B
+    B -- no --> E1
+    B -- yes --> C{JWT signature + exp valid?}
+    C -- no --> E2[401 Invalid or expired token]
+    C -- yes --> D{User row exists, status = active,<br/>role equals token role?}
+    D -- no --> E3[401 Account inactive / role changed]
+    D -- yes --> F{must_change_password = 1?}
+    F -- yes --> G{Path in allow-list?<br/>/auth/change-password · /auth/me · /auth/logout · /health}
+    G -- no --> E4[403 Change your temporary password first]
+    G -- yes --> OK
+    F -- no --> OK([Continue to RoleMiddleware])
+```
 
-    F2 -.->|updates| S2
-    F3 -.->|updates| S3
-    F4 -.->|visible to| S4
-    A6 -.->|visible to| S4
+Consequences worth knowing:
 
-    S2 --> Warn{Below 75%?}
-    Warn -->|Yes| Alert[⚠️ Low Attendance Alert]
-    Warn -->|No| OK[✅ All Good]
+- A **deactivated** user is locked out immediately, even with an unexpired token.
+- A **role change** invalidates old tokens (token role must match the database role).
+- A **provisioning password** can never be used for anything except changing it.
 
-    style A fill:#ffcdd2,stroke:#c62828,color:#000
-    style F fill:#fff9c4,stroke:#f9a825,color:#000
-    style S fill:#c8e6c9,stroke:#2e7d32,color:#000
+### 5.5 Forced password change
+
+```mermaid
+stateDiagram-v2
+    [*] --> Provisioned: account created or reset with default password
+    Provisioned --> Login: user signs in
+    Login --> Locked: must_change_password = 1
+    Locked --> Locked: any API call except 4 allowed paths → 403
+    Locked --> Changed: POST /auth/change-password (current + new ≥ 8 chars)
+    Changed --> Active: flag cleared
+    Active --> [*]
+```
+
+### 5.6 Password reset by email
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as User
+    participant FP as ForgotPasswordPage
+    participant API as API
+    participant DB as password_resets
+    participant M as EmailHelper
+
+    U->>FP: enter email
+    FP->>API: POST /auth/forgot-password { email }
+    API->>DB: store reset token
+    API->>M: sendPasswordReset(email, token)
+    M-->>U: email with reset link
+    U->>API: POST /auth/reset-password { token, password (min 8) }
+    API->>DB: validate token, set new bcrypt hash
+    API-->>U: success → login
+```
+
+### 5.7 Signed download links (study materials)
+
+A browser cannot attach an `Authorization` header to a plain `<a href>`, and putting a long-lived JWT in a URL would
+leak it into logs and history. `helpers/DownloadToken.php` exists for that case: a **short-lived, narrowly scoped,
+HMAC-signed token** that is accepted by the download route.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant UI as Client
+    participant API as GET /materials/:id/download
+    participant DT as DownloadToken
+    participant DB as users
+    participant FS as Uploads
+
+    UI->>API: ?dl_token=… (no Authorization header needed)
+    API->>DT: validate(token)
+    DT->>DT: decode, check expiry, constant-time signature compare
+    DT-->>API: { resource, id, user_id } or null
+    API->>API: resource = "material" and id matches the URL?
+    API->>DB: is the token's user still active?
+    API->>FS: stream file
+    FS-->>UI: file
+    Note over UI,API: Without dl_token the controller calls AuthMiddleware::handle() and requires a Bearer JWT
+```
+
+| Property | Value |
+|---|---|
+| Default lifetime | **300 seconds** (`DownloadToken::DEFAULT_TTL`) |
+| Contents | resource name, record id, user id, issued-at, expiry, signature |
+| Signing key | Derived from `JWT_SECRET`, so a leaked download token **cannot** be replayed as an API credential |
+| Suspended users | A valid token for an account that has since been deactivated is rejected |
+| Route | Registered as *public* because the controller accepts **either** a session JWT **or** `?dl_token=` |
+
+> ℹ️ **Current state:** `DownloadToken::issue()` is implemented but **no route calls it yet**. In practice the frontend
+> downloads files with its `downloadFile()` helper, which fetches a **blob** through a second axios instance (keeping the
+> Bearer token in a header). To hand out signed links, add an endpoint that calls
+> `DownloadToken::issue('material', $id, $userId)`.
+
+### 5.8 File upload pipeline
+
+```mermaid
+flowchart TD
+    U([multipart upload]) --> E{PHP upload error?}
+    E -- yes --> X1[Reject with readable message]
+    E -- no --> S{Size ≤ MAX_FILE_SIZE<br/>default 5 MB?}
+    S -- no --> X2[Reject: too large]
+    S -- yes --> M{Detected MIME in allow-list?}
+    M -- no --> X3[Reject: type not allowed]
+    M -- yes --> N[Generate random filename + safe extension]
+    N --> P[Store under api/uploads/subfolder/]
+    P --> R[Return relative path e.g. assignments/1699_ab12cd.pdf]
+```
+
+| Allowed groups | Examples |
+|---|---|
+| Documents | PDF, DOC/DOCX, XLS/XLSX, PPT/PPTX, RTF, TXT, CSV |
+| Images | JPEG, PNG, GIF, WebP (profile photos are **image-only**) |
+| Never stored | `.php`, `.htaccess` — the helper exists so executable files can never land in the web-accessible uploads folder |
+
+Upload sub-folders: `assignments/`, `lab/`, `materials/`, `profiles/`, `receipts/` (each kept in git via `.gitkeep`).
+
+### 5.9 Layered defence
+
+```mermaid
+flowchart LR
+    R[Request] --> L1[CORS origin allow-list]
+    L1 --> L2[JWT signature + expiry]
+    L2 --> L3[Live account check<br/>active · role matches]
+    L3 --> L4[Forced password change gate]
+    L4 --> L5[Route role allow-list]
+    L5 --> L6[Scope checks<br/>department · own student · teaches subject]
+    L6 --> L7[Input validation + sanitising]
+    L7 --> L8[PDO prepared statements]
+    L8 --> DB[(MySQL)]
 ```
 
 ---
 
-## 🚀 Getting Started
+## 6. Roles & Permissions
 
-### Prerequisites
+### 6.1 Role landing map
 
-Make sure the following are installed:
+```mermaid
+flowchart TD
+    LOGIN([Successful login]) --> R{role claim}
+    R -->|student| S["/student/dashboard<br/>15 routes"]
+    R -->|faculty| F["/faculty/dashboard<br/>12 routes"]
+    R -->|hod| H["/hod/dashboard<br/>9 routes"]
+    R -->|admin| A["/admin/dashboard<br/>11 routes"]
+    R -->|librarian| L["Library endpoints<br/>(UI planned)"]
 
-| Tool      | Version  | Check with          |
-|-----------|----------|---------------------|
-| Node.js   | 18+      | `node -v`           |
-| npm       | 9+       | `npm -v`            |
-| MySQL     | 8.x      | `mysql --version`   |
-| Git       | 2.x      | `git --version`     |
-| Docker    | optional | `docker --version`  |
-
-### Installation
-
-**1. Clone the repository**
-
-```bash
-git clone https://github.com/shahdhairyah/ADITCMS.git
-cd ADITCMS
+    style S fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    style F fill:#dcfce7,stroke:#16a34a,color:#14532d
+    style H fill:#fef3c7,stroke:#d97706,color:#78350f
+    style A fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style L fill:#ede9fe,stroke:#7c3aed,color:#4c1d95
 ```
 
-**2. Install backend dependencies**
+### 6.2 Two enforcement points
 
-```bash
-cd server
-npm install
-```
+| Where | Mechanism | Purpose |
+|---|---|---|
+| **Frontend** | `ProtectedRoute allowedRoles={[…]}` | Better UX — wrong-role users are bounced to their own dashboard |
+| **Backend** | `RoleMiddleware::requireRole([...])` | **The real security boundary** — an explicit allow-list per route |
 
-**3. Install frontend dependencies** *(if you have a separate client)*
+> ⚠️ Frontend checks are cosmetic. Never rely on them for security; every sensitive route is also restricted in
+> `api/routes/api.php`.
 
-```bash
-cd ../client
-npm install
-```
+### 6.3 Allow-lists are explicit (no inheritance)
 
-**4. Create your environment file**
+`RoleMiddleware::requireRole()` is a plain `in_array` check. An `admin` is **not** implicitly allowed on a route that
+lists only `['hod']`; routes admins may use list `'admin'` explicitly.
 
-```bash
-cd ../server
-cp .env.example .env
-```
+### 6.4 Scope helpers (beyond role)
 
-**5. Set up the database** (see [Database Setup](#-database-setup))
+A role is often not enough — e.g. a faculty member should only touch *their own* subjects. `RoleMiddleware` also provides:
 
-**6. Start the development servers**
+| Helper | Answers |
+|---|---|
+| `hodDepartmentId()` | Which department does this HOD head? |
+| `ownDepartmentId()` | Which department does this faculty/student belong to? |
+| `canAccessDepartment($id)` | May the current user act on this department? |
+| `canAccessStudent($studentId)` | May the current user see this student's data? |
+| `teachesSubject($facultyId, $subjectId)` | Does this faculty member teach this subject? |
+| `scopeDepartmentId()` | Department filter to apply to list queries |
 
-```bash
-# Terminal 1 - backend
-cd server
-npm run dev
+### 6.5 Endpoint access matrix (generated from the route table)
 
-# Terminal 2 - frontend
-cd client
-npm start
-```
+Cell = *endpoints in the group this role can call* / *endpoints in the group*.
 
-**7. Open the app**
-
-| Service   | URL                          |
-|-----------|------------------------------|
-| Frontend  | http://localhost:3000        |
-| Backend   | http://localhost:5000        |
-| API Health| http://localhost:5000/health |
-
-### Available Scripts
-
-| Command             | Description                                |
-|---------------------|--------------------------------------------|
-| `npm start`         | Start the server in production mode        |
-| `npm run dev`       | Start with nodemon (auto-reload)           |
-| `npm test`          | Run the full test suite                    |
-| `npm run test:watch`| Run tests in watch mode                    |
-| `npm run lint`      | Lint the codebase with ESLint              |
-| `npm run format`    | Format code with Prettier                  |
-| `npm run db:migrate`| Run database migrations                    |
-| `npm run db:seed`   | Seed the database with sample data         |
+| Group | student | faculty | hod | admin | librarian |
+|---|:--:|:--:|:--:|:--:|:--:|
+| Auth routes (public) | 5/5 | 5/5 | 5/5 | 5/5 | 5/5 |
+| Auth routes (protected) | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| Public data routes (for registration form) | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 |
+| Department routes (protected) | 0/5 | 0/5 | 2/5 | 5/5 | 0/5 |
+| Course routes | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 |
+| Classroom routes | 1/4 | 1/4 | 1/4 | 4/4 | 1/4 |
+| Student routes | 3/6 | 3/6 | 3/6 | 6/6 | 2/6 |
+| Faculty routes | 1/7 | 4/7 | 3/7 | 6/7 | 1/7 |
+| Attendance routes | 4/7 | 7/7 | 7/7 | 7/7 | 4/7 |
+| Assignment routes | 3/8 | 7/8 | 3/8 | 7/8 | 2/8 |
+| Fee routes | 6/12 | 4/12 | 7/12 | 10/12 | 4/12 |
+| Library routes | 3/6 | 3/6 | 3/6 | 6/6 | 6/6 |
+| Marks routes | 1/3 | 3/3 | 1/3 | 3/3 | 1/3 |
+| Exam routes | 2/7 | 5/7 | 3/7 | 7/7 | 1/7 |
+| Timetable routes | 1/4 | 1/4 | 4/4 | 4/4 | 1/4 |
+| Notice routes | 1/4 | 2/4 | 3/4 | 4/4 | 1/4 |
+| Leave Application routes | 4/5 | 3/5 | 3/5 | 3/5 | 2/5 |
+| Lab Manual routes | 2/7 | 6/7 | 2/7 | 6/7 | 1/7 |
+| Study Material routes | 2/5 | 5/5 | 3/5 | 5/5 | 2/5 |
+| Syllabus routes | 3/6 | 6/6 | 4/6 | 6/6 | 3/6 |
+| Announcement routes | 2/6 | 6/6 | 4/6 | 6/6 | 2/6 |
+| Student-specific routes | 3/3 | 0/3 | 0/3 | 0/3 | 0/3 |
+| HOD routes | 0/21 | 0/21 | 21/21 | 0/21 | 0/21 |
+| Admin routes | 0/6 | 0/6 | 0/6 | 6/6 | 0/6 |
 
 ---
 
-## ⚙️ Environment Configuration
+## 7. Business Workflows
 
-Create a `.env` file inside the `server/` directory:
+### 7.1 Assignment lifecycle
 
-```env
-# ─────────── Server ───────────
-NODE_ENV=development
-PORT=5000
-CLIENT_URL=http://localhost:3000
+```mermaid
+sequenceDiagram
+    autonumber
+    actor F as Faculty
+    actor S as Student
+    participant API as AssignmentController
+    participant DB as assignments · submissions
+    participant FS as uploads/assignments
 
-# ─────────── Database ───────────
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=aditcms_user
-DB_PASSWORD=change_this_password
-DB_NAME=aditcms
-
-# ─────────── Authentication ───────────
-JWT_SECRET=replace_with_a_long_random_string_at_least_32_chars
-JWT_EXPIRES_IN=1d
-BCRYPT_SALT_ROUNDS=12
-
-# ─────────── Rate Limiting ───────────
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX=100
-LOGIN_RATE_LIMIT_MAX=5
-
-# ─────────── Business Rules ───────────
-MIN_ATTENDANCE_PERCENT=75
-
-# ─────────── File Uploads ───────────
-UPLOAD_DIR=uploads
-MAX_FILE_SIZE_MB=2
-
-# ─────────── Email (optional) ───────────
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_USER=no-reply@example.com
-SMTP_PASS=your_smtp_password
+    F->>API: POST /assignments { title, subject_id, deadline, file? }
+    API->>API: validate: title ≤ 255, subject_id numeric, deadline date
+    API->>DB: insert assignment
+    S->>API: GET /assignments (scoped to own subjects)
+    API-->>S: list + deadlines
+    S->>API: POST /assignments/:id/submit (file)
+    API->>FS: store file (Upload helper)
+    API->>DB: insert submission (status = pending)
+    F->>API: GET /assignments/:id/submissions
+    F->>API: PUT /assignments/submissions/:id/review { marks, status }
+    API->>DB: status → accepted | rejected, marks saved
+    S->>API: GET /assignments/submissions/:studentId
+    API-->>S: marks + review status
 ```
 
-### Variable Reference
+```mermaid
+stateDiagram-v2
+    [*] --> pending: student submits
+    pending --> accepted: faculty reviews (marks)
+    pending --> rejected: faculty reviews (marks)
+    accepted --> [*]
+    rejected --> [*]
+```
 
-| Variable                 | Required | Default   | Description                               |
-|--------------------------|----------|-----------|-------------------------------------------|
-| `NODE_ENV`               | No       | `development` | Runtime environment                   |
-| `PORT`                   | No       | `5000`    | Port the API listens on                   |
-| `CLIENT_URL`             | Yes      | –         | Allowed CORS origin                       |
-| `DB_HOST`                | Yes      | –         | MySQL host                                |
-| `DB_PORT`                | No       | `3306`    | MySQL port                                |
-| `DB_USER`                | Yes      | –         | MySQL username                            |
-| `DB_PASSWORD`            | Yes      | –         | MySQL password                            |
-| `DB_NAME`                | Yes      | –         | Database name                             |
-| `JWT_SECRET`             | Yes      | –         | Secret key for signing tokens             |
-| `JWT_EXPIRES_IN`         | No       | `1d`      | Token lifetime                            |
-| `BCRYPT_SALT_ROUNDS`     | No       | `12`      | bcrypt cost factor                        |
-| `MIN_ATTENDANCE_PERCENT` | No       | `75`      | Threshold for low-attendance warnings     |
+### 7.2 Lab manual lifecycle
 
-> 💡 Generate a strong secret with:
-> ```bash
-> node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
-> ```
+Same shape as assignments, with an extra **progress** state per student.
+
+```mermaid
+flowchart LR
+    A[Faculty creates lab manual<br/>per subject] --> B[Student opens manual]
+    B --> C[Student submits lab work]
+    C --> D[(lab_submissions<br/>pending)]
+    D --> E[Faculty reviews]
+    E --> F{Decision}
+    F -- accepted --> G[Marks visible to student]
+    F -- rejected --> H[Student sees feedback]
+    G --> I[Student: Lab Manual Status page]
+    H --> I
+```
+
+`lab_manuals` tracks progress as `not_started` → `in_progress` → `completed`.
+
+### 7.3 Attendance
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor F as Faculty
+    participant API as AttendanceController
+    participant DB as attendance
+    actor S as Student
+
+    F->>API: POST /attendance/mark<br/>{ subject_id, date, records: [{ student_id, status }] }
+    Note over API: status ∈ present · absent · late
+    API->>DB: insert rows (marked_by = faculty)
+    F->>API: PUT /attendance/:id { status } (correct a mistake)
+    S->>API: GET /attendance/student/:id/summary
+    API-->>S: per-subject totals + percentage
+    S->>API: GET /attendance/student/:id/calendar
+    API-->>S: day-by-day calendar data
+    F->>API: GET /attendance/report
+    API-->>F: class report
+```
+
+Faculty can only mark attendance for subjects they teach (`assertCanMark` → `RoleMiddleware::teachesSubject`).
+The endpoint accepts either a single record or a bulk `records` array that shares one `subject_id` and `date`.
+
+**`late` counts as attended** in the percentage: `(present + late) / total × 100`.
+
+```mermaid
+flowchart TD
+    M[Attendance rows] --> SUM[Summary per subject:<br/>present + late vs total]
+    SUM --> G[AttendanceGauge]
+    M --> CAL[AttendanceCalendar]
+    SET[(system_settings<br/>min_attendance_percentage = 75)] --> G
+```
+
+### 7.4 Leave — two-level approval
+
+```mermaid
+stateDiagram-v2
+    [*] --> pending: Student applies<br/>(type, from, to, reason ≥ 10 chars, optional document)
+    pending --> withdrawn: Student withdraws
+    pending --> forwarded: Faculty action = forward
+    pending --> rejected: Faculty action = reject
+    forwarded --> approved: HOD action = approve
+    forwarded --> rejected: HOD action = reject
+    approved --> [*]
+    rejected --> [*]
+    withdrawn --> [*]
+```
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor S as Student
+    actor F as Faculty
+    actor H as HOD
+    participant API as LeaveApplicationController
+    participant DB as leave_applications
+
+    S->>API: POST /leave-applications { leave_type, from_date, to_date, reason }
+    API->>DB: status = pending
+    F->>API: PUT /leave-applications/:id { action: forward | reject, comments }
+    API->>DB: faculty_reviewed_by / _at / comments saved
+    H->>API: PUT /leave-applications/:id { action: approve | reject, comments }
+    API->>DB: hod_reviewed_by / _at / comments saved
+    S->>API: GET /leave-applications (see status + both comments)
+```
+
+| Field | Allowed values |
+|---|---|
+| `leave_type` | `sick`, `personal`, `official`, `other` |
+| `status` | `pending`, `forwarded`, `approved`, `rejected`, `withdrawn` |
+| Faculty `action` | `forward`, `reject` |
+| HOD `action` | `approve`, `reject` |
+
+The email helper includes templates for leave submission and leave status changes (`sendLeaveNotification`,
+`sendLeaveStatusNotification`).
+
+### 7.5 Fee payment (Razorpay)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor A as Admin / HOD
+    actor S as Student
+    participant API as FeeController
+    participant DB as fee_structures · fee_payments
+    participant RZ as Razorpay
+
+    A->>API: POST /fees/structure { course_id, semester, fee_type, amount }
+    API->>DB: save fee structure
+    S->>API: GET /fees/structure
+    S->>API: POST /fees/create-order { fee_structure_id }
+    API->>RZ: create order
+    RZ-->>API: razorpay_order_id
+    API->>DB: fee_payments row (status = pending)
+    API-->>S: order details for Checkout
+    S->>RZ: pay in Razorpay Checkout
+    RZ-->>S: razorpay_payment_id + signature
+    S->>API: POST /fees/verify-payment { razorpay_order_id, razorpay_payment_id, razorpay_signature }
+    API->>API: verify HMAC-SHA256 signature (hash_equals) BEFORE touching the DB
+    alt signature valid
+        API->>DB: status = completed, paid_at = now
+        API-->>S: success + receipt available
+    else signature mismatch
+        API-->>S: 400 Payment verification failed (no DB change)
+    end
+    S->>API: GET /fees/receipt/:id · /fees/receipt/:id/download
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> pending: order created
+    pending --> completed: signature verified
+    completed --> refunded: refund
+    pending --> failed: payment failed
+    failed --> [*]
+    completed --> [*]
+    refunded --> [*]
+```
+
+> The `failed` and `refunded` values exist in the `fee_payments.status` enum. A **signature mismatch** at
+> `/fees/verify-payment` is rejected with `400` and deliberately leaves the order untouched, so a forged request cannot
+> flip a real order to `failed`.
+
+### 7.6 Marks → results → marksheet
+
+```mermaid
+flowchart TD
+    UT[Faculty enters unit-test marks<br/>POST /marks/internal] --> UTT[(unit_tests)]
+    EX[Admin / faculty enters external marks<br/>POST /exams/external-marks] --> EXT[(external_marks)]
+    UTT --> CALC
+    EXT --> CALC
+    GD[(grade_definitions<br/>O=10, A+=9, A=8, B+=7, B=6, C=5, F=0)] --> CALC
+    CALC[Compute grades, SGPA, CGPA] --> RES[(results<br/>sgpa · cgpa · status pass/fail)]
+    RES --> PUB[Admin: POST /exams/publish-results]
+    PUB --> STU[Student: GET /exams/results · /exams/student-marks]
+    STU --> MS[MarksheetView + CGPACalculator]
+    RES --> HT[Hall ticket: GET /exams/hall-ticket]
+    UTT --> AN[Faculty / HOD analytics<br/>GET /exams/analytics/:subjectId · /exams/performance]
+```
+
+**Grade scale seeded in the database**
+
+| Marks | Grade | Grade point | Meaning |
+|:--:|:--:|:--:|---|
+| 90 – 100 | `O` | 10.0 | Outstanding |
+| 80 – 89.99 | `A+` | 9.0 | Excellent |
+| 70 – 79.99 | `A` | 8.0 | Very Good |
+| 60 – 69.99 | `B+` | 7.0 | Good |
+| 50 – 59.99 | `B` | 6.0 | Above Average |
+| 40 – 49.99 | `C` | 5.0 | Average |
+| 0 – 39.99 | `F` | 0.0 | Fail |
+
+### 7.7 Library circulation
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor L as Librarian / Admin
+    actor S as Student
+    participant API as LibraryController
+    participant DB as books · book_issues
+
+    L->>API: POST /library/books { title, author, total_copies }
+    S->>API: GET /library/books
+    L->>API: POST /library/issue { book_id, student_id }
+    API->>DB: book_issues (issued, issue_date, due_date)
+    L->>API: POST /library/return { issue_id }
+    API->>DB: return_date set, fine_amount calculated if late
+    S->>API: GET /library/history/:studentId
+    S->>API: GET /library/fines/:studentId
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> issued
+    issued --> returned: returned on time
+    issued --> overdue: past due date
+    overdue --> returned: returned (fine applied)
+    overdue --> fine_paid: fine paid
+    returned --> [*]
+    fine_paid --> [*]
+```
+
+Seeded library settings in `system_settings`: fine **₹5 / day**, max **3 books** per student, loan period **14 days**.
+
+> ⚠️ **Heads-up:** the fine calculation in `api/models/Library.php` currently uses a **hard-coded ₹5 per day** rather than
+> reading `library_fine_per_day`. Editing that setting will not change the fine until the model reads it.
+
+### 7.8 Notices & announcements
+
+```mermaid
+flowchart LR
+    subgraph Notices
+        N1[Admin / HOD / Faculty: POST /notices] --> N2[(notices<br/>type: college · department · class<br/>audience: all · student · faculty · both)]
+        N2 --> N3[Student: GET /notices/student]
+    end
+    subgraph Announcements
+        A1[Faculty / HOD / Admin: POST /announcements] --> A2[(announcements<br/>per subject / class)]
+        A2 --> A3[Student reads → POST /announcements/:id/read]
+        A3 --> A4[(announcement_reads)]
+        A4 --> A5[Faculty: GET /announcements/:id/reads<br/>who has read it]
+    end
+```
+
+| | Notices | Announcements |
+|---|---|---|
+| Scope | College / department / class | A subject or class |
+| Author | admin, hod, faculty | faculty, hod, admin |
+| Edit / delete | update: admin, hod · delete: admin | update/delete: faculty, admin |
+| Read tracking | No | **Yes** (`announcement_reads`) |
+
+### 7.9 Timetable
+
+```mermaid
+flowchart TD
+    HOD[HOD / Admin] -->|"POST /timetable or /hod/add-timetable"| T[(timetables<br/>day · period · subject · faculty · classroom · start/end)]
+    T --> SV[Student view — by semester]
+    T --> FV[Faculty view — own periods]
+    T --> HV[HOD view — department grid]
+    C[(classrooms)] --> T
+    SU[(subjects)] --> T
+```
+
+Days allowed: `Monday` … `Saturday`. Required fields: `day_of_week`, `period_number`, `classroom`, `start_time`, `end_time`.
+
+### 7.10 HOD operations map
+
+```mermaid
+mindmap
+  root((HOD))
+    People
+      Add student
+      Add faculty
+      View students
+      View faculty
+    Academics
+      Add subject
+      Update subject
+      Delete subject
+      Assign faculty to subject
+      Faculty load
+    Infrastructure
+      Add classroom
+      Update classroom
+      Delete classroom
+    Schedule
+      Department timetable
+      Add entry
+      Delete entry
+    Finance
+      Fee report
+    Insight
+      Dashboard
+      Academic trends
+      Department reports
+    Approvals
+      Leave final approval
+```
+
+### 7.11 Student onboarding
+
+```mermaid
+flowchart LR
+    A[Admin or HOD creates student<br/>POST /students · /hod/add-student] --> B[users row + students row]
+    B --> C[Provisioning password set<br/>must_change_password = 1]
+    C --> D[Student logs in]
+    D --> E[Forced to /change-password]
+    E --> F[Dashboard unlocked]
+    G[Public: /register page] -.-> B
+    H[GET /departments public list] --> G
+```
 
 ---
 
-## 🗄 Database Setup
+## 8. Database Design
 
-### 1. Create the database and user
+**Engine:** MySQL 8 · InnoDB · `utf8mb4_unicode_ci` · **39 tables** · **69 foreign keys**.
+A complete column-level listing is in [Section 9](#9-data-dictionary-all-tables).
 
-```sql
-CREATE DATABASE aditcms
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
+### 8.1 Table groups
 
-CREATE USER 'aditcms_user'@'localhost' IDENTIFIED BY 'change_this_password';
-GRANT ALL PRIVILEGES ON aditcms.* TO 'aditcms_user'@'localhost';
-FLUSH PRIVILEGES;
+```mermaid
+flowchart TB
+    subgraph IDENT["🔐 Identity"]
+        users
+        students
+        faculty
+        librarians
+        password_resets
+        email_verifications
+    end
+    subgraph STRUCT["🏫 Academic structure"]
+        departments
+        courses
+        semesters
+        batches
+        subjects
+        classrooms
+        timetables
+        syllabus
+        academic_calendar
+        holidays
+    end
+    subgraph WORK["📝 Daily academic work"]
+        attendance
+        assignments
+        submissions
+        lab_manuals
+        lab_submissions
+        study_materials
+        material_downloads
+        leave_applications
+    end
+    subgraph EXAM["🎯 Examinations"]
+        unit_tests
+        external_marks
+        results
+        grade_definitions
+        hall_tickets
+    end
+    subgraph MONEY["💰 Finance"]
+        fee_structures
+        fee_payments
+    end
+    subgraph LIB["📚 Library"]
+        books
+        book_issues
+    end
+    subgraph COMM["📣 Communication"]
+        notices
+        announcements
+        announcement_reads
+    end
+    subgraph SYS["⚙️ System"]
+        system_settings
+        audit_logs
+        system_backups
+    end
 ```
 
-### 2. Create the tables
+### 8.2 Core ER diagram — identity & structure
 
-```sql
-USE aditcms;
+```mermaid
+erDiagram
+    USERS ||--o| STUDENTS : "profile (user_id)"
+    USERS ||--o| FACULTY : "profile (user_id)"
+    USERS ||--o| LIBRARIANS : "profile (user_id)"
+    DEPARTMENTS ||--o{ COURSES : "has"
+    DEPARTMENTS ||--o{ FACULTY : "employs"
+    DEPARTMENTS ||--o{ STUDENTS : "enrols"
+    FACULTY ||--o| DEPARTMENTS : "heads as HOD (hod_id)"
+    COURSES ||--o{ SEMESTERS : "has"
+    COURSES ||--o{ BATCHES : "has"
+    SEMESTERS ||--o{ SUBJECTS : "contains"
+    DEPARTMENTS ||--o{ SUBJECTS : "owns"
+    FACULTY ||--o{ SUBJECTS : "teaches"
+    DEPARTMENTS ||--o{ CLASSROOMS : "has"
 
--- ─────────────────────────── USERS ───────────────────────────
-CREATE TABLE users (
-  id            INT AUTO_INCREMENT PRIMARY KEY,
-  name          VARCHAR(100)  NOT NULL,
-  email         VARCHAR(150)  NOT NULL UNIQUE,
-  password_hash VARCHAR(255)  NOT NULL,
-  role          ENUM('admin','faculty','student') NOT NULL DEFAULT 'student',
-  is_active     BOOLEAN       NOT NULL DEFAULT TRUE,
-  avatar_url    VARCHAR(255)  NULL,
-  created_at    DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at    DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP
-                              ON UPDATE CURRENT_TIMESTAMP,
-  INDEX idx_users_role (role)
-) ENGINE=InnoDB;
-
--- ───────────────────────── DEPARTMENTS ─────────────────────────
-CREATE TABLE departments (
-  id    INT AUTO_INCREMENT PRIMARY KEY,
-  name  VARCHAR(120) NOT NULL UNIQUE,
-  code  VARCHAR(10)  NOT NULL UNIQUE
-) ENGINE=InnoDB;
-
--- ─────────────────────────── STUDENTS ──────────────────────────
-CREATE TABLE students (
-  id             INT AUTO_INCREMENT PRIMARY KEY,
-  user_id        INT          NOT NULL UNIQUE,
-  department_id  INT          NOT NULL,
-  enrollment_no  VARCHAR(30)  NOT NULL UNIQUE,
-  semester       TINYINT      NOT NULL DEFAULT 1,
-  admission_year YEAR         NOT NULL,
-  phone          VARCHAR(20)  NULL,
-  FOREIGN KEY (user_id)       REFERENCES users(id)       ON DELETE CASCADE,
-  FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE RESTRICT
-) ENGINE=InnoDB;
-
--- ─────────────────────────── FACULTY ───────────────────────────
-CREATE TABLE faculty (
-  id             INT AUTO_INCREMENT PRIMARY KEY,
-  user_id        INT          NOT NULL UNIQUE,
-  department_id  INT          NOT NULL,
-  employee_id    VARCHAR(30)  NOT NULL UNIQUE,
-  designation    VARCHAR(80)  NULL,
-  phone          VARCHAR(20)  NULL,
-  FOREIGN KEY (user_id)       REFERENCES users(id)       ON DELETE CASCADE,
-  FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE RESTRICT
-) ENGINE=InnoDB;
-
--- ─────────────────────────── COURSES ───────────────────────────
-CREATE TABLE courses (
-  id             INT AUTO_INCREMENT PRIMARY KEY,
-  department_id  INT          NOT NULL,
-  faculty_id     INT          NULL,
-  code           VARCHAR(20)  NOT NULL UNIQUE,
-  title          VARCHAR(150) NOT NULL,
-  credits        TINYINT      NOT NULL DEFAULT 3,
-  semester       TINYINT      NOT NULL,
-  FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE RESTRICT,
-  FOREIGN KEY (faculty_id)    REFERENCES faculty(id)     ON DELETE SET NULL
-) ENGINE=InnoDB;
-
--- ────────────────────────── ENROLLMENTS ────────────────────────
-CREATE TABLE enrollments (
-  id             INT AUTO_INCREMENT PRIMARY KEY,
-  student_id     INT          NOT NULL,
-  course_id      INT          NOT NULL,
-  academic_year  VARCHAR(9)   NOT NULL,   -- e.g. 2025-2026
-  UNIQUE KEY uq_enrollment (student_id, course_id, academic_year),
-  FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-  FOREIGN KEY (course_id)  REFERENCES courses(id)  ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ─────────────────────────── ATTENDANCE ────────────────────────
-CREATE TABLE attendance (
-  id               INT AUTO_INCREMENT PRIMARY KEY,
-  enrollment_id    INT          NOT NULL,
-  attendance_date  DATE         NOT NULL,
-  status           ENUM('present','absent','late') NOT NULL,
-  UNIQUE KEY uq_attendance (enrollment_id, attendance_date),
-  FOREIGN KEY (enrollment_id) REFERENCES enrollments(id) ON DELETE CASCADE,
-  INDEX idx_attendance_date (attendance_date)
-) ENGINE=InnoDB;
-
--- ───────────────────────────── RESULTS ─────────────────────────
-CREATE TABLE results (
-  id              INT AUTO_INCREMENT PRIMARY KEY,
-  enrollment_id   INT           NOT NULL,
-  exam_type       ENUM('internal','midterm','final') NOT NULL,
-  marks_obtained  DECIMAL(5,2)  NOT NULL,
-  max_marks       DECIMAL(5,2)  NOT NULL DEFAULT 100,
-  grade           VARCHAR(3)    NULL,
-  UNIQUE KEY uq_result (enrollment_id, exam_type),
-  FOREIGN KEY (enrollment_id) REFERENCES enrollments(id) ON DELETE CASCADE,
-  CHECK (marks_obtained >= 0 AND marks_obtained <= max_marks)
-) ENGINE=InnoDB;
-
--- ────────────────────────────── NOTICES ────────────────────────
-CREATE TABLE notices (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  posted_by   INT           NOT NULL,
-  title       VARCHAR(200)  NOT NULL,
-  body        TEXT          NOT NULL,
-  priority    ENUM('low','normal','high') NOT NULL DEFAULT 'normal',
-  expires_on  DATE          NULL,
-  created_at  DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (posted_by) REFERENCES users(id) ON DELETE CASCADE,
-  INDEX idx_notices_created (created_at)
-) ENGINE=InnoDB;
+    USERS {
+        int id PK
+        string email UK
+        string password_hash
+        enum role "student faculty hod admin librarian"
+        enum status "active inactive suspended"
+        bool must_change_password
+    }
+    STUDENTS {
+        int id PK
+        int user_id FK
+        string roll_number
+        int department_id FK
+        int semester
+        string batch
+    }
+    FACULTY {
+        int id PK
+        int user_id FK
+        string employee_id
+        int department_id FK
+        string designation
+    }
+    DEPARTMENTS {
+        int id PK
+        string name
+        string code UK
+        int hod_id FK
+    }
+    SUBJECTS {
+        int id PK
+        int semester_id FK
+        int department_id FK
+        int faculty_id FK
+    }
 ```
 
-### 3. Seed sample data
+### 8.3 ER diagram — academic activity
 
-```sql
-INSERT INTO departments (name, code) VALUES
-  ('Computer Engineering', 'CE'),
-  ('Information Technology', 'IT'),
-  ('Electronics & Communication', 'EC');
+```mermaid
+erDiagram
+    STUDENTS ||--o{ ATTENDANCE : "has"
+    SUBJECTS ||--o{ ATTENDANCE : "tracked in"
+    FACULTY ||--o{ ATTENDANCE : "marked_by"
 
--- Password for all demo users below: Password@123
--- (hash generated with bcrypt, cost 12 - regenerate for your own setup)
-INSERT INTO users (name, email, password_hash, role) VALUES
-  ('System Admin', 'admin@example.com',   '$2b$12$replace.with.real.bcrypt.hash.admin', 'admin'),
-  ('Prof. Mehta',  'faculty@example.com', '$2b$12$replace.with.real.bcrypt.hash.fac',   'faculty'),
-  ('Dhairya Shah', 'student@example.com', '$2b$12$replace.with.real.bcrypt.hash.stu',   'student');
+    SUBJECTS ||--o{ ASSIGNMENTS : "has"
+    FACULTY ||--o{ ASSIGNMENTS : "creates"
+    ASSIGNMENTS ||--o{ SUBMISSIONS : "receives"
+    STUDENTS ||--o{ SUBMISSIONS : "submits"
+
+    SUBJECTS ||--o{ LAB_MANUALS : "has"
+    LAB_MANUALS ||--o{ LAB_SUBMISSIONS : "receives"
+    STUDENTS ||--o{ LAB_SUBMISSIONS : "submits"
+
+    SUBJECTS ||--o{ STUDY_MATERIALS : "has"
+    STUDY_MATERIALS ||--o{ MATERIAL_DOWNLOADS : "logged in"
+
+    SUBJECTS ||--o{ SYLLABUS : "described by"
+    SUBJECTS ||--o{ TIMETABLES : "scheduled in"
+    FACULTY ||--o{ TIMETABLES : "teaches in"
+
+    STUDENTS ||--o{ LEAVE_APPLICATIONS : "applies"
+    FACULTY ||--o{ LEAVE_APPLICATIONS : "level-1 review"
+    FACULTY ||--o{ LEAVE_APPLICATIONS : "HOD level-2 review"
 ```
 
-Or use the built-in script:
+### 8.4 ER diagram — exams, money, library, communication
+
+```mermaid
+erDiagram
+    STUDENTS ||--o{ UNIT_TESTS : "takes"
+    STUDENTS ||--o{ EXTERNAL_MARKS : "scores"
+    SUBJECTS ||--o{ UNIT_TESTS : "assessed in"
+    SUBJECTS ||--o{ EXTERNAL_MARKS : "assessed in"
+    STUDENTS ||--o{ RESULTS : "receives"
+    SEMESTERS ||--o{ RESULTS : "for"
+    STUDENTS ||--o{ HALL_TICKETS : "gets"
+    SEMESTERS ||--o{ HALL_TICKETS : "for"
+
+    COURSES ||--o{ FEE_STRUCTURES : "priced by"
+    FEE_STRUCTURES ||--o{ FEE_PAYMENTS : "paid via"
+    STUDENTS ||--o{ FEE_PAYMENTS : "pays"
+
+    BOOKS ||--o{ BOOK_ISSUES : "issued as"
+    STUDENTS ||--o{ BOOK_ISSUES : "borrows"
+
+    USERS ||--o{ NOTICES : "creates"
+    DEPARTMENTS ||--o{ NOTICES : "targets"
+    FACULTY ||--o{ ANNOUNCEMENTS : "creates"
+    SUBJECTS ||--o{ ANNOUNCEMENTS : "about"
+    ANNOUNCEMENTS ||--o{ ANNOUNCEMENT_READS : "tracked by"
+    USERS ||--o{ ANNOUNCEMENT_READS : "reads"
+
+    USERS ||--o{ AUDIT_LOGS : "actions logged"
+    USERS ||--o{ SYSTEM_SETTINGS : "updated_by"
+    USERS ||--o{ PASSWORD_RESETS : "requests"
+    USERS ||--o{ EMAIL_VERIFICATIONS : "verifies"
+```
+
+### 8.5 Delete behaviour (cascade rules)
+
+| Pattern | Used for | Effect |
+|---|---|---|
+| `ON DELETE CASCADE` | child rows that make no sense alone — a student's attendance, submissions, payments, a subject's assignments | Deleting the parent deletes the children |
+| `ON DELETE SET NULL` | audit-style references — `marked_by`, `reviewed_by`, `created_by`, `faculty_id` on subjects, `hod_id` on departments | Deleting the person keeps the record but clears the reference |
+
+### 8.6 Seeded system settings
+
+Stored as key/value rows in `system_settings` and editable through `GET/PUT /api/admin/settings`. Some behaviours (for example the library fine rate) are still hard-coded in PHP — see the note in [7.7](#77-library-circulation).
+
+| Key | Default |
+|---|---|
+| `college_name` | A.D. Institute of Technology (ADIT) |
+| `college_address` | ADIT Campus, Ahmedabad, Gujarat, India |
+| `college_phone` / `college_email` | placeholders in the seed file |
+| `academic_year` | 2026-27 |
+| `min_attendance_percentage` | 75 |
+| `library_fine_per_day` | 5 |
+| `max_books_issue` | 3 |
+| `book_issue_duration_days` | 14 |
+| `razorpay_key_id` | test placeholder |
+
+### 8.7 Seeded demo data
+
+`database/install.php` loads demo data and sets real bcrypt hashes. Demo accounts created:
+
+| Role | Email |
+|---|---|
+| Admin | `admin@adit.edu` |
+| HOD | `hod.ce@adit.edu` |
+| Faculty | `ravi.sharma@adit.edu`, `priya.patel@adit.edu`, `amit.trivedi@adit.edu` |
+| Librarian | `librarian@adit.edu` |
+| Students | `student01@adit.edu` … `student06@adit.edu` |
+
+> 🔐 The demo passwords are defined in `database/install.php`. **Change or delete every demo account before going live.**
+
+---
+
+
+## 9. Data Dictionary (all tables)
+
+How to read it: **PK** primary key · **auto** auto-increment · **required** `NOT NULL` · **unique** unique constraint.
+Foreign keys list their delete action (`on delete cascade` / `on delete set null`).
+
+> **39 tables.** Generated from [`database/adit_cms_complete.sql`](database/adit_cms_complete.sql).
+
+
+### `users`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `email` | `VARCHAR(255)` | required, unique |
+| `password_hash` | `VARCHAR(255)` | required |
+| `role` | `ENUM('student', 'faculty', 'hod', 'admin', 'librarian')` | required |
+| `status` | `ENUM('active', 'inactive', 'suspended')` | default 'active' |
+| `must_change_password` | `TINYINT(1)` | required, default 0 |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `updated_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Indexes / keys**
+
+- `INDEX idx_email (email)`
+- `INDEX idx_role (role)`
+- `INDEX idx_status (status)`
+
+### `departments`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `name` | `VARCHAR(100)` | required |
+| `code` | `VARCHAR(10)` | required, unique |
+| `hod_id` | `INT` | — |
+| `description` | `TEXT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `updated_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+### `courses`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `name` | `VARCHAR(150)` | required |
+| `code` | `VARCHAR(20)` | required, unique |
+| `department_id` | `INT` | required |
+| `duration_years` | `INT` | default 4 |
+| `total_semesters` | `INT` | default 8 |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `department_id` → `departments.id` on delete cascade
+
+### `semesters`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `course_id` | `INT` | required |
+| `semester_number` | `INT` | required |
+| `start_date` | `DATE` | — |
+| `end_date` | `DATE` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `course_id` → `courses.id` on delete cascade
+
+**Indexes / keys**
+
+- `UNIQUE KEY unique_semester (course_id, semester_number)`
+
+### `batches`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `name` | `VARCHAR(50)` | required |
+| `course_id` | `INT` | required |
+| `department_id` | `INT` | required |
+| `start_year` | `YEAR` | required |
+| `end_year` | `YEAR` | required |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `course_id` → `courses.id` on delete cascade
+- `department_id` → `departments.id` on delete cascade
+
+### `faculty`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `user_id` | `INT` | required |
+| `employee_id` | `VARCHAR(20)` | required, unique |
+| `first_name` | `VARCHAR(100)` | required |
+| `last_name` | `VARCHAR(100)` | required |
+| `qualification` | `VARCHAR(100)` | — |
+| `experience_years` | `INT` | default 0 |
+| `department_id` | `INT` | — |
+| `designation` | `VARCHAR(50)` | — |
+| `phone` | `VARCHAR(15)` | — |
+| `photo` | `VARCHAR(255)` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `updated_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `user_id` → `users.id` on delete cascade
+- `department_id` → `departments.id` on delete set null
+
+**Indexes / keys**
+
+- `INDEX idx_employee_id (employee_id)`
+- `INDEX idx_department (department_id)`
+
+### `librarians`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `user_id` | `INT` | required |
+| `employee_id` | `VARCHAR(20)` | required, unique |
+| `first_name` | `VARCHAR(100)` | required |
+| `last_name` | `VARCHAR(100)` | required |
+| `phone` | `VARCHAR(15)` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `updated_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `user_id` → `users.id` on delete cascade
+
+**Indexes / keys**
+
+- `UNIQUE KEY unique_user (user_id)`
+- `INDEX idx_employee_id (employee_id)`
+
+### `students`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `user_id` | `INT` | required |
+| `roll_number` | `VARCHAR(20)` | required, unique |
+| `first_name` | `VARCHAR(100)` | required |
+| `last_name` | `VARCHAR(100)` | required |
+| `dob` | `DATE` | — |
+| `gender` | `ENUM('male', 'female', 'other')` | — |
+| `phone` | `VARCHAR(15)` | — |
+| `address` | `TEXT` | — |
+| `photo` | `VARCHAR(255)` | — |
+| `department_id` | `INT` | — |
+| `semester` | `INT` | default 1 |
+| `batch` | `VARCHAR(20)` | — |
+| `admission_date` | `DATE` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `updated_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `user_id` → `users.id` on delete cascade
+- `department_id` → `departments.id` on delete set null
+
+**Indexes / keys**
+
+- `INDEX idx_roll_number (roll_number)`
+- `INDEX idx_department_semester (department_id, semester)`
+- `INDEX idx_batch (batch)`
+
+### `subjects`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `name` | `VARCHAR(150)` | required |
+| `code` | `VARCHAR(20)` | required, unique |
+| `semester_id` | `INT` | required |
+| `department_id` | `INT` | required |
+| `faculty_id` | `INT` | — |
+| `credits` | `INT` | default 3 |
+| `type` | `ENUM('theory', 'practical', 'theory_practical')` | default 'theory' |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `semester_id` → `semesters.id` on delete cascade
+- `department_id` → `departments.id` on delete cascade
+- `faculty_id` → `faculty.id` on delete set null
+
+**Indexes / keys**
+
+- `INDEX idx_code (code)`
+- `INDEX idx_semester (semester_id)`
+
+### `classrooms`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `name` | `VARCHAR(50)` | required |
+| `building` | `VARCHAR(50)` | — |
+| `floor` | `INT` | — |
+| `capacity` | `INT` | default 60 |
+| `type` | `ENUM('classroom', 'lab', 'seminar_hall')` | default 'classroom' |
+| `department_id` | `INT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `department_id` → `departments.id` on delete set null
+
+### `attendance`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `student_id` | `INT` | required |
+| `subject_id` | `INT` | required |
+| `date` | `DATE` | required |
+| `status` | `ENUM('present', 'absent', 'late')` | required |
+| `marked_by` | `INT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `student_id` → `students.id` on delete cascade
+- `subject_id` → `subjects.id` on delete cascade
+- `marked_by` → `faculty.id` on delete set null
+
+**Indexes / keys**
+
+- `UNIQUE KEY unique_attendance (student_id, subject_id, date)`
+- `INDEX idx_date (date)`
+- `INDEX idx_subject_date (subject_id, date)`
+
+### `assignments`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `title` | `VARCHAR(255)` | required |
+| `description` | `TEXT` | — |
+| `subject_id` | `INT` | required |
+| `faculty_id` | `INT` | required |
+| `deadline` | `DATETIME` | required |
+| `max_marks` | `INT` | default 100 |
+| `attachments` | `VARCHAR(500)` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `updated_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `subject_id` → `subjects.id` on delete cascade
+- `faculty_id` → `faculty.id` on delete cascade
+
+**Indexes / keys**
+
+- `INDEX idx_subject (subject_id)`
+- `INDEX idx_deadline (deadline)`
+
+### `submissions`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `assignment_id` | `INT` | required |
+| `student_id` | `INT` | required |
+| `file_path` | `VARCHAR(500)` | — |
+| `submitted_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `marks` | `INT` | — |
+| `feedback` | `TEXT` | — |
+| `status` | `ENUM('pending', 'accepted', 'rejected')` | default 'pending' |
+| `reviewed_by` | `INT` | — |
+| `reviewed_by_user` | `INT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `updated_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `assignment_id` → `assignments.id` on delete cascade
+- `student_id` → `students.id` on delete cascade
+- `reviewed_by` → `faculty.id` on delete set null
+- `reviewed_by_user` → `users.id` on delete set null
+
+**Indexes / keys**
+
+- `UNIQUE KEY unique_submission (assignment_id, student_id)`
+
+### `lab_manuals`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `title` | `VARCHAR(255)` | required |
+| `subject_id` | `INT` | required |
+| `experiment_number` | `INT` | — |
+| `description` | `TEXT` | — |
+| `faculty_id` | `INT` | required |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `subject_id` → `subjects.id` on delete cascade
+- `faculty_id` → `faculty.id` on delete cascade
+
+### `lab_submissions`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `lab_manual_id` | `INT` | required |
+| `student_id` | `INT` | required |
+| `file_path` | `VARCHAR(500)` | — |
+| `submitted_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `marks` | `INT` | — |
+| `feedback` | `TEXT` | — |
+| `status` | `ENUM('pending', 'accepted', 'rejected')` | default 'pending' |
+| `reviewed_by` | `INT` | — |
+| `reviewed_by_user` | `INT` | — |
+
+**Foreign keys**
+
+- `lab_manual_id` → `lab_manuals.id` on delete cascade
+- `student_id` → `students.id` on delete cascade
+- `reviewed_by` → `faculty.id` on delete set null
+- `reviewed_by_user` → `users.id` on delete set null
+
+**Indexes / keys**
+
+- `UNIQUE KEY unique_lab_submission (lab_manual_id, student_id)`
+
+### `study_materials`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `title` | `VARCHAR(255)` | required |
+| `description` | `TEXT` | — |
+| `subject_id` | `INT` | required |
+| `faculty_id` | `INT` | required |
+| `file_path` | `VARCHAR(500)` | — |
+| `file_type` | `ENUM('pdf', 'ppt', 'video', 'document', 'other')` | default 'pdf' |
+| `topic` | `VARCHAR(100)` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `subject_id` → `subjects.id` on delete cascade
+- `faculty_id` → `faculty.id` on delete cascade
+
+### `fee_structures`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `course_id` | `INT` | required |
+| `semester` | `INT` | required |
+| `fee_type` | `VARCHAR(50)` | required |
+| `amount` | `DECIMAL(10, 2)` | required |
+| `due_date` | `DATE` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `course_id` → `courses.id` on delete cascade
+
+**Indexes / keys**
+
+- `INDEX idx_course_semester (course_id, semester)`
+
+### `fee_payments`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `student_id` | `INT` | required |
+| `fee_structure_id` | `INT` | required |
+| `amount` | `DECIMAL(10, 2)` | required |
+| `payment_method` | `VARCHAR(50)` | default 'razorpay' |
+| `razorpay_order_id` | `VARCHAR(100)` | — |
+| `razorpay_payment_id` | `VARCHAR(100)` | — |
+| `status` | `ENUM('pending', 'completed', 'failed', 'refunded')` | default 'pending' |
+| `paid_at` | `TIMESTAMP` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `student_id` → `students.id` on delete cascade
+- `fee_structure_id` → `fee_structures.id` on delete cascade
+
+**Indexes / keys**
+
+- `INDEX idx_student (student_id)`
+- `INDEX idx_status (status)`
+- `INDEX idx_order_id (razorpay_order_id)`
+
+### `unit_tests`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `student_id` | `INT` | required |
+| `subject_id` | `INT` | required |
+| `test_number` | `INT` | required |
+| `marks_obtained` | `DECIMAL(5, 2)` | — |
+| `max_marks` | `DECIMAL(5, 2)` | default 30 |
+| `entered_by` | `INT` | — |
+| `entered_by_user` | `INT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `student_id` → `students.id` on delete cascade
+- `subject_id` → `subjects.id` on delete cascade
+- `entered_by` → `faculty.id` on delete set null
+- `entered_by_user` → `users.id` on delete set null
+
+**Indexes / keys**
+
+- `UNIQUE KEY unique_test (student_id, subject_id, test_number)`
+
+### `external_marks`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `student_id` | `INT` | required |
+| `subject_id` | `INT` | required |
+| `marks_obtained` | `DECIMAL(5, 2)` | — |
+| `max_marks` | `DECIMAL(5, 2)` | default 100 |
+| `entered_by` | `INT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `student_id` → `students.id` on delete cascade
+- `subject_id` → `subjects.id` on delete cascade
+- `entered_by` → `users.id` on delete set null
+
+**Indexes / keys**
+
+- `UNIQUE KEY unique_external (student_id, subject_id)`
+
+### `results`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `student_id` | `INT` | required |
+| `semester_id` | `INT` | required |
+| `sgpa` | `DECIMAL(4, 2)` | — |
+| `total_credits` | `DECIMAL(6, 2)` | default 0 |
+| `total_grade_points` | `DECIMAL(7, 2)` | default 0 |
+| `cgpa` | `DECIMAL(4, 2)` | — |
+| `status` | `ENUM('pass', 'fail')` | default 'pass' |
+| `published_at` | `TIMESTAMP` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `student_id` → `students.id` on delete cascade
+- `semester_id` → `semesters.id` on delete cascade
+
+**Indexes / keys**
+
+- `UNIQUE KEY unique_result (student_id, semester_id)`
+- `INDEX idx_semester (semester_id)`
+
+### `grade_definitions`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `min_marks` | `DECIMAL(5, 2)` | required |
+| `max_marks` | `DECIMAL(5, 2)` | required |
+| `grade` | `VARCHAR(5)` | required |
+| `grade_point` | `DECIMAL(3, 1)` | required |
+| `description` | `VARCHAR(50)` | — |
+
+### `hall_tickets`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `student_id` | `INT` | required |
+| `semester_id` | `INT` | required |
+| `hall_ticket_number` | `VARCHAR(50)` | required, unique |
+| `generated_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `student_id` → `students.id` on delete cascade
+- `semester_id` → `semesters.id` on delete cascade
+
+### `timetables`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `branch_id` | `INT` | required |
+| `semester` | `INT` | required |
+| `day_of_week` | `ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')` | required |
+| `period_number` | `INT` | required |
+| `subject_id` | `INT` | required |
+| `faculty_id` | `INT` | required |
+| `classroom` | `VARCHAR(50)` | required |
+| `start_time` | `TIME` | required |
+| `end_time` | `TIME` | required |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `branch_id` → `departments.id` on delete cascade
+- `subject_id` → `subjects.id` on delete cascade
+- `faculty_id` → `faculty.id` on delete cascade
+
+**Indexes / keys**
+
+- `INDEX idx_branch_semester (branch_id, semester)`
+- `INDEX idx_day (day_of_week)`
+
+### `books`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `title` | `VARCHAR(255)` | required |
+| `author` | `VARCHAR(255)` | required |
+| `isbn` | `VARCHAR(20)` | unique |
+| `publisher` | `VARCHAR(255)` | — |
+| `category` | `VARCHAR(100)` | — |
+| `total_copies` | `INT` | default 1 |
+| `available_copies` | `INT` | default 1 |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Indexes / keys**
+
+- `INDEX idx_title (title)`
+- `INDEX idx_isbn (isbn)`
+- `INDEX idx_category (category)`
+
+### `book_issues`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `book_id` | `INT` | required |
+| `student_id` | `INT` | required |
+| `issue_date` | `DATE` | required |
+| `due_date` | `DATE` | required |
+| `return_date` | `DATE` | — |
+| `fine_amount` | `DECIMAL(10, 2)` | default 0 |
+| `status` | `ENUM('issued', 'returned', 'overdue', 'fine_paid')` | default 'issued' |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `book_id` → `books.id` on delete cascade
+- `student_id` → `students.id` on delete cascade
+
+**Indexes / keys**
+
+- `INDEX idx_student (student_id)`
+- `INDEX idx_status (status)`
+- `INDEX idx_due_date (due_date)`
+
+### `notices`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `title` | `VARCHAR(255)` | required |
+| `content` | `TEXT` | required |
+| `type` | `ENUM('college', 'department', 'class')` | default 'college' |
+| `department_id` | `INT` | — |
+| `target_audience` | `ENUM('all', 'student', 'faculty', 'both')` | default 'all' |
+| `created_by` | `INT` | — |
+| `published_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+| `attachments` | `VARCHAR(500)` | — |
+
+**Foreign keys**
+
+- `department_id` → `departments.id` on delete set null
+- `created_by` → `users.id` on delete set null
+
+**Indexes / keys**
+
+- `INDEX idx_type (type)`
+- `INDEX idx_published (published_at)`
+
+### `announcements`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `title` | `VARCHAR(255)` | required |
+| `content` | `TEXT` | required |
+| `subject_id` | `INT` | — |
+| `faculty_id` | `INT` | required |
+| `class_id` | `INT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `subject_id` → `subjects.id` on delete set null
+- `faculty_id` → `faculty.id` on delete cascade
+
+**Indexes / keys**
+
+- `INDEX idx_subject (subject_id)`
+- `INDEX idx_created (created_at)`
+
+### `leave_applications`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `student_id` | `INT` | required |
+| `leave_type` | `ENUM('sick', 'personal', 'official', 'other')` | required |
+| `from_date` | `DATE` | required |
+| `to_date` | `DATE` | required |
+| `reason` | `TEXT` | required |
+| `document_path` | `VARCHAR(500)` | — |
+| `status` | `ENUM('pending', 'forwarded', 'approved', 'rejected', 'withdrawn')` | default 'pending' |
+| `faculty_reviewed_by` | `INT` | — |
+| `faculty_reviewed_by_user` | `INT` | — |
+| `faculty_reviewed_at` | `TIMESTAMP` | — |
+| `faculty_comments` | `TEXT` | — |
+| `hod_reviewed_by` | `INT` | — |
+| `hod_reviewed_by_user` | `INT` | — |
+| `hod_reviewed_at` | `TIMESTAMP` | — |
+| `hod_comments` | `TEXT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `student_id` → `students.id` on delete cascade
+- `faculty_reviewed_by` → `faculty.id` on delete set null
+- `faculty_reviewed_by_user` → `users.id` on delete set null
+- `hod_reviewed_by` → `faculty.id` on delete set null
+- `hod_reviewed_by_user` → `users.id` on delete set null
+
+**Indexes / keys**
+
+- `INDEX idx_student (student_id)`
+- `INDEX idx_status (status)`
+
+### `syllabus`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `subject_id` | `INT` | required |
+| `unit_number` | `INT` | required |
+| `unit_title` | `VARCHAR(100)` | required |
+| `topics` | `TEXT` | — |
+| `status` | `ENUM('not_started', 'in_progress', 'completed')` | default 'not_started' |
+| `uploaded_by` | `INT` | — |
+| `file_path` | `VARCHAR(500)` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `subject_id` → `subjects.id` on delete cascade
+- `uploaded_by` → `faculty.id` on delete set null
+
+**Indexes / keys**
+
+- `INDEX idx_subject (subject_id)`
+
+### `academic_calendar`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `event_title` | `VARCHAR(255)` | required |
+| `event_type` | `ENUM('exam', 'holiday', 'event', 'deadline', 'other')` | required |
+| `start_date` | `DATE` | required |
+| `end_date` | `DATE` | — |
+| `description` | `TEXT` | — |
+| `created_by` | `INT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `created_by` → `users.id` on delete set null
+
+**Indexes / keys**
+
+- `INDEX idx_dates (start_date, end_date)`
+
+### `holidays`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `name` | `VARCHAR(255)` | required |
+| `date` | `DATE` | required |
+| `type` | `ENUM('national', 'regional', 'college')` | default 'college' |
+| `created_by` | `INT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `created_by` → `users.id` on delete set null
+
+**Indexes / keys**
+
+- `INDEX idx_date (date)`
+
+### `system_settings`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `setting_key` | `VARCHAR(100)` | required, unique |
+| `setting_value` | `TEXT` | — |
+| `updated_by` | `INT` | — |
+| `updated_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `updated_by` → `users.id` on delete set null
+
+### `audit_logs`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `user_id` | `INT` | — |
+| `action` | `VARCHAR(50)` | required |
+| `table_name` | `VARCHAR(50)` | — |
+| `record_id` | `INT` | — |
+| `old_value` | `JSON` | — |
+| `new_value` | `JSON` | — |
+| `ip_address` | `VARCHAR(45)` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `user_id` → `users.id` on delete set null
+
+**Indexes / keys**
+
+- `INDEX idx_user (user_id)`
+- `INDEX idx_action (action)`
+- `INDEX idx_created (created_at)`
+
+### `system_backups`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `filename` | `VARCHAR(255)` | required |
+| `file_path` | `VARCHAR(500)` | required |
+| `size` | `BIGINT` | — |
+| `created_by` | `INT` | — |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `created_by` → `users.id` on delete set null
+
+### `password_resets`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `user_id` | `INT` | required |
+| `token` | `VARCHAR(64)` | required |
+| `expires_at` | `DATETIME` | required |
+| `used` | `TINYINT(1)` | default 0 |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `user_id` → `users.id` on delete cascade
+
+**Indexes / keys**
+
+- `INDEX idx_token (token)`
+- `INDEX idx_user_id (user_id)`
+
+### `email_verifications`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `user_id` | `INT` | required |
+| `token` | `VARCHAR(64)` | required |
+| `expires_at` | `DATETIME` | required |
+| `verified` | `TINYINT(1)` | default 0 |
+| `created_at` | `TIMESTAMP` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `user_id` → `users.id` on delete cascade
+
+**Indexes / keys**
+
+- `INDEX idx_token (token)`
+- `INDEX idx_user_id (user_id)`
+
+### `material_downloads`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `material_id` | `INT` | required |
+| `user_id` | `INT` | required |
+| `downloaded_at` | `DATETIME` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `material_id` → `study_materials.id` on delete cascade
+
+**Indexes / keys**
+
+- `INDEX idx_material (material_id)`
+
+### `announcement_reads`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `INT` | PK, auto |
+| `announcement_id` | `INT` | required |
+| `user_id` | `INT` | required |
+| `read_at` | `DATETIME` | default CURRENT_TIMESTAMP |
+
+**Foreign keys**
+
+- `announcement_id` → `announcements.id` on delete cascade
+
+**Indexes / keys**
+
+- `UNIQUE KEY unique_read (announcement_id, user_id)`
+- `INDEX idx_announcement (announcement_id)`
+
+
+---
+
+## 10. API Reference
+
+### 10.1 Base URL & conventions
+
+| Item | Value |
+|---|---|
+| Base URL (production) | `https://adit.shahdhairyah.in/api` |
+| Base URL (local) | `http://localhost/api` (or wherever Apache serves the project root) |
+| Format | JSON in, JSON out (`Content-Type: application/json; charset=UTF-8`) — file endpoints use `multipart/form-data` |
+| Auth | `Authorization: Bearer <JWT>` on every protected route |
+| CORS | Origin must be in `CORS_ORIGINS`; allowed methods `GET POST PUT PATCH DELETE OPTIONS` |
+| Preflight | `OPTIONS` is answered with `204` and cached for 86 400 s |
+| Route params | `:id` in this document = a numeric path segment (matched by `([^/]+)` in the router) |
+
+Set two shell variables to try the examples below:
 
 ```bash
-npm run db:migrate
-npm run db:seed
+export API="http://localhost/api"
+export TOKEN="paste-the-jwt-from-/auth/login-here"
 ```
 
-### Demo Credentials
-
-| Role    | Email                  | Password       |
-|---------|------------------------|----------------|
-| Admin   | `admin@example.com`    | `Password@123` |
-| Faculty | `faculty@example.com`  | `Password@123` |
-| Student | `student@example.com`  | `Password@123` |
-
-> ⚠️ **Change or delete these accounts before deploying to production.**
-
----
-
-## 📁 Project Structure
-
-```text
-ADITCMS/
-│
-├── client/                          # Frontend application
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── assets/                  # Images, icons, fonts
-│   │   ├── components/              # Reusable UI components
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── Sidebar.jsx
-│   │   │   ├── DataTable.jsx
-│   │   │   └── ProtectedRoute.jsx
-│   │   ├── pages/
-│   │   │   ├── Login.jsx
-│   │   │   ├── admin/
-│   │   │   ├── faculty/
-│   │   │   └── student/
-│   │   ├── services/
-│   │   │   └── api.js               # Axios instance + interceptors
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx
-│   │   ├── App.jsx
-│   │   └── index.js
-│   └── package.json
-│
-├── server/                          # Backend application
-│   ├── src/
-│   │   ├── config/
-│   │   │   ├── db.js                # MySQL connection pool
-│   │   │   └── env.js               # Validated environment variables
-│   │   ├── controllers/
-│   │   │   ├── auth.controller.js
-│   │   │   ├── user.controller.js
-│   │   │   ├── course.controller.js
-│   │   │   ├── attendance.controller.js
-│   │   │   ├── result.controller.js
-│   │   │   └── notice.controller.js
-│   │   ├── middleware/
-│   │   │   ├── authenticate.js      # JWT verification
-│   │   │   ├── authorize.js         # Role check
-│   │   │   ├── validate.js          # Request validation
-│   │   │   ├── rateLimiter.js
-│   │   │   └── errorHandler.js      # Centralized error handling
-│   │   ├── models/
-│   │   │   ├── user.model.js
-│   │   │   ├── course.model.js
-│   │   │   ├── attendance.model.js
-│   │   │   └── result.model.js
-│   │   ├── routes/
-│   │   │   ├── index.js
-│   │   │   ├── auth.routes.js
-│   │   │   ├── user.routes.js
-│   │   │   ├── course.routes.js
-│   │   │   ├── attendance.routes.js
-│   │   │   ├── result.routes.js
-│   │   │   └── notice.routes.js
-│   │   ├── services/
-│   │   │   ├── auth.service.js
-│   │   │   ├── grade.service.js     # Grade + CGPA logic
-│   │   │   └── attendance.service.js
-│   │   ├── utils/
-│   │   │   ├── ApiError.js
-│   │   │   ├── asyncHandler.js
-│   │   │   └── logger.js
-│   │   ├── app.js                   # Express app setup
-│   │   └── server.js                # Entry point
-│   ├── database/
-│   │   ├── schema.sql
-│   │   └── seed.sql
-│   ├── tests/
-│   │   ├── auth.test.js
-│   │   ├── attendance.test.js
-│   │   └── grade.service.test.js
-│   ├── uploads/                     # User-uploaded files (gitignored)
-│   ├── .env.example
-│   └── package.json
-│
-├── docs/
-│   ├── screenshots/
-│   └── postman/
-│       └── ADITCMS.postman_collection.json
-│
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-│
-├── docker-compose.yml
-├── Dockerfile
-├── .gitignore
-├── LICENSE
-├── CONTRIBUTING.md
-└── README.md
-```
-
----
-
-## 📡 API Documentation
-
-**Base URL:** `http://localhost:5000/api`
-
-All endpoints return JSON. Protected endpoints require the header:
-
-```http
-Authorization: Bearer <your_jwt_token>
-```
-
-### Standard Response Format
+### 10.2 Response envelope
 
 **Success**
 
 ```json
 {
   "success": true,
-  "message": "Operation completed successfully",
+  "message": "Success",
   "data": { }
 }
 ```
+
+**Paginated list**
+
+```json
+{
+  "success": true,
+  "data": [ ],
+  "pagination": {
+    "total": 125,
+    "page": 2,
+    "page_size": 20,
+    "total_pages": 7
+  }
+}
+```
+
+Query parameters: `?page=2&page_size=20` (`per_page` is accepted as an alias). Invalid or negative values fall back to
+safe defaults; `page_size` is capped by `MAX_PAGE_SIZE` when defined.
 
 **Error**
 
 ```json
 {
   "success": false,
-  "message": "Human-readable error message",
-  "errors": [
-    { "field": "email", "message": "Must be a valid email address" }
-  ]
+  "message": "Validation failed",
+  "errors": {
+    "email": ["Email is required"]
+  }
 }
 ```
 
-### HTTP Status Codes
+### 10.3 Validation rules available
 
-| Code | Meaning               | When it is used                               |
-|------|-----------------------|-----------------------------------------------|
-| 200  | OK                    | Request succeeded                             |
-| 201  | Created               | Resource created                              |
-| 400  | Bad Request           | Validation failed                             |
-| 401  | Unauthorized          | Missing or invalid token                      |
-| 403  | Forbidden             | Authenticated but not allowed                 |
-| 404  | Not Found             | Resource does not exist                       |
-| 409  | Conflict              | Duplicate record (e.g., email already exists) |
-| 429  | Too Many Requests     | Rate limit exceeded                           |
-| 500  | Internal Server Error | Unexpected server error                       |
+The `Validation::validate($data, $rules)` helper accepts pipe-separated rule strings.
 
-### Endpoint Overview
+| Rule | Meaning | Example |
+|---|---|---|
+| `required` | Must be present and non-empty | `required` |
+| `nullable` | Empty allowed, other rules skipped when empty | `nullable\|max:20` |
+| `string` / `integer` / `numeric` | Type checks | `numeric` |
+| `min:n` / `max:n` | Length (or size) bounds | `min:8`, `max:255` |
+| `in:a,b,c` | Value must be one of the list | `in:present,absent,late` |
+| `date` | Parseable date | `required\|date` |
+| `after_or_equal:field` | Date not before another field | — |
+| `phone` | Phone number format | — |
+| `enum` | Only letters, digits, `_` and `-` | — |
+| `password` | ≥ 8 chars with an uppercase letter, a lowercase letter and a digit | — |
 
-| Module      | Method | Endpoint                          | Access           |
-|-------------|--------|-----------------------------------|------------------|
-| Auth        | POST   | `/auth/login`                     | Public           |
-| Auth        | POST   | `/auth/change-password`           | Authenticated    |
-| Auth        | GET    | `/auth/me`                        | Authenticated    |
-| Users       | GET    | `/users`                          | Admin            |
-| Users       | POST   | `/users`                          | Admin            |
-| Users       | GET    | `/users/:id`                      | Admin            |
-| Users       | PUT    | `/users/:id`                      | Admin            |
-| Users       | DELETE | `/users/:id`                      | Admin            |
-| Departments | GET    | `/departments`                    | Authenticated    |
-| Departments | POST   | `/departments`                    | Admin            |
-| Courses     | GET    | `/courses`                        | Authenticated    |
-| Courses     | POST   | `/courses`                        | Admin            |
-| Courses     | PUT    | `/courses/:id`                    | Admin            |
-| Courses     | DELETE | `/courses/:id`                    | Admin            |
-| Enrollments | POST   | `/enrollments`                    | Admin            |
-| Attendance  | POST   | `/attendance`                     | Faculty          |
-| Attendance  | GET    | `/attendance/me`                  | Student          |
-| Attendance  | GET    | `/attendance/course/:courseId`    | Faculty, Admin   |
-| Results     | POST   | `/results`                        | Faculty          |
-| Results     | GET    | `/results/me`                     | Student          |
-| Notices     | GET    | `/notices`                        | Authenticated    |
-| Notices     | POST   | `/notices`                        | Admin, Faculty   |
-| Notices     | DELETE | `/notices/:id`                    | Admin, Owner     |
-| Health      | GET    | `/health`                         | Public           |
+> ⚠️ **Known gap:** several controllers pass `'email' => 'required|email'`, but `Validation::validate()` has no `email`
+> case and no default branch, so an unrecognised rule is silently ignored — only the `required` part is enforced today.
+> Adding a `case 'email': filter_var($value, FILTER_VALIDATE_EMAIL)` branch would close this.
 
----
+### 10.4 Status codes
 
-### 🔐 Authentication
+| Code | When |
+|--:|---|
+| `200` | OK |
+| `201` | Created (e.g. new book, notice) |
+| `204` | CORS preflight |
+| `400` | Bad request / business-rule failure (e.g. `Payment verification failed`) |
+| `401` | No token, invalid/expired token, inactive account |
+| `403` | Wrong role, scope violation, or password change pending |
+| `404` | Unknown route (`API endpoint not found: METHOD /uri`) or record |
+| `410` | Legacy script permanently disabled |
+| `422` | Validation failed |
+| `500` | Server error (details hidden in production) |
 
-#### `POST /auth/login`
+### 10.5 Worked examples
 
-Authenticate a user and receive a JWT.
-
-**Request Body**
-
-| Field      | Type   | Required | Rules                    |
-|------------|--------|----------|--------------------------|
-| `email`    | string | Yes      | Valid email              |
-| `password` | string | Yes      | Minimum 8 characters     |
-
-**Example Request**
+#### Login
 
 ```bash
-curl -X POST http://localhost:5000/api/auth/login \
+curl -X POST "$API/auth/login" \
   -H "Content-Type: application/json" \
-  -d '{
-    "email": "student@example.com",
-    "password": "Password@123"
-  }'
+  -d '{ "email": "student01@adit.edu", "password": "<your password>" }'
 ```
-
-**Success Response — `200 OK`**
 
 ```json
 {
   "success": true,
   "message": "Login successful",
   "data": {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "expiresIn": "1d",
-    "user": {
-      "id": 3,
-      "name": "Dhairya Shah",
-      "email": "student@example.com",
-      "role": "student"
-    }
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9…",
+    "user": { "id": 7, "email": "student01@adit.edu", "role": "student" },
+    "must_change_password": false
   }
 }
 ```
 
-**Error Response — `401 Unauthorized`**
+If `must_change_password` is `true`, the frontend sends the user to `/change-password`; every other endpoint answers `403`
+until the password is changed.
 
-```json
-{
-  "success": false,
-  "message": "Invalid email or password"
-}
-```
-
-**Error Response — `429 Too Many Requests`**
-
-```json
-{
-  "success": false,
-  "message": "Too many login attempts. Please try again in 15 minutes."
-}
-```
-
----
-
-#### `GET /auth/me`
-
-Return the currently authenticated user.
+#### Who am I?
 
 ```bash
-curl http://localhost:5000/api/auth/me \
-  -H "Authorization: Bearer <token>"
+curl "$API/auth/me" -H "Authorization: Bearer $TOKEN"
 ```
 
-**Response — `200 OK`**
+Returns `id`, `email`, `role`, `status`, `created_at`, `must_change_password` and a `profile` object (the student row for
+students, the faculty row for faculty/HOD).
 
-```json
-{
-  "success": true,
-  "data": {
-    "id": 3,
-    "name": "Dhairya Shah",
-    "email": "student@example.com",
-    "role": "student",
-    "profile": {
-      "enrollmentNo": "23CE001",
-      "department": "Computer Engineering",
-      "semester": 5
-    }
-  }
-}
-```
-
----
-
-#### `POST /auth/change-password`
+#### Change password
 
 ```bash
-curl -X POST http://localhost:5000/api/auth/change-password \
-  -H "Authorization: Bearer <token>" \
+curl -X POST "$API/auth/change-password" \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{ "current_password": "old-password", "new_password": "NewStrongPass1" }'
+```
+
+`new_password` must be at least 8 characters.
+
+#### Forgot / reset password
+
+```bash
+curl -X POST "$API/auth/forgot-password" -H "Content-Type: application/json" \
+  -d '{ "email": "student01@adit.edu" }'
+
+curl -X POST "$API/auth/reset-password" -H "Content-Type: application/json" \
+  -d '{ "token": "<token from email>", "password": "NewStrongPass1" }'
+```
+
+#### Update own profile
+
+```bash
+curl -X PUT "$API/auth/profile" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" -d '{ "phone": "9876543210", "address": "Anand, Gujarat" }'
+```
+
+Editable fields are an **allow-list per role** — students: `phone`, `address`, `photo`; faculty/HOD additionally
+`qualification`, `designation`, `specialization`. Anything else is silently dropped, so a student cannot rewrite their own
+`semester` (which would change their subjects, fees and results).
+
+#### Mark attendance in bulk (faculty)
+
+```bash
+curl -X POST "$API/attendance/mark" \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{
+        "subject_id": 3,
+        "date": "2026-10-02",
+        "records": [
+          { "student_id": 1, "status": "present" },
+          { "student_id": 2, "status": "absent"  },
+          { "student_id": 3, "status": "late"    }
+        ]
+      }'
+```
+
+`status` ∈ `present | absent | late`. The faculty member must teach the subject.
+
+#### Correct one attendance record
+
+```bash
+curl -X PUT "$API/attendance/42" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" -d '{ "status": "present" }'
+```
+
+#### Student attendance summary & calendar
+
+```bash
+curl "$API/attendance/student/1/summary"  -H "Authorization: Bearer $TOKEN"
+curl "$API/attendance/student/1/calendar" -H "Authorization: Bearer $TOKEN"
+```
+
+#### Create an assignment (faculty)
+
+```bash
+curl -X POST "$API/assignments" -H "Authorization: Bearer $TOKEN" \
+  -F "title=DBMS Assignment 1" \
+  -F "subject_id=3" \
+  -F "deadline=2026-10-20" \
+  -F "file=@assignment1.pdf"
+```
+
+Required: `title` (≤ 255), `subject_id` (numeric), `deadline` (date).
+
+#### Submit an assignment (student)
+
+```bash
+curl -X POST "$API/assignments/5/submit" -H "Authorization: Bearer $TOKEN" \
+  -F "file=@my-solution.pdf"
+```
+
+#### Review a submission (faculty)
+
+```bash
+curl -X PUT "$API/assignments/submissions/12/review" \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{ "marks": 18, "status": "accepted" }'
+```
+
+`status` ∈ `accepted | rejected`; `marks` numeric.
+
+#### Apply for leave (student)
+
+```bash
+curl -X POST "$API/leave-applications" -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "currentPassword": "Password@123",
-    "newPassword": "NewStrong@456"
-  }'
+        "leave_type": "sick",
+        "from_date": "2026-10-05",
+        "to_date":   "2026-10-07",
+        "reason":    "Viral fever, doctor advised rest."
+      }'
 ```
 
-**Response — `200 OK`**
+`leave_type` ∈ `sick | personal | official | other`; `reason` at least 10 characters.
 
-```json
-{
-  "success": true,
-  "message": "Password updated successfully"
-}
+#### Review leave
+
+```bash
+# Faculty — first level
+curl -X PUT "$API/leave-applications/9" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" -d '{ "action": "forward", "comments": "Genuine." }'
+
+# HOD — final level
+curl -X PUT "$API/leave-applications/9" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" -d '{ "action": "approve", "comments": "Approved." }'
 ```
+
+Faculty `action` ∈ `forward | reject`; HOD `action` ∈ `approve | reject`; `comments` ≤ 1000 chars.
+
+#### Withdraw leave (student)
+
+```bash
+curl -X PUT "$API/leave-applications/9/withdraw" -H "Authorization: Bearer $TOKEN"
+```
+
+#### Create a fee structure (admin / HOD)
+
+```bash
+curl -X POST "$API/fees/structure" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{ "course_id": 1, "semester": 3, "fee_type": "Tuition", "amount": 45000 }'
+```
+
+#### Pay a fee (student) — two calls around Razorpay Checkout
+
+```bash
+# 1) create a Razorpay order for a fee structure
+curl -X POST "$API/fees/create-order" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" -d '{ "fee_structure_id": 4 }'
+
+# 2) after Checkout succeeds, verify the signature
+curl -X POST "$API/fees/verify-payment" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "razorpay_order_id":   "order_XXXXXXXX",
+        "razorpay_payment_id": "pay_XXXXXXXX",
+        "razorpay_signature":  "<hex signature from Checkout>"
+      }'
+```
+
+#### Library
+
+```bash
+# add a book (librarian/admin)
+curl -X POST "$API/library/books" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{ "title": "Database System Concepts", "author": "Silberschatz", "total_copies": 5 }'
+
+# issue / return
+curl -X POST "$API/library/issue"  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" -d '{ "book_id": 1, "student_id": 1 }'
+curl -X POST "$API/library/return" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" -d '{ "issue_id": 1 }'
+```
+
+#### Publish a notice
+
+```bash
+curl -X POST "$API/notices" -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{ "title": "Mid-sem schedule", "content": "Mid-semester exams start 15 Oct." }'
+```
+
+`title` (≤ 255) and `content` are required. The table also supports `type` (`college | department | class`) and
+`target_audience` (`all | student | faculty | both`).
+
+#### Add a timetable entry
+
+Required fields: `day_of_week` (`Monday`…`Saturday`), `period_number`, `classroom`, `start_time`, `end_time` — plus the
+subject / faculty / semester columns documented in the [`timetables`](#timetables) table.
+
+#### Download a study material
+
+```bash
+# with a session token
+curl -L "$API/materials/12/download" -H "Authorization: Bearer $TOKEN" -o material.pdf
+
+# or with a short-lived signed link (valid ~5 minutes) — only if your code mints one via DownloadToken::issue()
+curl -L "$API/materials/12/download?dl_token=<signed token>" -o material.pdf
+```
+
+### 10.6 Access matrix by endpoint group
+
+See the generated matrix in [6.5](#65-endpoint-access-matrix-generated-from-the-route-table).
+
+### 10.7 Complete endpoint list
+
+> **145 endpoints** across **24 groups**. Source of truth: [`api/routes/api.php`](api/routes/api.php).
+
+**Legend:** 🌐 public · 🔒 any logged-in user · 🔑 role-restricted
+
+
+### Auth routes (public)
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `POST` | `/api/auth/register` | 🌐 public | `AuthController::register()` |
+| `POST` | `/api/auth/login` | 🌐 public | `AuthController::login()` |
+| `POST` | `/api/auth/forgot-password` | 🌐 public | `AuthController::forgotPassword()` |
+| `POST` | `/api/auth/reset-password` | 🌐 public | `AuthController::resetPassword()` |
+| `GET` | `/api/auth/verify-email` | 🌐 public | `AuthController::verifyEmail()` |
+
+### Auth routes (protected)
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/auth/me` | 🔒 any role | `AuthController::me()` |
+| `POST` | `/api/auth/logout` | 🔒 any role | `AuthController::logout()` |
+| `PUT` | `/api/auth/profile` | 🔒 any role | `AuthController::updateProfile()` |
+| `POST` | `/api/auth/change-password` | 🔒 any role | `AuthController::changePassword()` |
+
+### Public data routes (for registration form)
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/departments` | 🌐 public | `DepartmentController::publicIndex()` |
+| `GET` | `/api/public/stats` | 🌐 public | `PublicController::stats()` |
+
+### Department routes (protected)
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/departments/manage` | 🔑 `admin`, `hod` | `DepartmentController::index()` |
+| `GET` | `/api/departments/:id` | 🔑 `admin`, `hod` | `DepartmentController::show()` |
+| `POST` | `/api/departments` | 🔑 `admin` | `DepartmentController::store()` |
+| `PUT` | `/api/departments/:id` | 🔑 `admin` | `DepartmentController::update()` |
+| `DELETE` | `/api/departments/:id` | 🔑 `admin` | `DepartmentController::destroy()` |
+
+### Course routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/courses` | 🔒 any role | `CourseController::index()` |
+| `GET` | `/api/courses/subjects` | 🔒 any role | `CourseController::subjects()` |
+
+### Classroom routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/classrooms` | 🔒 any role | `ClassroomController::index()` |
+| `POST` | `/api/classrooms` | 🔑 `admin` | `ClassroomController::store()` |
+| `PUT` | `/api/classrooms/:id` | 🔑 `admin` | `ClassroomController::update()` |
+| `DELETE` | `/api/classrooms/:id` | 🔑 `admin` | `ClassroomController::destroy()` |
+
+### Student routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/students` | 🔑 `admin`, `hod`, `faculty` | `StudentController::index()` |
+| `POST` | `/api/students/:id/photo` | 🔒 any role | `StudentController::uploadPhoto()` |
+| `GET` | `/api/students/:id` | 🔒 any role | `StudentController::show()` |
+| `POST` | `/api/students` | 🔑 `admin` | `StudentController::store()` |
+| `PUT` | `/api/students/:id` | 🔑 `admin`, `student` | `StudentController::update()` |
+| `DELETE` | `/api/students/:id` | 🔑 `admin` | `StudentController::destroy()` |
+
+### Faculty routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/faculty/subjects` | 🔑 `faculty`, `hod`, `admin` | `FacultyController::subjects()` |
+| `GET` | `/api/faculty/assigned-classes` | 🔑 `faculty` | `FacultyController::assignedClasses()` |
+| `GET` | `/api/faculty` | 🔑 `admin`, `hod` | `FacultyController::index()` |
+| `GET` | `/api/faculty/:id` | 🔒 any role | `FacultyController::show()` |
+| `POST` | `/api/faculty` | 🔑 `admin` | `FacultyController::store()` |
+| `PUT` | `/api/faculty/:id` | 🔑 `admin`, `faculty` | `FacultyController::update()` |
+| `DELETE` | `/api/faculty/:id` | 🔑 `admin` | `FacultyController::destroy()` |
+
+### Attendance routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `POST` | `/api/attendance/mark` | 🔑 `faculty`, `hod`, `admin` | `AttendanceController::mark()` |
+| `PUT` | `/api/attendance/:id` | 🔑 `faculty`, `hod`, `admin` | `AttendanceController::update()` |
+| `GET` | `/api/attendance` | 🔒 any role | `AttendanceController::index()` |
+| `GET` | `/api/attendance/report` | 🔑 `faculty`, `hod`, `admin` | `AttendanceController::report()` |
+| `GET` | `/api/attendance/student/:id/summary` | 🔒 any role | `AttendanceController::getStudentSummary()` |
+| `GET` | `/api/attendance/student/:id/calendar` | 🔒 any role | `AttendanceController::getStudentCalendar()` |
+| `GET` | `/api/attendance/calendar` | 🔒 any role | `AttendanceController::calendar()` |
+
+### Assignment routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/assignments` | 🔒 any role | `AssignmentController::index()` |
+| `POST` | `/api/assignments` | 🔑 `faculty`, `hod`, `admin` | `AssignmentController::store()` |
+| `PUT` | `/api/assignments/:id` | 🔑 `faculty`, `admin` | `AssignmentController::update()` |
+| `DELETE` | `/api/assignments/:id` | 🔑 `faculty`, `admin` | `AssignmentController::destroy()` |
+| `POST` | `/api/assignments/:id/submit` | 🔑 `student` | `AssignmentController::submit()` |
+| `GET` | `/api/assignments/:id/submissions` | 🔑 `faculty`, `admin` | `AssignmentController::submissions()` |
+| `GET` | `/api/assignments/submissions/:id` | 🔒 any role | `AssignmentController::studentSubmissions()` |
+| `PUT` | `/api/assignments/submissions/:id/review` | 🔑 `faculty`, `admin` | `AssignmentController::reviewSubmission()` |
+
+### Fee routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/fees/structure` | 🔒 any role | `FeeController::getStructure()` |
+| `POST` | `/api/fees/structure` | 🔑 `admin`, `hod` | `FeeController::createStructure()` |
+| `PUT` | `/api/fees/structure/:id` | 🔑 `admin`, `hod` | `FeeController::updateStructure()` |
+| `DELETE` | `/api/fees/structure/:id` | 🔑 `admin` | `FeeController::deleteStructure()` |
+| `POST` | `/api/fees/create-order` | 🔑 `student` | `FeeController::createOrder()` |
+| `POST` | `/api/fees/verify-payment` | 🔑 `student` | `FeeController::verifyPayment()` |
+| `GET` | `/api/fees/payments/:id` | 🔒 any role | `FeeController::getPayments()` |
+| `GET` | `/api/fees/receipt/:id` | 🔒 any role | `FeeController::getReceipt()` |
+| `GET` | `/api/fees/receipt/:id/download` | 🔒 any role | `FeeController::downloadReceipt()` |
+| `GET` | `/api/fees/all-payments` | 🔑 `admin` | `FeeController::getAllPayments()` |
+| `GET` | `/api/fees/all-structures` | 🔑 `admin`, `hod` | `FeeController::getAllStructures()` |
+| `GET` | `/api/fees/reports` | 🔑 `admin` | `FeeController::getFeeReport()` |
+
+### Library routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/library/books` | 🔒 any role | `LibraryController::getBooks()` |
+| `POST` | `/api/library/books` | 🔑 `admin`, `librarian` | `LibraryController::addBook()` |
+| `POST` | `/api/library/issue` | 🔑 `admin`, `librarian` | `LibraryController::issueBook()` |
+| `POST` | `/api/library/return` | 🔑 `admin`, `librarian` | `LibraryController::returnBook()` |
+| `GET` | `/api/library/history/:id` | 🔒 any role | `LibraryController::getHistory()` |
+| `GET` | `/api/library/fines/:id` | 🔒 any role | `LibraryController::getFines()` |
+
+### Marks routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/marks` | 🔒 any role | `ExamController::getResults()` |
+| `POST` | `/api/marks/internal` | 🔑 `faculty`, `admin` | `ExamController::enterInternalMarks()` |
+| `PUT` | `/api/marks/internal/:id` | 🔑 `faculty`, `admin` | `ExamController::updateInternalMarks()` |
+
+### Exam routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `POST` | `/api/exams/internal-marks` | 🔑 `faculty`, `admin` | `ExamController::enterInternalMarks()` |
+| `POST` | `/api/exams/external-marks` | 🔑 `admin`, `faculty` | `ExamController::enterExternalMarks()` |
+| `GET` | `/api/exams/results` | 🔒 any role | `ExamController::getResults()` |
+| `GET` | `/api/exams/performance` | 🔑 `faculty`, `hod`, `admin` | `ExamController::getClassPerformance()` |
+| `GET` | `/api/exams/hall-ticket/:id` | 🔑 `student`, `admin` | `ExamController::getHallTicket()` |
+| `POST` | `/api/exams/publish-results` | 🔑 `admin` | `ExamController::publishResults()` |
+| `GET` | `/api/exams/analytics/:id` | 🔑 `faculty`, `hod`, `admin` | `ExamController::getPerformanceAnalytics()` |
+
+### Timetable routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/timetable` | 🔒 any role | `TimetableController::index()` |
+| `POST` | `/api/timetable` | 🔑 `admin`, `hod` | `TimetableController::store()` |
+| `PUT` | `/api/timetable/:id` | 🔑 `admin`, `hod` | `TimetableController::update()` |
+| `DELETE` | `/api/timetable/:id` | 🔑 `admin`, `hod` | `TimetableController::destroy()` |
+
+### Notice routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/notices` | 🔒 any role | `NoticeController::index()` |
+| `POST` | `/api/notices` | 🔑 `admin`, `hod`, `faculty` | `NoticeController::store()` |
+| `PUT` | `/api/notices/:id` | 🔑 `admin`, `hod` | `NoticeController::update()` |
+| `DELETE` | `/api/notices/:id` | 🔑 `admin` | `NoticeController::destroy()` |
+
+### Leave Application routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/leave-applications` | 🔒 any role | `LeaveApplicationController::index()` |
+| `POST` | `/api/leave-applications` | 🔑 `student` | `LeaveApplicationController::store()` |
+| `PUT` | `/api/leave-applications/:id` | 🔑 `faculty`, `hod`, `admin` | `LeaveApplicationController::update()` |
+| `PUT` | `/api/leave-applications/:id/withdraw` | 🔑 `student` | `LeaveApplicationController::withdraw()` |
+| `GET` | `/api/leave-applications/:id/document` | 🔒 any role | `LeaveApplicationController::getDocument()` |
+
+### Lab Manual routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/lab-manuals` | 🔒 any role | `LabManualController::index()` |
+| `POST` | `/api/lab-manuals` | 🔑 `faculty`, `hod`, `admin` | `LabManualController::store()` |
+| `PUT` | `/api/lab-manuals/:id` | 🔑 `faculty`, `admin` | `LabManualController::update()` |
+| `DELETE` | `/api/lab-manuals/:id` | 🔑 `faculty`, `admin` | `LabManualController::destroy()` |
+| `POST` | `/api/lab-manuals/:id/submit` | 🔑 `student` | `LabManualController::submit()` |
+| `GET` | `/api/lab-manuals/:id/submissions` | 🔑 `faculty`, `admin` | `LabManualController::submissions()` |
+| `PUT` | `/api/lab-manuals/submissions/:id/review` | 🔑 `faculty`, `admin` | `LabManualController::reviewSubmission()` |
+
+### Study Material routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/materials` | 🔒 any role | `StudyMaterialController::index()` |
+| `POST` | `/api/materials` | 🔑 `faculty`, `hod`, `admin` | `StudyMaterialController::store()` |
+| `PUT` | `/api/materials/:id` | 🔑 `faculty`, `admin` | `StudyMaterialController::update()` |
+| `DELETE` | `/api/materials/:id` | 🔑 `faculty`, `admin` | `StudyMaterialController::destroy()` |
+| `GET` | `/api/materials/:id/download` | 🌐 public | `StudyMaterialController::download()` |
+
+### Syllabus routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/syllabus` | 🔒 any role | `SyllabusController::index()` |
+| `POST` | `/api/syllabus` | 🔑 `faculty`, `hod`, `admin` | `SyllabusController::store()` |
+| `PUT` | `/api/syllabus/:id` | 🔑 `faculty`, `admin` | `SyllabusController::update()` |
+| `DELETE` | `/api/syllabus/:id` | 🔑 `faculty`, `admin` | `SyllabusController::destroy()` |
+| `GET` | `/api/syllabus/subject/:id` | 🔒 any role | `SyllabusController::getBySubject()` |
+| `GET` | `/api/syllabus/:id` | 🔒 any role | `SyllabusController::show()` |
+
+### Announcement routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/announcements` | 🔒 any role | `AnnouncementController::index()` |
+| `POST` | `/api/announcements` | 🔑 `faculty`, `hod`, `admin` | `AnnouncementController::store()` |
+| `PUT` | `/api/announcements/:id` | 🔑 `faculty`, `admin` | `AnnouncementController::update()` |
+| `DELETE` | `/api/announcements/:id` | 🔑 `faculty`, `admin` | `AnnouncementController::destroy()` |
+| `POST` | `/api/announcements/:id/read` | 🔒 any role | `AnnouncementController::markRead()` |
+| `GET` | `/api/announcements/:id/reads` | 🔑 `faculty`, `hod`, `admin` | `AnnouncementController::readStatus()` |
+
+### Student-specific routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/exams/student-marks` | 🔑 `student` | `ExamController::getStudentMarks()` |
+| `GET` | `/api/lab-manuals/student-submissions` | 🔑 `student` | `LabManualController::studentSubmissions()` |
+| `GET` | `/api/notices/student` | 🔑 `student` | `NoticeController::studentNotices()` |
+
+### HOD routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/hod/dashboard` | 🔑 `hod` | `HODController::dashboard()` |
+| `GET` | `/api/hod/students` | 🔑 `hod` | `HODController::getDepartmentStudents()` |
+| `GET` | `/api/hod/faculty` | 🔑 `hod` | `HODController::getDepartmentFaculty()` |
+| `GET` | `/api/hod/subjects` | 🔑 `hod` | `HODController::getDepartmentSubjects()` |
+| `GET` | `/api/hod/faculty-load` | 🔑 `hod` | `HODController::getFacultyLoad()` |
+| `GET` | `/api/hod/fee-report` | 🔑 `hod` | `HODController::getFeeReport()` |
+| `GET` | `/api/hod/timetable` | 🔑 `hod` | `HODController::getDepartmentTimetable()` |
+| `POST` | `/api/hod/add-student` | 🔑 `hod` | `HODController::addStudent()` |
+| `POST` | `/api/hod/add-faculty` | 🔑 `hod` | `HODController::addFaculty()` |
+| `POST` | `/api/hod/add-subject` | 🔑 `hod` | `HODController::addSubject()` |
+| `PUT` | `/api/hod/update-subject/:id` | 🔑 `hod` | `HODController::updateSubject()` |
+| `DELETE` | `/api/hod/delete-subject/:id` | 🔑 `hod` | `HODController::deleteSubject()` |
+| `PUT` | `/api/hod/assign-faculty/:id` | 🔑 `hod` | `HODController::assignSubjectFaculty()` |
+| `GET` | `/api/hod/classrooms` | 🔑 `hod` | `HODController::getDepartmentClassrooms()` |
+| `POST` | `/api/hod/add-classroom` | 🔑 `hod` | `HODController::addClassroom()` |
+| `PUT` | `/api/hod/update-classroom/:id` | 🔑 `hod` | `HODController::updateClassroom()` |
+| `DELETE` | `/api/hod/delete-classroom/:id` | 🔑 `hod` | `HODController::deleteClassroom()` |
+| `POST` | `/api/hod/add-timetable` | 🔑 `hod` | `HODController::addTimetableEntry()` |
+| `DELETE` | `/api/hod/delete-timetable/:id` | 🔑 `hod` | `HODController::deleteTimetableEntry()` |
+| `GET` | `/api/hod/academic-trends` | 🔑 `hod` | `HODController::getAcademicTrends()` |
+| `GET` | `/api/hod/reports` | 🔑 `hod` | `HODController::getDepartmentReports()` |
+
+### Admin routes
+
+| Method | Endpoint | Access | Controller → method |
+|:--:|---|---|---|
+| `GET` | `/api/admin/dashboard` | 🔑 `admin` | `AdminController::dashboard()` |
+| `GET` | `/api/admin/users` | 🔑 `admin` | `AdminController::getUsers()` |
+| `POST` | `/api/admin/backup` | 🔑 `admin` | `AdminController::backup()` |
+| `GET` | `/api/admin/audit-logs` | 🔑 `admin` | `AdminController::getAuditLogs()` |
+| `GET` | `/api/admin/settings` | 🔑 `admin` | `AdminController::getSettings()` |
+| `PUT` | `/api/admin/settings` | 🔑 `admin` | `AdminController::updateSettings()` |
+
 
 ---
 
-### 👥 Users (Admin Only)
 
-#### `GET /users`
+## 11. Frontend Guide
 
-List users with pagination, search, and filters.
-
-**Query Parameters**
-
-| Param    | Type    | Default | Description                              |
-|----------|---------|---------|------------------------------------------|
-| `page`   | integer | `1`     | Page number                              |
-| `limit`  | integer | `10`    | Items per page (max 100)                 |
-| `role`   | string  | –       | Filter by `admin`, `faculty`, `student`  |
-| `search` | string  | –       | Search by name or email                  |
-| `sort`   | string  | `-created_at` | Prefix with `-` for descending     |
-
-**Example Request**
-
-```bash
-curl "http://localhost:5000/api/users?role=student&search=dhairya&page=1&limit=5" \
-  -H "Authorization: Bearer <admin_token>"
-```
-
-**Response — `200 OK`**
-
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": 3,
-      "name": "Dhairya Shah",
-      "email": "student@example.com",
-      "role": "student",
-      "isActive": true,
-      "createdAt": "2026-01-15T09:30:00.000Z"
-    }
-  ],
-  "pagination": {
-    "page": 1,
-    "limit": 5,
-    "totalItems": 1,
-    "totalPages": 1
-  }
-}
-```
-
----
-
-#### `POST /users`
-
-Create a new user. For `student` and `faculty` roles, include profile fields.
-
-**Example — Create a Student**
-
-```bash
-curl -X POST http://localhost:5000/api/users \
-  -H "Authorization: Bearer <admin_token>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Riya Patel",
-    "email": "riya.patel@example.com",
-    "password": "Welcome@123",
-    "role": "student",
-    "profile": {
-      "departmentId": 1,
-      "enrollmentNo": "23CE014",
-      "semester": 5,
-      "admissionYear": 2023,
-      "phone": "9876543210"
-    }
-  }'
-```
-
-**Response — `201 Created`**
-
-```json
-{
-  "success": true,
-  "message": "User created successfully",
-  "data": {
-    "id": 12,
-    "name": "Riya Patel",
-    "email": "riya.patel@example.com",
-    "role": "student"
-  }
-}
-```
-
-**Error — `409 Conflict`**
-
-```json
-{
-  "success": false,
-  "message": "A user with this email already exists"
-}
-```
-
-**Example — Create a Faculty Member**
-
-```bash
-curl -X POST http://localhost:5000/api/users \
-  -H "Authorization: Bearer <admin_token>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Prof. Anita Desai",
-    "email": "anita.desai@example.com",
-    "password": "Welcome@123",
-    "role": "faculty",
-    "profile": {
-      "departmentId": 1,
-      "employeeId": "EMP1042",
-      "designation": "Assistant Professor",
-      "phone": "9123456780"
-    }
-  }'
-```
-
----
-
-#### `GET /users/:id`
-
-```bash
-curl http://localhost:5000/api/users/12 \
-  -H "Authorization: Bearer <admin_token>"
-```
-
-#### `PUT /users/:id`
-
-```bash
-curl -X PUT http://localhost:5000/api/users/12 \
-  -H "Authorization: Bearer <admin_token>" \
-  -H "Content-Type: application/json" \
-  -d '{ "name": "Riya A. Patel", "isActive": true }'
-```
-
-#### `DELETE /users/:id`
-
-Soft-deletes (deactivates) a user.
-
-```bash
-curl -X DELETE http://localhost:5000/api/users/12 \
-  -H "Authorization: Bearer <admin_token>"
-```
-
-**Response — `200 OK`**
-
-```json
-{
-  "success": true,
-  "message": "User deactivated successfully"
-}
-```
-
----
-
-### 🏫 Departments & Courses
-
-#### `POST /departments` (Admin)
-
-```bash
-curl -X POST http://localhost:5000/api/departments \
-  -H "Authorization: Bearer <admin_token>" \
-  -H "Content-Type: application/json" \
-  -d '{ "name": "Mechanical Engineering", "code": "ME" }'
-```
-
-#### `GET /courses`
-
-**Query Parameters:** `departmentId`, `semester`, `facultyId`, `search`, `page`, `limit`
-
-```bash
-curl "http://localhost:5000/api/courses?departmentId=1&semester=5" \
-  -H "Authorization: Bearer <token>"
-```
-
-**Response — `200 OK`**
-
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": 21,
-      "code": "CE501",
-      "title": "Database Management Systems",
-      "credits": 4,
-      "semester": 5,
-      "department": { "id": 1, "name": "Computer Engineering", "code": "CE" },
-      "faculty": { "id": 2, "name": "Prof. Mehta" }
-    },
-    {
-      "id": 22,
-      "code": "CE502",
-      "title": "Operating Systems",
-      "credits": 4,
-      "semester": 5,
-      "department": { "id": 1, "name": "Computer Engineering", "code": "CE" },
-      "faculty": { "id": 4, "name": "Prof. Anita Desai" }
-    }
-  ]
-}
-```
-
-#### `POST /courses` (Admin)
-
-```bash
-curl -X POST http://localhost:5000/api/courses \
-  -H "Authorization: Bearer <admin_token>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "departmentId": 1,
-    "facultyId": 2,
-    "code": "CE503",
-    "title": "Computer Networks",
-    "credits": 3,
-    "semester": 5
-  }'
-```
-
-#### `POST /enrollments` (Admin)
-
-Enroll one or more students into a course.
-
-```bash
-curl -X POST http://localhost:5000/api/enrollments \
-  -H "Authorization: Bearer <admin_token>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "courseId": 21,
-    "academicYear": "2025-2026",
-    "studentIds": [1, 2, 3, 4]
-  }'
-```
-
-**Response — `201 Created`**
-
-```json
-{
-  "success": true,
-  "message": "4 students enrolled successfully",
-  "data": { "enrolled": 4, "skipped": 0 }
-}
-```
-
----
-
-### 🗓 Attendance
-
-#### `POST /attendance` (Faculty)
-
-Mark attendance for a course on a given date. Submitting again for the same
-date **updates** the existing records.
-
-```bash
-curl -X POST http://localhost:5000/api/attendance \
-  -H "Authorization: Bearer <faculty_token>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "courseId": 21,
-    "date": "2026-02-10",
-    "records": [
-      { "studentId": 1, "status": "present" },
-      { "studentId": 2, "status": "absent"  },
-      { "studentId": 3, "status": "late"    },
-      { "studentId": 4, "status": "present" }
-    ]
-  }'
-```
-
-**Response — `201 Created`**
-
-```json
-{
-  "success": true,
-  "message": "Attendance recorded for 4 students",
-  "data": {
-    "courseId": 21,
-    "date": "2026-02-10",
-    "present": 2,
-    "absent": 1,
-    "late": 1
-  }
-}
-```
-
-#### `GET /attendance/me` (Student)
-
-```bash
-curl http://localhost:5000/api/attendance/me \
-  -H "Authorization: Bearer <student_token>"
-```
-
-**Response — `200 OK`**
-
-```json
-{
-  "success": true,
-  "data": {
-    "overallPercentage": 82.5,
-    "minimumRequired": 75,
-    "courses": [
-      {
-        "courseCode": "CE501",
-        "courseTitle": "Database Management Systems",
-        "totalClasses": 40,
-        "attended": 36,
-        "percentage": 90.0,
-        "warning": false
-      },
-      {
-        "courseCode": "CE502",
-        "courseTitle": "Operating Systems",
-        "totalClasses": 40,
-        "attended": 27,
-        "percentage": 67.5,
-        "warning": true
-      }
-    ]
-  }
-}
-```
-
-#### `GET /attendance/course/:courseId` (Faculty, Admin)
-
-Query: `from`, `to` (ISO dates), `format=csv` for export.
-
-```bash
-curl "http://localhost:5000/api/attendance/course/21?from=2026-02-01&to=2026-02-28&format=csv" \
-  -H "Authorization: Bearer <faculty_token>" \
-  -o attendance-ce501-feb.csv
-```
-
----
-
-### 📝 Results
-
-#### `POST /results` (Faculty)
-
-Upload marks for an exam in bulk.
-
-```bash
-curl -X POST http://localhost:5000/api/results \
-  -H "Authorization: Bearer <faculty_token>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "courseId": 21,
-    "examType": "midterm",
-    "maxMarks": 100,
-    "marks": [
-      { "studentId": 1, "marksObtained": 88 },
-      { "studentId": 2, "marksObtained": 72.5 },
-      { "studentId": 3, "marksObtained": 45 }
-    ]
-  }'
-```
-
-**Response — `201 Created`**
-
-```json
-{
-  "success": true,
-  "message": "Results saved for 3 students",
-  "data": [
-    { "studentId": 1, "marksObtained": 88,   "grade": "AA" },
-    { "studentId": 2, "marksObtained": 72.5, "grade": "BB" },
-    { "studentId": 3, "marksObtained": 45,   "grade": "DD" }
-  ]
-}
-```
-
-#### `GET /results/me` (Student)
-
-```bash
-curl "http://localhost:5000/api/results/me?semester=5" \
-  -H "Authorization: Bearer <student_token>"
-```
-
-**Response — `200 OK`**
-
-```json
-{
-  "success": true,
-  "data": {
-    "semester": 5,
-    "sgpa": 8.42,
-    "cgpa": 8.15,
-    "subjects": [
-      {
-        "courseCode": "CE501",
-        "title": "Database Management Systems",
-        "credits": 4,
-        "internal": 24,
-        "midterm": 88,
-        "final": 91,
-        "grade": "AA",
-        "gradePoints": 10
-      },
-      {
-        "courseCode": "CE502",
-        "title": "Operating Systems",
-        "credits": 4,
-        "internal": 20,
-        "midterm": 72.5,
-        "final": 70,
-        "grade": "BB",
-        "gradePoints": 8
-      }
-    ]
-  }
-}
-```
-
-#### Grading Scale
-
-| Percentage | Grade | Grade Points |
-|------------|-------|--------------|
-| 90 – 100   | AA    | 10           |
-| 80 – 89    | AB    | 9            |
-| 70 – 79    | BB    | 8            |
-| 60 – 69    | BC    | 7            |
-| 50 – 59    | CC    | 6            |
-| 40 – 49    | DD    | 5            |
-| Below 40   | FF    | 0 (Fail)     |
-
-**SGPA formula**
+### 11.1 Directory layout
 
 ```text
-SGPA = Σ (course_credits × grade_points) / Σ course_credits
+frontend/
+├── index.html
+├── package.json
+├── vite.config.js            # React plugin, dev server on port 3000
+├── tailwind.config.js        # dark design tokens (base · surface · accent · muted · success · danger)
+├── postcss.config.js
+├── .eslintrc.cjs
+├── .htaccess                 # SPA fallback + Authorization header passthrough
+├── public/                   # adit.webp · CVM.webp · vite.svg · .htaccess
+└── src/
+    ├── main.jsx              # Redux <Provider> + ThemeProvider + <App/>
+    ├── App.jsx               # all routes + ProtectedRoute wiring
+    ├── index.css             # Tailwind layers + component classes (card, etc.)
+    ├── context/              # AuthContext.jsx · ThemeContext.jsx
+    ├── store/index.js        # Redux Toolkit: ui + notifications slices
+    ├── services/api.js       # axios instances, interceptors, endpoint wrappers, downloadFile()
+    ├── utils/                # helpers.js · icons.jsx
+    ├── components/
+    │   ├── common/           # reusable widgets (see 11.5)
+    │   └── layout/           # DashboardLayout · Header · Sidebar
+    └── pages/
+        ├── auth/             # Login · Register · ForgotPassword · ResetPassword · ChangePassword
+        ├── student/          # 16 files
+        ├── faculty/          # 13 files
+        ├── hod/              # 9 files
+        └── admin/            # 4 files (+ placeholders defined in App.jsx)
+```
+
+### 11.2 Scripts
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Vite dev server on **http://localhost:3000** |
+| `npm run build` | Production build into `frontend/dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | ESLint with `--max-warnings 0` |
+
+### 11.3 API client behaviour (`src/services/api.js`)
+
+```mermaid
+flowchart TD
+    CALL[Component calls authAPI / xxxAPI] --> REQ[axios request interceptor]
+    REQ --> ATT[Read token from localStorage → Authorization: Bearer]
+    ATT --> NET[(API)]
+    NET --> RESP[axios response interceptor]
+    RESP --> OK{HTTP success?}
+    OK -- yes --> UNWRAP[Return response.data directly]
+    OK -- no --> S401{status 401?}
+    S401 -- yes, not on an auth page --> LOGOUT[Clear token + user → redirect /login]
+    S401 -- no --> ERR[Reject with extractError payload]
+    OK -- no response --> NETERR[Reject: Unable to reach server]
+```
+
+Key points:
+
+- Base URL = `import.meta.env.VITE_API_URL`, falling back to `https://adit.shahdhairyah.in/api`.
+- The main instance **unwraps `response.data`**, so callers `await` the JSON envelope directly (`res.success`, `res.data`).
+- A **second instance (`downloadApi`)** keeps the full axios response, which `downloadFile(path, filename)` needs to read
+  blob + `Content-Disposition`. It turns JSON error bodies (returned as Blobs) back into readable messages.
+- `downloadFile()` replaces the old `window.open(...?token=JWT)` pattern, which could not send headers and leaked tokens.
+
+### 11.4 Route table
+
+`ProtectedRoute` guarantees: not logged in → `/login`; password change pending → `/change-password`; wrong role → own dashboard.
+
+
+### Public routes (7)
+
+| Path | Page / component | Status |
+|---|---|:--:|
+| `/login` | LoginPage | ✅ built |
+| `/forgot-password` | ForgotPasswordPage | ✅ built |
+| `/reset-password` | ResetPasswordPage | ✅ built |
+| `/change-password` | ChangePasswordPage | ✅ built |
+| `/register` | RegisterPage | ✅ built |
+| `/` | HomePage | ✅ built |
+| `*` | — | ✅ built |
+
+### Admin routes (11)
+
+| Path | Page / component | Status |
+|---|---|:--:|
+| `/admin/dashboard` | AdminDashboard | ✅ built |
+| `/admin/students` | Student Management | 🚧 placeholder |
+| `/admin/faculty` | AdminFaculty | ✅ built |
+| `/admin/departments` | Department Management | 🚧 placeholder |
+| `/admin/fees` | AdminFees | ✅ built |
+| `/admin/timetable` | AdminTimetable | ✅ built |
+| `/admin/exams` | Examination Management | 🚧 placeholder |
+| `/admin/notices` | Notice Board | 🚧 placeholder |
+| `/admin/library` | Library Management | 🚧 placeholder |
+| `/admin/reports` | Reports | 🚧 placeholder |
+| `/admin/settings` | System Settings | 🚧 placeholder |
+
+### Hod routes (9)
+
+| Path | Page / component | Status |
+|---|---|:--:|
+| `/hod/dashboard` | HODDashboard | ✅ built |
+| `/hod/students` | HODStudents | ✅ built |
+| `/hod/faculty` | HODFaculty | ✅ built |
+| `/hod/subjects` | HODSubjects | ✅ built |
+| `/hod/classrooms` | HODClassrooms | ✅ built |
+| `/hod/fees` | HODFeeReport | ✅ built |
+| `/hod/timetable` | HODTimetable | ✅ built |
+| `/hod/leave` | HODLeave | ✅ built |
+| `/hod/reports` | HODReports | ✅ built |
+
+### Faculty routes (12)
+
+| Path | Page / component | Status |
+|---|---|:--:|
+| `/faculty` | — | ✅ built |
+| `/faculty/dashboard` | FacultyDashboard | ✅ built |
+| `/faculty/attendance` | FacultyAttendance | ✅ built |
+| `/faculty/assignments` | FacultyAssignments | ✅ built |
+| `/faculty/marks` | FacultyMarks | ✅ built |
+| `/faculty/materials` | FacultyMaterials | ✅ built |
+| `/faculty/lab-manuals` | FacultyLabManuals | ✅ built |
+| `/faculty/attendance-reports` | FacultyAttendanceReports | ✅ built |
+| `/faculty/announcements` | FacultyAnnouncements | ✅ built |
+| `/faculty/notices` | FacultyNotices | ✅ built |
+| `/faculty/leave` | FacultyLeave | ✅ built |
+| `/faculty/profile` | FacultyProfile | ✅ built |
+
+### Student routes (15)
+
+| Path | Page / component | Status |
+|---|---|:--:|
+| `/student/dashboard` | StudentDashboard | ✅ built |
+| `/student/attendance` | StudentAttendance | ✅ built |
+| `/student/assignments` | StudentAssignments | ✅ built |
+| `/student/assignments/:id` | StudentAssignmentDetail | ✅ built |
+| `/student/timetable` | StudentTimetable | ✅ built |
+| `/student/fees` | StudentFees | ✅ built |
+| `/student/results` | StudentResults | ✅ built |
+| `/student/notices` | StudentNotices | ✅ built |
+| `/student/syllabus` | StudentSyllabus | ✅ built |
+| `/student/lab-manuals` | StudentLabManualList | ✅ built |
+| `/student/lab-manuals/status` | StudentLabManualStatus | ✅ built |
+| `/student/lab-manuals/:id` | StudentLabManualDetail | ✅ built |
+| `/student/library` | StudentLibrary | ✅ built |
+| `/student/leave` | StudentLeave | ✅ built |
+| `/student/profile` | StudentProfile | ✅ built |
+
+
+> 🚧 **placeholder** = the route exists and is role-protected, but renders a `PlaceholderPage` ("This page is under development")
+> instead of a real screen.
+
+### 11.5 Reusable components
+
+
+#### `src/components/common/`
+
+| File | Lines | Exports |
+|---|--:|---|
+| `AttendanceCalendar.jsx` | 69 | AttendanceCalendar |
+| `AttendanceGauge.jsx` | 54 | AttendanceGauge |
+| `CGPACalculator.jsx` | 52 | CGPACalculator |
+| `EmptyState.jsx` | 14 | EmptyState |
+| `ErrorBoundary.jsx` | 57 | class |
+| `IDCard.jsx` | 34 | IDCard |
+| `LoadingSpinner.jsx` | 20 | LoadingSpinner |
+| `MarksheetView.jsx` | 102 | MarksheetView |
+| `PageHeader.jsx` | 13 | PageHeader |
+| `PerformanceGraph.jsx` | 30 | PerformanceGraph |
+| `PremiumCard.jsx` | 10 | PremiumCard |
+| `ProtectedRoute.jsx` | 41 | ProtectedRoute |
+| `StatCard.jsx` | 58 | StatCard |
+| `StatusBadge.jsx` | 39 | StatusBadge |
+| `StudentIDCard.jsx` | 431 | StudentIDCard |
+
+#### `src/components/layout/`
+
+| File | Lines | Exports |
+|---|--:|---|
+| `DashboardLayout.jsx` | 38 | DashboardLayout |
+| `Header.jsx` | 131 | Header |
+| `Sidebar.jsx` | 184 | Sidebar |
+
+
+| Component | Purpose |
+|---|---|
+| `ProtectedRoute` | Auth + role + forced-password-change gate |
+| `ErrorBoundary` | Keeps one broken page from white-screening the whole app |
+| `StatCard`, `PremiumCard` | Dashboard tiles and surfaces |
+| `AttendanceGauge`, `AttendanceCalendar` | Attendance visualisation (colour thresholds at 75% and above) |
+| `PerformanceGraph` | Chart.js performance trends |
+| `MarksheetView`, `CGPACalculator` | Results display and CGPA what-if tool |
+| `StudentIDCard`, `IDCard` | Digital ID cards |
+| `StatusBadge`, `EmptyState`, `LoadingSpinner`, `PageHeader` | Consistent UI states |
+
+### 11.6 Page inventory (lines of code per page)
+
+| Page | Role | Lines |
+|---|---|--:|
+| `ChangePasswordPage.jsx` | auth | 205 |
+| `ForgotPasswordPage.jsx` | auth | 145 |
+| `LoginPage.jsx` | auth | 234 |
+| `RegisterPage.jsx` | auth | 130 |
+| `ResetPasswordPage.jsx` | auth | 202 |
+| `StudentAssignmentDetail.jsx` | student | 221 |
+| `StudentAssignments.jsx` | student | 187 |
+| `StudentAttendance.jsx` | student | 193 |
+| `StudentDashboard.jsx` | student | 322 |
+| `StudentFees.jsx` | student | 328 |
+| `StudentLabManualDetail.jsx` | student | 264 |
+| `StudentLabManualList.jsx` | student | 165 |
+| `StudentLabManualStatus.jsx` | student | 183 |
+| `StudentLabManuals.jsx` | student | 164 |
+| `StudentLeave.jsx` | student | 418 |
+| `StudentLibrary.jsx` | student | 149 |
+| `StudentNotices.jsx` | student | 204 |
+| `StudentProfile.jsx` | student | 396 |
+| `StudentResults.jsx` | student | 380 |
+| `StudentSyllabus.jsx` | student | 292 |
+| `StudentTimetable.jsx` | student | 109 |
+| `FacultyAnnouncements.jsx` | faculty | 268 |
+| `FacultyAssignmentCreate.jsx` | faculty | 134 |
+| `FacultyAssignments.jsx` | faculty | 501 |
+| `FacultyAttendance.jsx` | faculty | 487 |
+| `FacultyAttendanceReports.jsx` | faculty | 189 |
+| `FacultyDashboard.jsx` | faculty | 113 |
+| `FacultyLabManuals.jsx` | faculty | 358 |
+| `FacultyLeave.jsx` | faculty | 136 |
+| `FacultyMarks.jsx` | faculty | 402 |
+| `FacultyMaterials.jsx` | faculty | 248 |
+| `FacultyNotices.jsx` | faculty | 188 |
+| `FacultyProfile.jsx` | faculty | 280 |
+| `FacultySubmissions.jsx` | faculty | 129 |
+| `HODClassrooms.jsx` | hod | 170 |
+| `HODDashboard.jsx` | hod | 170 |
+| `HODFaculty.jsx` | hod | 194 |
+| `HODFeeReport.jsx` | hod | 84 |
+| `HODLeave.jsx` | hod | 174 |
+| `HODReports.jsx` | hod | 109 |
+| `HODStudents.jsx` | hod | 186 |
+| `HODSubjects.jsx` | hod | 238 |
+| `HODTimetable.jsx` | hod | 631 |
+| `AdminDashboard.jsx` | admin | 216 |
+| `AdminFaculty.jsx` | admin | 452 |
+| `AdminFees.jsx` | admin | 439 |
+| `AdminTimetable.jsx` | admin | 371 |
+
+
+### 11.7 Theming
+
+`ThemeContext` provides theme switching and Tailwind supplies the token palette. Prefer the semantic tokens
+(`bg-surface`, `border-surface-border`, `text-muted`, `bg-accent`) over raw hex values so the whole UI stays consistent.
+
+---
+
+## 12. Backend Internals
+
+### 12.1 Directory layout
+
+```text
+api/
+├── index.php                 # entry: CORS, URI normalisation, global try/catch, requires routes
+├── routes/api.php            # the route table + matcher (145 routes)
+├── config/
+│   ├── database.php          # PDO singleton (Database::getInstance())
+│   └── config.php            # ← YOU create this; gitignored
+├── controllers/              # 21 controllers
+├── models/                   # PDO models
+├── middleware/               # AuthMiddleware · RoleMiddleware
+├── helpers/                  # JWT · Response · Validation · Upload · DownloadToken · EmailHelper
+├── uploads/                  # assignments · lab · materials · profiles · receipts
+├── setup_passwords.php       # gated default-password provisioning (CLI or ?key=JWT_SECRET)
+└── *.php                     # legacy scripts, now HTTP 410 stubs (see section 16)
+```
+
+### 12.2 How the router works
+
+`routes/api.php` declares an array keyed by `"METHOD /regex-path"`:
+
+```php
+'PUT /assignments/submissions/([^/]+)/review'
+    => ['AssignmentController', 'reviewSubmission', true, ['faculty', 'admin']],
+//     controller              method              auth  allowed roles (optional)
+```
+
+```mermaid
+flowchart TD
+    A[Loop routes in declaration order] --> B{HTTP method equal?}
+    B -- no --> A
+    B -- yes --> C{"preg_match( '#^pattern$#', uri )"}
+    C -- no --> A
+    C -- yes --> D{requiresAuth?}
+    D -- yes --> E[AuthMiddleware::handle]
+    E --> F{roles listed?}
+    F -- yes --> G[RoleMiddleware::requireRole]
+    F -- no --> H
+    G --> H[new Controller → method with captured params]
+    D -- no --> H
+    H --> I([Response::… calls exit])
+    A -- no match --> J[404 API endpoint not found]
+```
+
+> ⚠️ **Order matters.** The first matching route wins, so a literal path must be declared **before** a wildcard on the same
+> method that could capture it. The existing table already does this — e.g. `GET /faculty/subjects` precedes
+> `GET /faculty/([^/]+)`, and `GET /departments/manage` precedes `GET /departments/([^/]+)`. Follow the same rule when adding routes.
+
+### 12.3 Controllers
+
+| Controller | Lines | Public methods |
+|---|--:|---|
+| `AdminController.php` | 349 | `dashboard()`, `getUsers()`, `backup()`, `getAuditLogs()`, `getSettings()`, `updateSettings()` |
+| `AnnouncementController.php` | 183 | `index()`, `store()`, `update()`, `destroy()`, `markRead()`, `readStatus()` |
+| `AssignmentController.php` | 348 | `index()`, `store()`, `update()`, `destroy()`, `submit()`, `submissions()`, `studentSubmissions()`, `reviewSubmission()` |
+| `AttendanceController.php` | 398 | `mark()`, `update()`, `index()`, `getStudentSummary()`, `getStudentCalendar()`, `calendar()`, `report()` |
+| `AuthController.php` | 339 | `register()`, `login()`, `me()`, `updateProfile()`, `logout()`, `forgotPassword()`, `resetPassword()`, `verifyEmail()`, `changePassword()` |
+| `ClassroomController.php` | 116 | `index()`, `store()`, `update()`, `destroy()` |
+| `CourseController.php` | 69 | `index()`, `subjects()` |
+| `DepartmentController.php` | 152 | `publicIndex()`, `index()`, `show()`, `store()`, `update()`, `destroy()` |
+| `ExamController.php` | 474 | `enterInternalMarks()`, `enterExternalMarks()`, `updateInternalMarks()`, `getResults()`, `getHallTicket()`, `getPerformanceAnalytics()`, `getClassPerformance()`, `publishResults()`, `getStudentMarks()` |
+| `FacultyController.php` | 220 | `index()`, `show()`, `store()`, `destroy()`, `subjects()`, `assignedClasses()`, `update()` |
+| `FeeController.php` | 594 | `getStructure()`, `createStructure()`, `createOrder()`, `verifyPayment()`, `getPayments()`, `getReceipt()`, `downloadReceipt()`, `getAllPayments()`, `getAllStructures()`, `updateStructure()`, `deleteStructure()`, `getFeeReport()` |
+| `HODController.php` | 746 | `dashboard()`, `getDepartmentStudents()`, `getDepartmentFaculty()`, `getDepartmentSubjects()`, `getFacultyLoad()`, `getFeeReport()`, `getDepartmentTimetable()`, `addStudent()`, `addFaculty()`, `addSubject()`, `updateSubject()`, `deleteSubject()`, `assignSubjectFaculty()`, `getDepartmentClassrooms()`, `addClassroom()`, `updateClassroom()`, `deleteClassroom()`, `addTimetableEntry()`, `deleteTimetableEntry()`, `getAcademicTrends()`, `getDepartmentReports()` |
+| `LabManualController.php` | 317 | `index()`, `store()`, `update()`, `destroy()`, `submit()`, `submissions()`, `reviewSubmission()`, `studentSubmissions()` |
+| `LeaveApplicationController.php` | 383 | `index()`, `store()`, `update()`, `getDocument()`, `withdraw()` |
+| `LibraryController.php` | 168 | `getBooks()`, `addBook()`, `issueBook()`, `returnBook()`, `getHistory()`, `getFines()` |
+| `NoticeController.php` | 224 | `index()`, `store()`, `update()`, `destroy()`, `studentNotices()` |
+| `PublicController.php` | 63 | `stats()` |
+| `StudentController.php` | 208 | `index()`, `show()`, `store()`, `update()`, `uploadPhoto()`, `destroy()` |
+| `StudyMaterialController.php` | 355 | `index()`, `store()`, `update()`, `destroy()`, `download()` |
+| `SyllabusController.php` | 195 | `index()`, `store()`, `update()`, `destroy()`, `show()`, `getBySubject()` |
+| `TimetableController.php` | 256 | `index()`, `store()`, `update()`, `destroy()` |
+
+
+### 12.4 Models
+
+| Model | Lines | Methods |
+|---|--:|---|
+| `Announcement.php` | 153 | `getById()`, `getAll()`, `create()`, `update()`, `delete()`, `markAsRead()`, `getReadStatus()` |
+| `Assignment.php` | 215 | `getById()`, `getAll()`, `getDepartmentIdForSubject()`, `create()`, `update()`, `delete()`, `submitAssignment()`, `getSubmissions()`, `getSubmissionById()`, `reviewSubmission()`, `getStudentSubmissions()` |
+| `Attendance.php` | 247 | `mark()`, `bulkMark()`, `update()`, `getByStudent()`, `findById()`, `getRosterForSubject()`, `getBySubject()`, `getSummary()`, `getStudentSummary()`, `getStudentCalendar()`, `getSubjectWiseStats()`, `getMonthlyStats()`, `getReport()` |
+| `Classroom.php` | 73 | `getAll()`, `findById()`, `create()`, `update()`, `delete()` |
+| `Course.php` | 51 | `getAll()`, `findById()`, `create()` |
+| `Department.php` | 69 | `findById()`, `getAll()`, `create()`, `update()`, `delete()` |
+| `Exam.php` | 463 | `enterInternalMarks()`, `updateInternalMarks()`, `getInternalMarkById()`, `getInternalMarks()`, `enterExternalMarks()`, `getExternalMarks()`, `generateResults()`, `getResults()`, `getPerformanceAnalytics()`, `publishResults()`, `getClassPerformance()`, `getHallTicket()`, `generateHallTicket()` |
+| `Faculty.php` | 225 | `findByUserId()`, `findById()`, `create()`, `update()`, `getAll()`, `count()`, `getByDepartment()`, `getDepartmentFor()`, `getSubjects()`, `delete()`, `getAssignedClasses()` |
+| `Fee.php` | 369 | `getStructure()`, `createStructure()`, `createPayment()`, `updatePaymentStatus()`, `findStructureById()`, `getStructuresForStudent()`, `getStudentPayments()`, `getPendingDues()`, `getPaymentOwner()`, `getReceipt()`, `getAllPayments()`, `getAllPaymentsAdmin()`, `getAllStructures()`, `updateStructure()` … |
+| `LabManual.php` | 197 | `getById()`, `getAll()`, `create()`, `update()`, `delete()`, `getSubmissions()`, `submitLab()`, `getSubmissionById()`, `reviewSubmission()`, `getStudentSubmissions()` |
+| `LeaveApplication.php` | 162 | `getById()`, `getAll()`, `create()`, `withdraw()`, `getByStudent()`, `facultyReview()`, `hodReview()` |
+| `Library.php` | 194 | `getBooks()`, `getBookById()`, `addBook()`, `updateBook()`, `issueBook()`, `returnBook()`, `getStudentHistory()`, `getStudentFines()`, `getOverdueBooks()`, `getStatistics()` |
+| `Notice.php` | 93 | `getById()`, `getAll()`, `create()`, `update()`, `delete()` |
+| `Student.php` | 174 | `findByUserId()`, `findById()`, `findByRollNumber()`, `create()`, `update()`, `getAll()`, `count()`, `delete()`, `getSubjects()` |
+| `StudyMaterial.php` | 133 | `getById()`, `getAll()`, `create()`, `update()`, `delete()`, `recordDownload()`, `getDownloadCount()` |
+| `Subject.php` | 137 | `findById()`, `getDepartmentId()`, `assignFaculty()`, `clearFaculty()`, `getAll()`, `create()`, `update()`, `delete()` |
+| `Syllabus.php` | 99 | `getById()`, `getAll()`, `create()`, `update()`, `delete()`, `getBySubject()` |
+| `Timetable.php` | 174 | `getTimetable()`, `checkConflict()`, `create()`, `update()`, `delete()`, `findById()`, `getByFaculty()` |
+| `User.php` | 183 | `findByEmail()`, `findById()`, `create()`, `updatePassword()`, `updateStatus()`, `verifyPassword()`, `getAll()`, `count()`, `createPasswordResetToken()`, `validatePasswordResetToken()`, `usePasswordResetToken()`, `deleteExpiredTokens()`, `createVerificationToken()`, `validateVerificationToken()` … |
+
+
+### 12.5 Helpers
+
+
+#### `helpers/DownloadToken.php`
+
+| Method | Signature |
+|---|---|
+| `issue()` | `issue(string $resource, int $id, int $userId, ?int $ttl = null)` |
+| `validate()` | `validate(string $token)` |
+
+#### `helpers/EmailHelper.php`
+
+| Method | Signature |
+|---|---|
+| `send()` | `send($to, $subject, $htmlBody)` |
+| `sendPasswordReset()` | `sendPasswordReset($email, $token)` |
+| `sendLeaveNotification()` | `sendLeaveNotification($studentEmail, $studentName, $leaveData)` |
+| `sendLeaveStatusNotification()` | `sendLeaveStatusNotification($studentEmail, $studentName, $leaveData)` |
+| `sendAssignmentNotification()` | `sendAssignmentNotification($studentEmail, $studentName, $assignmentData)` |
+| `sendLeaveApplication()` | `sendLeaveApplication($studentEmail, $studentName, $leaveData)` |
+| `sendLeaveStatus()` | `sendLeaveStatus($studentEmail, $studentName, $status, $comments = '')` |
+| `sendAssignmentReminder()` | `sendAssignmentReminder($studentEmail, $studentName, $assignmentTitle, $deadline)` |
+| `sendVerification()` | `sendVerification($email, $token)` |
+
+#### `helpers/JWT.php`
+
+| Method | Signature |
+|---|---|
+| `generate()` | `generate($userId, $email, $role)` |
+| `validate()` | `validate($token)` |
+| `getPayload()` | `getPayload($token)` |
+| `getUserIdFromToken()` | `getUserIdFromToken($token)` |
+| `getRoleFromToken()` | `getRoleFromToken($token)` |
+
+#### `helpers/Response.php`
+
+| Method | Signature |
+|---|---|
+| `json()` | `json($data, $statusCode = 200)` |
+| `success()` | `success($data = null, $message = 'Success', $statusCode = 200)` |
+| `error()` | `error($message = 'Error', $statusCode = 400, $errors = null)` |
+| `paginated()` | `paginated($data, $total, $page, $pageSize)` |
+| `unauthorized()` | `unauthorized($message = 'Unauthorized')` |
+| `forbidden()` | `forbidden($message = 'Forbidden')` |
+| `notFound()` | `notFound($message = 'Not found')` |
+| `validationError()` | `validationError($errors)` |
+| `serverError()` | `serverError($message = 'Internal server error')` |
+
+#### `helpers/Upload.php`
+
+| Method | Signature |
+|---|---|
+| `store()` | `store(array $file, string $subfolder, bool $imageOnly = false)` |
+| `storeOrNull()` | `storeOrNull(?array $file, string $subfolder, bool $imageOnly = false)` |
+| `delete()` | `delete(?string $relativePath)` |
+| `storeBase64Image()` | `storeBase64Image(string $payload, string $subfolder)` |
+| `resolvePath()` | `resolvePath(?string $relativePath)` |
+| `url()` | `url(?string $relativePath)` |
+
+#### `helpers/Validation.php`
+
+| Method | Signature |
+|---|---|
+| `validate()` | `validate($data, $rules)` |
+| `sanitize()` | `sanitize($data)` |
+| `sanitizeInput()` | `sanitizeInput($data)` |
+| `getJsonInput()` | `getJsonInput()` |
+| `getInput()` | `getInput()` |
+| `id()` | `id($value)` |
+| `pagination()` | `pagination(array $source = null)` |
+| `offset()` | `offset(int $page, int $pageSize)` |
+
+
+### 12.6 Middleware summary
+
+| Class | Responsibility |
+|---|---|
+| `AuthMiddleware` | Extract Bearer token (with three header fallbacks for Apache/CGI), validate JWT, verify the account is **active** and role unchanged, enforce the **forced password change** allow-list, expose `getUserId()`, `getUserRole()`, `getUserEmail()`, `getPayload()` |
+| `RoleMiddleware` | Explicit role allow-list plus department / student / subject scope checks (see [6.4](#64-scope-helpers-beyond-role)) |
+
+### 12.7 Database access pattern
+
+```php
+$db   = Database::getInstance()->getConnection();   // PDO singleton
+$stmt = $db->prepare('SELECT id FROM departments WHERE hod_id = ? LIMIT 1');
+$stmt->execute([$facultyId]);
+$row  = $stmt->fetch();                              // FETCH_ASSOC by default
+```
+
+Connection options: `ERRMODE_EXCEPTION`, `FETCH_ASSOC`, real prepared statements (`EMULATE_PREPARES = false`),
+`STRINGIFY_FETCHES = false` (numbers stay numbers), charset `utf8mb4`.
+
+### 12.8 Adding a new endpoint — checklist
+
+```mermaid
+flowchart LR
+    A[1. Model method<br/>api/models/X.php] --> B[2. Controller method<br/>validate → model → Response]
+    B --> C[3. Route in routes/api.php<br/>with roles]
+    C --> D[4. require_once the controller/model if new]
+    D --> E[5. Wrapper in frontend/src/services/api.js]
+    E --> F[6. Page / component]
+    F --> G[7. Route in App.jsx with allowedRoles]
+```
+
+Controller skeleton:
+
+```php
+public function store() {
+    $data   = Validation::getJsonInput();
+    $errors = Validation::validate($data, [
+        'title'      => 'required|max:255',
+        'subject_id' => 'required|numeric',
+    ]);
+    if ($errors !== true) {
+        Response::validationError($errors);        // 422
+    }
+
+    $id = $this->model->create($data);
+    Response::success(['id' => $id], 'Created successfully', 201);
+}
 ```
 
 ---
 
-### 📢 Notices
+## 13. Installation & Setup
 
-#### `GET /notices`
+### 13.1 Requirements
 
-Returns non-expired notices, newest first, with high-priority notices pinned.
+| Tool | Version |
+|---|---|
+| PHP | 8.0 or newer (with `pdo_mysql`, `mbstring`, `json`; `curl` for email/payments and `fileinfo` for upload MIME detection are recommended) |
+| MySQL / MariaDB | MySQL 8 recommended |
+| Node.js + npm | 18+ |
+| Web server | Apache with `mod_rewrite` and `AllowOverride All` (or equivalent rules for Nginx) |
+
+### 13.2 Setup flow
+
+```mermaid
+flowchart TD
+    A[1. Clone the repo] --> B[2. Create an empty MySQL database]
+    B --> C[3. Create api/config/config.php]
+    C --> D[4. Run database/install.php]
+    D --> E[5. Serve the project root with Apache + PHP]
+    E --> F[6. Configure frontend env]
+    F --> G[7. npm install · npm run dev]
+    G --> H[8. Log in with a demo account]
+    H --> I[9. Change demo passwords]
+```
+
+### 13.3 Step by step
+
+**1. Clone**
 
 ```bash
-curl http://localhost:5000/api/notices \
-  -H "Authorization: Bearer <token>"
+git clone https://github.com/shahdhairyah/aditcms.git
+cd aditcms
 ```
 
-**Response — `200 OK`**
-
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": 8,
-      "title": "Mid-Semester Exam Schedule Released",
-      "body": "The mid-semester exam timetable is now available. Exams begin on 5 March.",
-      "priority": "high",
-      "postedBy": "System Admin",
-      "expiresOn": "2026-03-10",
-      "createdAt": "2026-02-20T08:00:00.000Z"
-    },
-    {
-      "id": 7,
-      "title": "Library Timing Change",
-      "body": "The library will remain open until 8 PM on weekdays.",
-      "priority": "normal",
-      "postedBy": "System Admin",
-      "expiresOn": null,
-      "createdAt": "2026-02-18T11:15:00.000Z"
-    }
-  ]
-}
-```
-
-#### `POST /notices` (Admin, Faculty)
+**2. Create the database**
 
 ```bash
-curl -X POST http://localhost:5000/api/notices \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "DBMS Assignment 2 Due Date Extended",
-    "body": "The due date is extended to Friday, 28 February.",
-    "priority": "high",
-    "expiresOn": "2026-03-01"
-  }'
+mysql -u root -p -e "CREATE DATABASE adit_cms CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 ```
 
-#### `DELETE /notices/:id`
+**3. Create `api/config/config.php`** — it is gitignored, so you must add it (full template in [Section 14](#14-configuration)).
+
+**4. Install schema + demo data**
 
 ```bash
-curl -X DELETE http://localhost:5000/api/notices/8 \
-  -H "Authorization: Bearer <token>"
+php database/install.php
 ```
 
----
+The installer: applies the schema and seed data, writes **real bcrypt hashes** for the demo accounts, verifies them with
+`password_verify`, and writes `database/.installed.lock` so it cannot be replayed.
+Re-running requires deleting the lock file (CLI) or passing `?force=1` (web).
 
-### ❤️ Health Check
+Web mode (only if you cannot use the CLI):
+
+```text
+https://<host>/database/install.php?key=<INSTALL_KEY>
+```
+
+**Alternative — SQL only**
 
 ```bash
-curl http://localhost:5000/health
+mysql -u root -p adit_cms < database/adit_cms_complete.sql
+php api/setup_passwords.php --status      # shows which accounts are still locked
+php api/setup_passwords.php               # sets a default password on locked accounts (must be changed at first login)
 ```
 
-```json
-{
-  "status": "ok",
-  "uptime": 12345.67,
-  "database": "connected",
-  "timestamp": "2026-02-20T10:00:00.000Z"
-}
-```
+**5. Serve the backend**
 
----
-
-## 💻 Code Examples
-
-### Express App Setup — `server/src/app.js`
-
-```javascript
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const rateLimit = require('express-rate-limit');
-
-const env = require('./config/env');
-const routes = require('./routes');
-const errorHandler = require('./middleware/errorHandler');
-const ApiError = require('./utils/ApiError');
-
-const app = express();
-
-// ── Security & parsing middleware ──
-app.use(helmet());
-app.use(cors({ origin: env.CLIENT_URL, credentials: true }));
-app.use(express.json({ limit: '1mb' }));
-app.use(express.urlencoded({ extended: true }));
-
-// ── Logging ──
-if (env.NODE_ENV !== 'test') {
-  app.use(morgan('dev'));
-}
-
-// ── Global rate limiter ──
-app.use(
-  '/api',
-  rateLimit({
-    windowMs: env.RATE_LIMIT_WINDOW_MS,
-    max: env.RATE_LIMIT_MAX,
-    standardHeaders: true,
-    legacyHeaders: false,
-    message: { success: false, message: 'Too many requests, slow down.' },
-  })
-);
-
-// ── Health check ──
-app.get('/health', async (req, res) => {
-  res.json({
-    status: 'ok',
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
-  });
-});
-
-// ── API routes ──
-app.use('/api', routes);
-
-// ── 404 handler ──
-app.use((req, res, next) => next(new ApiError(404, 'Route not found')));
-
-// ── Centralized error handler ──
-app.use(errorHandler);
-
-module.exports = app;
-```
-
-### Server Entry Point — `server/src/server.js`
-
-```javascript
-const app = require('./app');
-const env = require('./config/env');
-const { pool } = require('./config/db');
-const logger = require('./utils/logger');
-
-const server = app.listen(env.PORT, () => {
-  logger.info(`ADITCMS API running on port ${env.PORT} [${env.NODE_ENV}]`);
-});
-
-// Graceful shutdown
-const shutdown = async (signal) => {
-  logger.info(`${signal} received. Shutting down gracefully...`);
-  server.close(async () => {
-    await pool.end();
-    logger.info('HTTP server and DB pool closed.');
-    process.exit(0);
-  });
-};
-
-process.on('SIGTERM', () => shutdown('SIGTERM'));
-process.on('SIGINT', () => shutdown('SIGINT'));
-```
-
-### Database Pool — `server/src/config/db.js`
-
-```javascript
-const mysql = require('mysql2/promise');
-const env = require('./env');
-
-const pool = mysql.createPool({
-  host: env.DB_HOST,
-  port: env.DB_PORT,
-  user: env.DB_USER,
-  password: env.DB_PASSWORD,
-  database: env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
-
-module.exports = { pool };
-```
-
-### Custom Error Class — `server/src/utils/ApiError.js`
-
-```javascript
-class ApiError extends Error {
-  constructor(statusCode, message, errors = null) {
-    super(message);
-    this.statusCode = statusCode;
-    this.errors = errors;
-    Error.captureStackTrace(this, this.constructor);
-  }
-}
-
-module.exports = ApiError;
-```
-
-### Async Handler — `server/src/utils/asyncHandler.js`
-
-```javascript
-// Wraps async route handlers so thrown errors reach the error middleware
-module.exports = (fn) => (req, res, next) =>
-  Promise.resolve(fn(req, res, next)).catch(next);
-```
-
-### Authentication Middleware — `server/src/middleware/authenticate.js`
-
-```javascript
-const jwt = require('jsonwebtoken');
-const env = require('../config/env');
-const ApiError = require('../utils/ApiError');
-
-module.exports = (req, res, next) => {
-  const header = req.headers.authorization || '';
-  const [scheme, token] = header.split(' ');
-
-  if (scheme !== 'Bearer' || !token) {
-    return next(new ApiError(401, 'Authentication token missing'));
-  }
-
-  try {
-    const payload = jwt.verify(token, env.JWT_SECRET);
-    req.user = { id: payload.id, role: payload.role };
-    next();
-  } catch (err) {
-    const message =
-      err.name === 'TokenExpiredError' ? 'Token expired' : 'Invalid token';
-    next(new ApiError(401, message));
-  }
-};
-```
-
-### Authorization Middleware — `server/src/middleware/authorize.js`
-
-```javascript
-const ApiError = require('../utils/ApiError');
-
-// Usage: router.get('/', authenticate, authorize('admin', 'faculty'), handler)
-module.exports =
-  (...allowedRoles) =>
-  (req, res, next) => {
-    if (!req.user || !allowedRoles.includes(req.user.role)) {
-      return next(
-        new ApiError(403, 'You do not have permission to perform this action')
-      );
-    }
-    next();
-  };
-```
-
-### Error Handler — `server/src/middleware/errorHandler.js`
-
-```javascript
-const logger = require('../utils/logger');
-const env = require('../config/env');
-
-module.exports = (err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-
-  if (statusCode >= 500) {
-    logger.error(err.stack || err.message);
-  }
-
-  res.status(statusCode).json({
-    success: false,
-    message:
-      statusCode === 500 && env.NODE_ENV === 'production'
-        ? 'Internal server error'
-        : err.message,
-    ...(err.errors && { errors: err.errors }),
-    ...(env.NODE_ENV === 'development' && { stack: err.stack }),
-  });
-};
-```
-
-### Auth Service — `server/src/services/auth.service.js`
-
-```javascript
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const env = require('../config/env');
-const ApiError = require('../utils/ApiError');
-const userModel = require('../models/user.model');
-
-exports.login = async (email, password) => {
-  const user = await userModel.findByEmail(email);
-
-  // Same message for both cases to avoid leaking which emails exist
-  if (!user || !user.is_active) {
-    throw new ApiError(401, 'Invalid email or password');
-  }
-
-  const match = await bcrypt.compare(password, user.password_hash);
-  if (!match) {
-    throw new ApiError(401, 'Invalid email or password');
-  }
-
-  const token = jwt.sign({ id: user.id, role: user.role }, env.JWT_SECRET, {
-    expiresIn: env.JWT_EXPIRES_IN,
-  });
-
-  return {
-    token,
-    expiresIn: env.JWT_EXPIRES_IN,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    },
-  };
-};
-
-exports.hashPassword = (plain) =>
-  bcrypt.hash(plain, env.BCRYPT_SALT_ROUNDS);
-```
-
-### Auth Controller & Routes
-
-```javascript
-// server/src/controllers/auth.controller.js
-const authService = require('../services/auth.service');
-const asyncHandler = require('../utils/asyncHandler');
-
-exports.login = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  const data = await authService.login(email, password);
-  res.json({ success: true, message: 'Login successful', data });
-});
-```
-
-```javascript
-// server/src/routes/auth.routes.js
-const router = require('express').Router();
-const { body } = require('express-validator');
-const rateLimit = require('express-rate-limit');
-
-const controller = require('../controllers/auth.controller');
-const validate = require('../middleware/validate');
-const authenticate = require('../middleware/authenticate');
-
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 5,
-  message: {
-    success: false,
-    message: 'Too many login attempts. Please try again in 15 minutes.',
-  },
-});
-
-router.post(
-  '/login',
-  loginLimiter,
-  [
-    body('email').isEmail().withMessage('Must be a valid email').normalizeEmail(),
-    body('password').isLength({ min: 8 }).withMessage('Minimum 8 characters'),
-  ],
-  validate,
-  controller.login
-);
-
-router.get('/me', authenticate, controller.me);
-
-module.exports = router;
-```
-
-### Validation Middleware — `server/src/middleware/validate.js`
-
-```javascript
-const { validationResult } = require('express-validator');
-const ApiError = require('../utils/ApiError');
-
-module.exports = (req, res, next) => {
-  const result = validationResult(req);
-  if (result.isEmpty()) return next();
-
-  const errors = result.array().map((e) => ({
-    field: e.path,
-    message: e.msg,
-  }));
-  next(new ApiError(400, 'Validation failed', errors));
-};
-```
-
-### Grade Service (Business Logic) — `server/src/services/grade.service.js`
-
-```javascript
-const SCALE = [
-  { min: 90, grade: 'AA', points: 10 },
-  { min: 80, grade: 'AB', points: 9 },
-  { min: 70, grade: 'BB', points: 8 },
-  { min: 60, grade: 'BC', points: 7 },
-  { min: 50, grade: 'CC', points: 6 },
-  { min: 40, grade: 'DD', points: 5 },
-  { min: 0,  grade: 'FF', points: 0 },
-];
-
-exports.getGrade = (marksObtained, maxMarks = 100) => {
-  const percentage = (marksObtained / maxMarks) * 100;
-  return SCALE.find((row) => percentage >= row.min);
-};
-
-/**
- * @param {Array<{credits:number, gradePoints:number}>} subjects
- * @returns {number} SGPA rounded to 2 decimals
- */
-exports.calculateSGPA = (subjects) => {
-  const totalCredits = subjects.reduce((sum, s) => sum + s.credits, 0);
-  if (totalCredits === 0) return 0;
-
-  const weighted = subjects.reduce(
-    (sum, s) => sum + s.credits * s.gradePoints,
-    0
-  );
-  return Math.round((weighted / totalCredits) * 100) / 100;
-};
-```
-
-### Attendance Service — `server/src/services/attendance.service.js`
-
-```javascript
-const env = require('../config/env');
-
-/**
- * "late" counts as present. Returns percentage + warning flag.
- */
-exports.summarize = (records) => {
-  const total = records.length;
-  const attended = records.filter((r) => r.status !== 'absent').length;
-  const percentage = total === 0 ? 0 : (attended / total) * 100;
-
-  return {
-    totalClasses: total,
-    attended,
-    percentage: Math.round(percentage * 10) / 10,
-    warning: total > 0 && percentage < env.MIN_ATTENDANCE_PERCENT,
-  };
-};
-```
-
-### Bulk Attendance Model (Transaction) — `server/src/models/attendance.model.js`
-
-```javascript
-const { pool } = require('../config/db');
-
-exports.markBulk = async (courseId, date, records) => {
-  const conn = await pool.getConnection();
-  try {
-    await conn.beginTransaction();
-
-    for (const { studentId, status } of records) {
-      // Upsert: re-submitting the same date updates the status
-      await conn.query(
-        `INSERT INTO attendance (enrollment_id, attendance_date, status)
-         SELECT e.id, ?, ?
-           FROM enrollments e
-          WHERE e.course_id = ? AND e.student_id = ?
-         ON DUPLICATE KEY UPDATE status = VALUES(status)`,
-        [date, status, courseId, studentId]
-      );
-    }
-
-    await conn.commit();
-  } catch (err) {
-    await conn.rollback();
-    throw err;
-  } finally {
-    conn.release();
-  }
-};
-```
-
----
-
-## 🖥 Frontend Usage
-
-### Axios Instance — `client/src/services/api.js`
-
-```javascript
-import axios from 'axios';
-
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
-});
-
-// Attach token to every request
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
-
-// Auto-logout on expired/invalid token
-api.interceptors.response.use(
-  (res) => res,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
-
-export default api;
-```
-
-### Protected Route — `client/src/components/ProtectedRoute.jsx`
-
-```jsx
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-
-export default function ProtectedRoute({ roles, children }) {
-  const { user } = useAuth();
-
-  if (!user) return <Navigate to="/login" replace />;
-  if (roles && !roles.includes(user.role)) return <Navigate to="/403" replace />;
-
-  return children;
-}
-```
-
-### Using It in Routes
-
-```jsx
-<Routes>
-  <Route path="/login" element={<Login />} />
-
-  <Route
-    path="/admin/*"
-    element={
-      <ProtectedRoute roles={['admin']}>
-        <AdminLayout />
-      </ProtectedRoute>
-    }
-  />
-
-  <Route
-    path="/student/*"
-    element={
-      <ProtectedRoute roles={['student']}>
-        <StudentLayout />
-      </ProtectedRoute>
-    }
-  />
-</Routes>
-```
-
-### Example: Student Attendance Page
-
-```jsx
-import { useEffect, useState } from 'react';
-import api from '../../services/api';
-
-export default function MyAttendance() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    api
-      .get('/attendance/me')
-      .then((res) => setData(res.data.data))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
-
-  return (
-    <section>
-      <h2>Overall Attendance: {data.overallPercentage}%</h2>
-      <table>
-        <thead>
-          <tr><th>Course</th><th>Attended</th><th>Total</th><th>%</th></tr>
-        </thead>
-        <tbody>
-          {data.courses.map((c) => (
-            <tr key={c.courseCode} className={c.warning ? 'row-warning' : ''}>
-              <td>{c.courseTitle}</td>
-              <td>{c.attended}</td>
-              <td>{c.totalClasses}</td>
-              <td>{c.percentage}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
-  );
-}
-```
-
----
-
-## 🧪 Testing
-
-### Run Tests
+Point Apache's document root at the project root so that `/api/...` hits `api/index.php` through the root `.htaccess`.
+For a quick local test with PHP's built-in server you can use `router.php` as the router script:
 
 ```bash
-cd server
-npm test                 # run all tests once
-npm run test:watch       # watch mode
-npm test -- --coverage   # with coverage report
+php -S localhost:8000 router.php
+# API-only: answers at http://localhost:8000/api/...  (router.php includes api/index.php).
+# Serve the React app separately with `npm run dev`.
 ```
 
-### Unit Test Example — `tests/grade.service.test.js`
-
-```javascript
-const { getGrade, calculateSGPA } = require('../src/services/grade.service');
-
-describe('Grade Service', () => {
-  test.each([
-    [95, 'AA', 10],
-    [85, 'AB', 9],
-    [72, 'BB', 8],
-    [45, 'DD', 5],
-    [30, 'FF', 0],
-  ])('marks %i => grade %s (%i points)', (marks, grade, points) => {
-    const result = getGrade(marks);
-    expect(result.grade).toBe(grade);
-    expect(result.points).toBe(points);
-  });
-
-  test('calculates SGPA correctly', () => {
-    const subjects = [
-      { credits: 4, gradePoints: 10 },
-      { credits: 4, gradePoints: 8 },
-      { credits: 3, gradePoints: 9 },
-    ];
-    // (40 + 32 + 27) / 11 = 9.00
-    expect(calculateSGPA(subjects)).toBe(9);
-  });
-
-  test('returns 0 when there are no subjects', () => {
-    expect(calculateSGPA([])).toBe(0);
-  });
-});
-```
-
-### Integration Test Example — `tests/auth.test.js`
-
-```javascript
-const request = require('supertest');
-const app = require('../src/app');
-
-describe('POST /api/auth/login', () => {
-  it('returns a token for valid credentials', async () => {
-    const res = await request(app)
-      .post('/api/auth/login')
-      .send({ email: 'student@example.com', password: 'Password@123' });
-
-    expect(res.statusCode).toBe(200);
-    expect(res.body.success).toBe(true);
-    expect(res.body.data).toHaveProperty('token');
-    expect(res.body.data.user.role).toBe('student');
-  });
-
-  it('rejects an invalid password', async () => {
-    const res = await request(app)
-      .post('/api/auth/login')
-      .send({ email: 'student@example.com', password: 'WrongPassword1' });
-
-    expect(res.statusCode).toBe(401);
-    expect(res.body.success).toBe(false);
-  });
-
-  it('validates the request body', async () => {
-    const res = await request(app)
-      .post('/api/auth/login')
-      .send({ email: 'not-an-email', password: '123' });
-
-    expect(res.statusCode).toBe(400);
-    expect(res.body.errors.length).toBeGreaterThan(0);
-  });
-});
-
-describe('Protected routes', () => {
-  it('blocks access without a token', async () => {
-    const res = await request(app).get('/api/users');
-    expect(res.statusCode).toBe(401);
-  });
-});
-```
-
----
-
-## 🐳 Docker Deployment
-
-### `Dockerfile`
-
-```dockerfile
-FROM node:18-alpine AS base
-WORKDIR /app
-
-# Install only production dependencies
-COPY server/package*.json ./
-RUN npm ci --omit=dev
-
-COPY server/ .
-
-# Run as non-root user
-RUN addgroup -S app && adduser -S app -G app
-USER app
-
-EXPOSE 5000
-CMD ["node", "src/server.js"]
-```
-
-### `docker-compose.yml`
-
-```yaml
-version: "3.9"
-
-services:
-  db:
-    image: mysql:8
-    container_name: aditcms-db
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./server/database/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
-      - ./server/database/seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  api:
-    build: .
-    container_name: aditcms-api
-    restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      NODE_ENV: production
-      PORT: 5000
-      DB_HOST: db
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
-      JWT_SECRET: ${JWT_SECRET}
-      CLIENT_URL: ${CLIENT_URL}
-    ports:
-      - "5000:5000"
-
-volumes:
-  db_data:
-```
-
-### Run with Docker
+**6. Frontend environment**
 
 ```bash
-docker compose up -d --build     # build and start in background
-docker compose logs -f api       # follow API logs
-docker compose down              # stop containers
-docker compose down -v           # stop and delete database volume
+cd frontend
+echo "VITE_API_URL=http://localhost/api" > .env.local     # adjust host/port to your server
 ```
 
----
-
-## 🌍 Production Deployment
-
-### Pre-Deployment Checklist
-
-- [ ] `NODE_ENV=production`
-- [ ] Strong, unique `JWT_SECRET` (48+ random bytes)
-- [ ] Demo accounts removed or passwords changed
-- [ ] HTTPS enabled (reverse proxy such as Nginx or Caddy)
-- [ ] `CLIENT_URL` set to your real frontend domain
-- [ ] Database backups scheduled
-- [ ] Log rotation configured
-- [ ] Firewall allows only ports 80/443 publicly
-
-### Nginx Reverse Proxy Example
-
-```nginx
-server {
-    listen 80;
-    server_name aditcms.example.com;
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
-    server_name aditcms.example.com;
-
-    ssl_certificate     /etc/letsencrypt/live/aditcms.example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/aditcms.example.com/privkey.pem;
-
-    location /api/ {
-        proxy_pass http://127.0.0.1:5000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    location / {
-        root /var/www/aditcms/client/build;
-        try_files $uri /index.html;
-    }
-}
-```
-
-### Process Manager (PM2)
+**7. Run the frontend**
 
 ```bash
-npm install -g pm2
-pm2 start src/server.js --name aditcms-api -i max
-pm2 save
-pm2 startup
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-### CI Pipeline — `.github/workflows/ci.yml`
+**8. Log in**
 
-```yaml
-name: CI
+Use one of the [demo accounts](#87-seeded-demo-data) (passwords are in `database/install.php`) and change them immediately.
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+### 13.4 Database migrations
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+```bash
+php database/migrate.php --help
+php database/migrate.php --dry-run                       # show what would change
+php database/migrate.php --host=127.0.0.1 --user=root --pass=secret --name=adit_cms
+```
 
-    services:
-      mysql:
-        image: mysql:8
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: aditcms_test
-        ports: ["3306:3306"]
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+Credentials are resolved in this order: CLI flags → environment variables (`DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS`,
+`DB_NAME`) → `api/config/config.php`.
 
-    steps:
-      - uses: actions/checkout@v4
+---
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: npm
-          cache-dependency-path: server/package-lock.json
+## 14. Configuration
 
-      - name: Install dependencies
-        working-directory: server
-        run: npm ci
+### 14.1 `api/config/config.php` (create it yourself)
 
-      - name: Lint
-        working-directory: server
-        run: npm run lint
+Constants the code reads:
 
-      - name: Run tests
-        working-directory: server
-        env:
-          DB_HOST: 127.0.0.1
-          DB_USER: root
-          DB_PASSWORD: root
-          DB_NAME: aditcms_test
-          JWT_SECRET: ci_test_secret_key_ci_test_secret_key
-          CLIENT_URL: http://localhost:3000
-        run: npm test -- --coverage
+| Constant | Used by | Purpose |
+|---|---|---|
+| `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS` (`DB_PORT` optional) | `config/database.php`, installer, migrator | Database connection |
+| `JWT_SECRET` | `JWT`, `DownloadToken`, `setup_passwords.php` | Signing key — **must be long and random** |
+| `JWT_ISSUER` | `JWT::generate` | `iss` claim |
+| `JWT_EXPIRY` | `JWT::generate` | Token lifetime in seconds |
+| `FRONTEND_URL` | CORS fallback, upload URLs | Public site origin |
+| `CORS_ORIGINS` | `index.php` | Array of allowed browser origins |
+| `IS_PRODUCTION` | `index.php` | `true` hides error details from responses |
+| `UPLOAD_PATH` | `Upload` | Absolute path of `api/uploads` |
+| `MAX_FILE_SIZE` | `Upload` | Max upload bytes (default 5 MB if undefined) |
+| `DEFAULT_PAGE_SIZE`, `MAX_PAGE_SIZE` | `Response`, `Validation` | Pagination limits |
+| `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | `FeeController` | Payments |
+| `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_FROM_NAME` | `EmailHelper` | Transactional email via Resend |
+| `INSTALL_KEY` | `database/install.php`, `test.php` | Guards the web installer / diagnostic page |
+
+Template:
+
+```php
+<?php
+// ---- Database ---------------------------------------------------------
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_PORT', getenv('DB_PORT') ?: '3306');
+define('DB_NAME', getenv('DB_NAME') ?: 'adit_cms');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
+
+// ---- Auth -------------------------------------------------------------
+define('JWT_SECRET', getenv('JWT_SECRET') ?: 'CHANGE-ME-use-64-random-characters');
+define('JWT_ISSUER', 'adit-cms');
+define('JWT_EXPIRY', 60 * 60 * 24);             // 24 hours
+
+// ---- Web / CORS -------------------------------------------------------
+define('FRONTEND_URL', 'http://localhost:3000');
+define('CORS_ORIGINS', ['http://localhost:3000']);
+define('IS_PRODUCTION', false);                 // true on the live server
+
+// ---- Uploads & paging -------------------------------------------------
+define('UPLOAD_PATH', __DIR__ . '/../uploads');
+define('MAX_FILE_SIZE', 5 * 1024 * 1024);       // 5 MB
+define('DEFAULT_PAGE_SIZE', 20);
+define('MAX_PAGE_SIZE', 100);
+
+// ---- Payments ---------------------------------------------------------
+define('RAZORPAY_KEY_ID', getenv('RAZORPAY_KEY_ID') ?: '');
+define('RAZORPAY_KEY_SECRET', getenv('RAZORPAY_KEY_SECRET') ?: '');
+
+// ---- Email (Resend) ---------------------------------------------------
+define('RESEND_API_KEY', getenv('RESEND_API_KEY') ?: '');
+define('EMAIL_FROM', 'noreply@your-domain.example');
+define('EMAIL_FROM_NAME', 'ADIT CMS');
+
+// ---- Installer guard --------------------------------------------------
+define('INSTALL_KEY', getenv('ADIT_INSTALL_KEY') ?: 'change-me-install-key');
+```
+
+> 🔒 Never commit this file (it is in `.gitignore`). Prefer real environment variables on the server.
+
+### 14.2 Frontend environment
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `VITE_API_URL` | `https://adit.shahdhairyah.in/api` | API base URL baked in at build time |
+
+Put it in `frontend/.env.local` for dev or `frontend/.env.production` for builds.
+
+### 14.3 Configuration map
+
+```mermaid
+flowchart LR
+    ENV[Server environment variables] --> CFG[api/config/config.php]
+    CFG --> DB[Database connection]
+    CFG --> JWTC[JWT secret · issuer · expiry]
+    CFG --> CORS[CORS origins · frontend URL]
+    CFG --> UP[Upload path · max size]
+    CFG --> PAY[Razorpay keys]
+    CFG --> MAILC[Resend key · sender]
+    CFG --> INST[Install key]
+    VITE[frontend/.env.*] --> FEAPI[VITE_API_URL → axios baseURL]
 ```
 
 ---
 
-## 🛡 Security
+## 15. Deployment
 
-| Area                  | Measure                                                       |
-|-----------------------|---------------------------------------------------------------|
-| Passwords             | Hashed with bcrypt (cost factor 12), never stored in plain text |
-| Authentication        | Short-lived JWTs, verified on every protected request         |
-| Authorization         | Role checks via middleware on every sensitive route           |
-| Brute force           | Strict rate limit on `/auth/login` (5 attempts / 15 min)      |
-| SQL Injection         | Parameterized queries only (`?` placeholders)                 |
-| XSS                   | Output escaping in frontend, Helmet security headers          |
-| CORS                  | Restricted to the configured `CLIENT_URL`                     |
-| Sensitive data        | `.env` is gitignored; secrets never logged                    |
-| Error messages        | Generic messages in production; stack traces hidden           |
-| File uploads          | Type and size validation, stored outside the web root         |
+### 15.1 Topology
 
-### Reporting a Vulnerability
+```mermaid
+flowchart LR
+    DEV[Developer machine] -->|"npm run build"| DIST[frontend/dist]
+    DIST -->|upload contents to web root| HOST
+    DEV -->|upload api/ · database/ · .htaccess · router.php| HOST
 
-Please **do not** open a public issue for security problems. Email
-`[your-email@example.com]` with details and reproduction steps. You will
-receive a response within 72 hours.
+    subgraph HOST["Shared hosting / VPS — Apache + PHP 8 + MySQL"]
+        direction TB
+        HT[".htaccess<br/>/api/* → api/index.php<br/>everything else → index.html"]
+        RT["router.php<br/>fallback if rewrites fail"]
+        CFG["api/config/config.php<br/>(created on the server)"]
+        UPL["api/uploads/<br/>writable"]
+    end
 
----
-
-## ⚡ Performance
-
-- Connection pooling for MySQL (`connectionLimit: 10`)
-- Indexes on frequently filtered columns (`role`, `attendance_date`, `created_at`)
-- Pagination on all list endpoints to keep payloads small
-- Bulk operations inside transactions for attendance and results
-- Optional Redis caching for dashboards and notice lists
-- Gzip compression via `compression` middleware in production
-
-**Suggested index for heavy attendance reporting**
-
-```sql
-CREATE INDEX idx_attendance_enrollment_date
-  ON attendance (enrollment_id, attendance_date);
+    HOST --> U[🌐 Users — https://adit.shahdhairyah.in]
 ```
 
+### 15.2 Steps
+
+1. **Build the frontend** with the production API URL:
+   ```bash
+   cd frontend
+   echo "VITE_API_URL=https://your-domain/api" > .env.production
+   npm ci && npm run build
+   ```
+2. **Upload** the *contents* of `frontend/dist/` to the web root (so `index.html` sits beside `.htaccess`).
+3. **Upload** `api/`, `database/`, `.htaccess` and `router.php` to the same web root.
+4. **Create** `api/config/config.php` on the server with production values (`IS_PRODUCTION = true`, strong `JWT_SECRET`,
+   real `CORS_ORIGINS`, live Razorpay keys, `RESEND_API_KEY`).
+5. **Create the database** and run the installer once (CLI if available, else the key-protected web URL).
+6. **Make `api/uploads/` writable** by PHP, and ensure PHP execution is disabled there if your host allows it.
+7. **Smoke test:** open the site, log in, open `/api/auth/me` with a token, upload a file, try a test payment.
+8. **Lock down** — remove the installer and diagnostics (checklist below).
+
+### 15.3 Request path in production
+
+| URL | Handled by |
+|---|---|
+| `/`, `/login`, `/student/dashboard`, … | `index.html` (React Router) |
+| `/assets/*.js`, `/adit.webp`, … | Static files |
+| `/api/auth/login`, `/api/...` | `.htaccess` → `api/index.php` → router |
+| `/router.php/auth/login` | Fallback entry if rewrites are unavailable |
+
+### 15.4 Go-live checklist
+
+- [ ] `IS_PRODUCTION` is `true`
+- [ ] `JWT_SECRET` is long, random and **not** the template value
+- [ ] `CORS_ORIGINS` lists only your real origin(s)
+- [ ] `INSTALL_KEY` changed from the template value
+- [ ] **Delete** `database/install.php` and root `test.php` after setup
+- [ ] **Delete or protect** `api/setup_passwords.php` once accounts are provisioned
+- [ ] Demo accounts deleted or passwords changed; every provisioned account has changed its first-login password
+- [ ] `api/uploads/` writable but not executable; no `.php` can be served from it
+- [ ] HTTPS enforced
+- [ ] Razorpay **live** keys set (not test keys)
+- [ ] `RESEND_API_KEY` and a verified sender domain configured
+- [ ] Database backups scheduled (also available as `POST /api/admin/backup`)
+- [ ] Error log location checked and not web-accessible
+
 ---
 
-## 🩺 Troubleshooting
+## 16. Security Notes
 
-| Problem                                      | Likely Cause                          | Fix                                                        |
-|----------------------------------------------|---------------------------------------|------------------------------------------------------------|
-| `ECONNREFUSED 127.0.0.1:3306`                | MySQL not running                     | Start MySQL: `sudo service mysql start`                    |
-| `ER_ACCESS_DENIED_ERROR`                     | Wrong DB credentials                  | Check `DB_USER` / `DB_PASSWORD` in `.env`                  |
-| `ER_BAD_DB_ERROR: Unknown database`          | Database not created                  | Run the SQL in [Database Setup](#-database-setup)          |
-| `EADDRINUSE: address already in use :::5000` | Port already taken                    | Change `PORT` or stop the other process                    |
-| `JsonWebTokenError: invalid signature`       | `JWT_SECRET` changed after login      | Log in again to get a fresh token                          |
-| CORS error in browser                        | `CLIENT_URL` mismatch                 | Set `CLIENT_URL` to your exact frontend origin             |
-| `401` on every request                       | Token not sent                        | Add the `Authorization: Bearer <token>` header             |
-| `429 Too Many Requests`                      | Rate limit hit                        | Wait for the window to reset or raise the limit in `.env`  |
-| Tests fail with DB errors                    | Test DB missing                       | Create `aditcms_test` and set test env variables           |
+### 16.1 Controls in place
+
+| Control | Where | Notes |
+|---|---|---|
+| Password hashing | `password_hash` / `password_verify` | bcrypt; installer uses cost 12 |
+| Signed tokens | `helpers/JWT.php` | HS256, expiry enforced |
+| Live account check | `AuthMiddleware` | Deactivated users and role changes invalidate tokens immediately |
+| Forced password change | `AuthMiddleware` + `ProtectedRoute` | Provisioning passwords can only be used to change the password |
+| Role allow-lists | `RoleMiddleware`, route table | Explicit per route; no implicit admin superpowers |
+| Scope checks | `RoleMiddleware` helpers | Department, own-student, teaches-subject |
+| Profile field allow-list | `AuthController::updateProfile` | Students cannot edit `semester` / `batch` |
+| SQL injection | PDO prepared statements, `EMULATE_PREPARES = false` | |
+| Payment integrity | `FeeController::verifyPayment` | HMAC check with `hash_equals` **before** any DB write |
+| File upload safety | `helpers/Upload.php` | MIME allow-list, size cap, generated names, no `.php`/`.htaccess` |
+| Output hygiene | `Response`, `Validation::sanitize` | Tag stripping, `nosniff` header |
+| Error disclosure | `index.php` | Details only when `IS_PRODUCTION` is false |
+| CORS | `index.php` | Exact-origin allow-list; token is a header, not a cookie |
+| Audit trail | `audit_logs` table | Admin can read via `GET /api/admin/audit-logs` |
+
+### 16.2 Legacy scripts in `api/`
+
+Several old standalone scripts used to live in `api/` and **bypassed the router and all middleware**. They have been
+replaced with **HTTP 410** stubs: `login_direct.php`, `me_direct.php`, `change_password_direct.php`,
+`forgot_password_direct.php`, `reset_password_direct.php`, `update_profile_direct.php`, `debug.php`, `fix_passwords.php`,
+`fix_all_passwords.php`, `setup.php`, `diagnose.php`, `test.php`, `test_login.php`.
+
+Two scripts are **still active** and are gated:
+
+| Script | Gate |
+|---|---|
+| `api/setup_passwords.php` | Only touches accounts still in the *locked* state; browser access needs `?key=<JWT_SECRET>`; flags accounts `must_change_password = 1`; records the run in `audit_logs` |
+| `test.php` (project root) | Needs `?key=<INSTALL_KEY>`, answers 404 otherwise; **delete after deployment** |
+
+> 🧹 Recommended: delete the 410 stubs from the repository entirely — they add nothing now that the real routes exist.
+
+### 16.3 Hardening ideas (not yet implemented)
+
+| Idea | Why |
+|---|---|
+| Add an `email` case to `Validation::validate()` | `required\|email` currently enforces only `required` |
+| Login rate-limiting / lockout | No throttling exists on `/auth/login` |
+| Read library fine and other rules from `system_settings` | `Library.php` hard-codes ₹5/day |
+| Wire `DownloadToken::issue()` to a route | Signed download links are validated but never minted |
+| Add a `LICENSE` file | The repo has none, so the licence is currently undefined |
+| Move JWT to an httpOnly cookie (plus CSRF protection) | Reduces XSS exposure of `localStorage` tokens |
+| Security headers (CSP, HSTS, Referrer-Policy) in `.htaccess` | Defence in depth |
 
 ---
 
-## ❓ FAQ
+## 17. Troubleshooting
 
-**Can I use PostgreSQL or MongoDB instead of MySQL?**
-Yes. The model layer isolates all database access. Replace the queries in
-`server/src/models/` and update the connection in `config/db.js`.
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `401 No token provided` on every call, but you are logged in | Apache stripped the `Authorization` header | Keep the `RewriteCond %{HTTP:Authorization} .` / `E=HTTP_AUTHORIZATION` lines from `.htaccess`; ensure `AllowOverride All` |
+| `404 API endpoint not found: GET /…` | Wrong base URL, or route order/typo | Check `VITE_API_URL`; compare with the [endpoint list](#107-complete-endpoint-list) |
+| Every `/api/...` request returns the React `index.html` | `.htaccess` not applied / `mod_rewrite` off | Enable `mod_rewrite`; or point `VITE_API_URL` at `https://host/router.php` |
+| CORS error in the browser console | Origin missing from `CORS_ORIGINS` | Add the exact origin (scheme + host + port) |
+| `403 You must change your temporary password…` | Account still holds a provisioning password | Log in and complete `/change-password` |
+| `401 Your account is inactive` | `users.status` is not `active` | Re-activate the account in the database / admin tools |
+| Login works but the dashboard shows 403 | Role in token differs from database role | Log out and in again |
+| `Payment verification failed` (400) | Wrong `RAZORPAY_KEY_SECRET`, or tampered payload | Confirm key pair matches test/live mode |
+| Upload rejected | Over `MAX_FILE_SIZE`, MIME not allowed, or PHP `upload_max_filesize` smaller than app limit | Raise `upload_max_filesize` / `post_max_size`; check allowed types |
+| Installer says *403 Forbidden* | Wrong `?key=` | Use the value of `INSTALL_KEY` |
+| Installer says *409 Already installed* | `database/.installed.lock` exists | Delete the lock file, or add `?force=1` |
+| `SQLSTATE[HY000] [1045] Access denied` | Bad DB credentials | Fix `DB_USER` / `DB_PASS` in `config.php` |
+| Blank page after deploy | Built with the wrong `VITE_API_URL`, or `index.html` not at web root | Rebuild with the right URL; check file placement |
+| Page refresh on `/student/fees` gives a server 404 | SPA fallback rule missing | Ensure the final `RewriteRule ^(.*)$ index.html [L]` is present |
+| Blob download opens a file containing `undefined` | Using the JSON-unwrapping axios instance for blobs | Use `downloadFile()` from `services/api.js` |
 
-**How do I add a new role, such as `parent` or `librarian`?**
-1. Add the value to the `role` ENUM in the `users` table.
-2. Use `authorize('parent')` on the routes they should access.
-3. Add a new dashboard route group in the frontend.
+---
 
-**How are passwords reset?**
-Admins can reset any password via `PUT /users/:id`. A self-service email
-reset flow is planned (see [Roadmap](#-roadmap)).
+## 18. FAQ
 
-**Is the API stateless?**
-Yes. Authentication uses JWTs, so you can scale horizontally behind a load balancer.
+**Is this only for one department?**
+Yes by product scope — Computer Engineering at ADIT (see the PRD). The schema and scope checks are department-aware, so
+extending it later is feasible.
+
+**Which password do the demo accounts use?**
+They are set by `database/install.php` (or `api/setup_passwords.php`). Change them straight away; flagged accounts are forced to.
+
+**Can an admin do everything?**
+No. Role lists are explicit per route — an admin cannot call HOD-only routes unless `admin` is listed there.
+
+**Why does the frontend call `response.data` only once?**
+The main axios instance unwraps it in an interceptor, so `await authAPI.me()` already returns the JSON envelope.
 
 **Where are uploaded files stored?**
-In `server/uploads/` by default. For production, use object storage such as S3.
+Under `api/uploads/<subfolder>/` with generated file names; the database stores the relative path.
 
-**Can I change the grading scale?**
-Yes. Edit the `SCALE` array in `server/src/services/grade.service.js`.
+**Can I use Nginx?**
+Yes, but you must translate the `.htaccess` rules: pass `/api/*` to `api/index.php`, fall back to `index.html` for
+everything else, and forward the `Authorization` header to PHP-FPM.
 
----
+**How do I add a new role?**
+Add it to the `users.role` enum, add the role to the relevant route allow-lists, add a `ProtectedRoute` section and pages
+in `App.jsx`, and add a sidebar entry.
 
-## 🗺 Roadmap
-
-- [x] JWT authentication and role-based access
-- [x] User, department, and course management
-- [x] Attendance tracking with percentage warnings
-- [x] Results, grades, SGPA / CGPA calculation
-- [x] Notices with priority and expiry
-- [x] Docker and CI pipeline
-- [ ] Email notifications (low attendance, new notices)
-- [ ] Self-service password reset by email
-- [ ] Timetable module
-- [ ] Fee management and receipts
-- [ ] PDF report cards
-- [ ] Dark mode
-- [ ] Mobile app (React Native)
-- [ ] Multi-language support (English, Hindi, Gujarati)
-- [ ] Swagger / OpenAPI documentation
-- [ ] Two-factor authentication (2FA)
-
-Track progress and suggest ideas in the [issue tracker](../../issues).
+**Why do some admin pages say "under development"?**
+They are placeholders — the API for most of them exists; the screens are not built yet (see the roadmap).
 
 ---
 
-## 🤝 Contributing
+## 19. Roadmap & Status
 
-Contributions make the open-source community great. Any contribution you make
-is **greatly appreciated**.
+### 19.1 Status by module
 
-### Workflow
+| Module | Backend | Frontend |
+|---|:--:|:--:|
+| Authentication, password reset, forced password change | ✅ | ✅ |
+| Student portal | ✅ | ✅ |
+| Faculty portal | ✅ | ✅ |
+| HOD portal | ✅ | ✅ |
+| Fees (Razorpay) | ✅ | ✅ student · ✅ admin · ✅ HOD report |
+| Admin — faculty, fees, timetable | ✅ | ✅ |
+| Admin — students, departments, exams, notices, library, reports, settings | ✅ API | 🚧 placeholder pages |
+| Librarian dashboard | ✅ API | 🚧 not started |
+| Email notifications | 🟡 templates exist | — |
+| Redux notification/UI state | — | 🟡 store ready, unused |
 
-```bash
-# 1. Fork the repository, then clone your fork
-git clone https://github.com/<your-username>/ADITCMS.git
+### 19.2 Suggested next steps
 
-# 2. Create a feature branch
-git checkout -b feature/amazing-feature
-
-# 3. Make your changes and run checks
-npm run lint
-npm test
-
-# 4. Commit using Conventional Commits
-git commit -m "feat: add amazing feature"
-
-# 5. Push and open a Pull Request
-git push origin feature/amazing-feature
+```mermaid
+flowchart LR
+    N1[Admin screens:<br/>students · departments · exams] --> N2[Admin screens:<br/>notices · library · reports · settings]
+    N2 --> N3[Librarian dashboard]
+    N3 --> N4[Email notifications<br/>for leave + assignments]
+    N4 --> N5[Rate limiting + email validation]
+    N5 --> N6[Automated tests<br/>PHPUnit + Vitest]
+    N6 --> N7[CI: lint + build + tests]
 ```
 
-### Commit Message Convention
+### 19.3 Phase plan overview
 
-| Prefix      | Use for                                   |
-|-------------|-------------------------------------------|
-| `feat:`     | A new feature                             |
-| `fix:`      | A bug fix                                 |
-| `docs:`     | Documentation changes                     |
-| `style:`    | Formatting, no code change                |
-| `refactor:` | Code restructuring without behavior change|
-| `test:`     | Adding or updating tests                  |
-| `chore:`    | Build process, dependencies, tooling      |
+The original [phase plan](docs/Phase_Plan_ADIT_College_Management_System.md) breaks delivery into weekly phases:
 
-### Pull Request Checklist
-
-- [ ] Code follows the existing style (ESLint + Prettier pass)
-- [ ] New logic is covered by tests
-- [ ] Documentation is updated where needed
-- [ ] No secrets or `.env` files are committed
-- [ ] PR description explains **what** and **why**
+| Phase | Theme |
+|--:|---|
+| 0 | Project setup & foundation |
+| 1 | Authentication & user management |
+| 2 | Student module core |
+| 3 | Faculty module |
+| 4 | Fee payment & finance |
+| 5 | HOD & department module |
+| 6 | Library module |
+| … | Further phases are described in the document |
 
 ---
 
-## 📝 Changelog
+## 20. Contributing
 
-### [1.0.0] - 2026-01-15
-**Added**
-- Initial release
-- Authentication, user management, courses, attendance, results, notices
-- Docker support and GitHub Actions CI
-
-### [0.2.0] - 2025-12-01
-**Added**
-- Attendance module with percentage warnings
-- Grade and SGPA calculation service
-
-### [0.1.0] - 2025-10-20
-**Added**
-- Project scaffolding, database schema, and basic auth
-
----
-
-## 📄 License
-
-Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
-
-```text
-MIT License
-
-Copyright (c) 2026 Dhairya Shah
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+```mermaid
+gitGraph
+    commit id: "main"
+    branch feature/admin-students
+    checkout feature/admin-students
+    commit id: "build page"
+    commit id: "wire API"
+    checkout main
+    merge feature/admin-students id: "PR merged"
+    commit id: "release"
 ```
 
----
-
-## 👨‍💻 Author
-
-**Dhairya Shah**
-
-- GitHub: [@shahdhairyah](https://github.com/shahdhairyah)
-- LinkedIn: [your-linkedin](https://linkedin.com/in/your-linkedin)
-- Email: your-email@example.com
-
-Project Link: [https://github.com/shahdhairyah/ADITCMS](https://github.com/shahdhairyah/ADITCMS)
+1. Fork and create a branch: `git checkout -b feature/short-description`
+2. Keep changes focused; follow the existing structure (controller → model → route → api.js wrapper → page).
+3. Backend: use prepared statements, `Validation::validate`, `Response::*`, and an explicit role list on every route.
+4. Frontend: use design tokens, `PageHeader`, `EmptyState`, `LoadingSpinner`; run `npm run lint`.
+5. Never commit secrets, `config.php`, uploads or `.env*` files.
+6. Commit style: `feat: …`, `fix: …`, `docs: …`, `refactor: …`.
+7. Open a Pull Request describing *what* and *why*, with screenshots for UI changes.
 
 ---
 
-## 🙏 Acknowledgements
+## 21. Author
 
-- [Express.js](https://expressjs.com/)
-- [MySQL](https://www.mysql.com/)
-- [JSON Web Tokens](https://jwt.io/)
-- [Mermaid](https://mermaid.js.org/) for diagrams
-- [Shields.io](https://shields.io/) for badges
-- [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+**Dhairya Shah** — full-stack developer
+
+- 🌐 Portfolio: [thedhairya.in](https://thedhairya.in)
+- 🐙 GitHub: [@shahdhairyah](https://github.com/shahdhairyah)
 
 ---
 
 <div align="center">
 
-### ⭐ If you found this project helpful, please give it a star!
+**ADIT CMS** · Built for the Computer Engineering department at A.D. Institute of Technology
 
-Made with ❤️ by [Dhairya Shah](https://github.com/shahdhairyah)
+⭐ If this project helps you, consider giving the repository a star.
 
 </div>
