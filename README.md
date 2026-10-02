@@ -3702,7 +3702,7 @@ gitGraph
 
 **Dhairya Shah** — full-stack developer
 
-- 🌐 Portfolio: [thedhairya.in](https://thedhairya.in)
+- 🌐 Portfolio: [shahdhairyah.in](https://shahdhairyah.in)
 - 🐙 GitHub: [@shahdhairyah](https://github.com/shahdhairyah)
 
 ---
